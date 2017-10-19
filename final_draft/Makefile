@@ -42,6 +42,6 @@ run: concurrency
 	./concurrency -p 3 -c 3
 
 clean:
-	rm -f *.pdf *.ps *.dvi *.out *.log *.aux *.bbl *.blg *.pyg *.synctex.gz
+	rm -f *.pdf *.ps *.dvi *.out *.log *.aux *.bbl *.blg *.pyg
 
 .PHONY: all show clean ps pdf showps

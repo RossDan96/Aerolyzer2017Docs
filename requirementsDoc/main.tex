@@ -68,9 +68,41 @@ Sunrise: A sunrise is defined as the colors and light visible in the sky produce
 
 Sunset: A sunset is defined as the colors and light visible in the sky produced when the sun disappears in the evening.\\
 
+Exif data: Exchangeable image file format.\\
+
 \subsection{Overview}
 
 \subsection{References}
+\section{(Requirement Description)}
+The following will give an in depth description of what the Aerolyzer app will do. It will discuss any constraints the application may have, assumptions we have on our users, and the product functionality.
+\subsection{Perspective}
+
+\subsection{Functionality}
+Aerolizer will be a smartphone application that grants its users information on aerosols in the atmosphere based on collected information from images taken by users as well as the exif data that came along with the image. It will use machine learning to analyze the wavelengths of the light refracting through our atmosphere to determine the size of the aerosols in the air. It will then relay the information to the user in a user-friendly UI. 
+\subsection{Expected user characteristics}
+\begin{enumerate}
+\item The user will own a smartphone
+\item The user has a general idea of what aerosols are
+\item 
+\end{enumerate}
+
+\subsection{Assumptions}
+\begin{enumerate}
+\item We assume the user has access to the internet
+\item We assumer the user had location enabled when an image was taken
+\item We assume the images are not filtered
+\end{enumerate}
+
+\subsection{Constraints}
+\begin{enumerate}
+\item The image must be taken on a device with location tracking enabled
+\item The image must be unedited and have no filters applied
+\item The image must also have exif data
+\item The image must contain a horizon
+\item The image must contain either a sunset or sunrise
+\item The image must be from in the USA
+
+\end{enumerate}
 \nocite{*}
 \bibliographystyle{plain}
 \bibliography{ref}

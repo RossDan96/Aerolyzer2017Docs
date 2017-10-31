@@ -6,58 +6,60 @@
 \usepackage{rotating}
 \usepackage[lofdepth]{subfig}
 
-
-
 \begin{document}
+	\begin{titlepage}
 
-\begin{titlepage}
-\newcommand{\HRule}{\rule{\linewidth}{0.4mm}}
+	\center
 
-\center
+	\textsc{\LARGE Oregon State University}\\[1.5cm]
+	\textsc{\Large CS461 Fall 2017 }\\[0.5cm]
+	\textsc{\large Group 19}\\[0.5cm] % Minor heading such as course title
 
-\textsc{\Large CS461 Fall 2017 }\\[0.5cm]
-\textsc{\large Group 19}\\[0.5cm] % Minor heading such as course title
+	\vfill
 
-{\huge\bfseries Software Requirement Specifications for Aerolyzer Python API}\\[0.4cm]
+	{\huge\bfseries Aerolyzer Python Library Software Requirement Specification}\\[0.4cm]
 
-\vfill
-\begin{minipage}{0.4\textwidth}
-\begin{flushleft}
-\large
-\textit{Authors}\\
-Kin-Ho \textsc{Lam}\\
-Logan \textsc{Wingrad}\\
-Daniel \textsc{Ross}\\
-\end{flushleft}
-\end{minipage}
-\vfill
-\begin{minipage}{0.4\textwidth}
-\begin{flushleft}
-\large
-\textit{Supervisor}\\
-Dr. Kim \textsc{Whitehall}
-\end{flushleft}
-\end{minipage}
+	\vfill
 
-\vfill
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft}
+			\large
+			\textit{Authors}\\
+			Kin-Ho \textsc{Lam}\\
+			Logan \textsc{Wingrad}\\
+			Daniel \textsc{Ross}\\
+		\end{flushleft}
+	\end{minipage}
+	~
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushright}
+			\large
+			\textit{Supervisor}\\
+			Dr. Kim \textsc{Whitehall}
+		\end{flushright}
+	\end{minipage}
 
-\begin{abstract}
-Atmospheric aerosols are tiny particles dispersed throughout the atmosphere.
-These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
-Monitoring atmospheric aerosols is important due to their effects on the atmosphere's chemical composition and radiation distribution.
-The presence of aerosols reduces air quality which can potentially lead to health complications such as bronchitis or respiratory inflammation.
-One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises.
-Analyzing atmospheric content in the air provides insight on air quality. 
-However, existing methods to gather aerosol data such as satellites, planes, and ground-based instruments provide data that are too complex to be useful for the average person to understand or do not provide data fast enough.
-Aerolyzer is a web application that uses weather information and acceptable images of the horizon to infer local atmospheric phenomena in the United States. 
-The following document details the software requirement specifications for Aerolyzer Aerosol Detection API. The Aerosol Detection API will consist of  python classifiers that shall analyze user submitted images, and remove unacceptable images.
-\end{abstract}
+	\vfill
 
-\vfill
-\vfill
-\vfill
-{\large10/25/17}
-\vfill
+	\begin{abstract}
+		\begin{singlespace}
+			Atmospheric aerosols are tiny particles dispersed throughout the atmosphere.
+			These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
+			Monitoring atmospheric aerosols is important due to their effects on the atmosphere's chemical composition and radiation distribution.
+			The presence of aerosols reduces air quality which can potentially lead to health complications such as bronchitis or respiratory inflammation.
+			One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises.
+			Analyzing atmospheric content in the air provides insight on air quality. 
+			However, existing methods to gather aerosol data such as satellites, planes, and ground-based instruments provide data that are too complex to be useful for the average person to understand or do not provide data fast enough.
+			Aerolyzer is a web application that uses weather information and acceptable images of the horizon to infer local atmospheric phenomena in the United States. 
+			The following document details the software requirement specifications for Aerolyzer Aerosol Detection API. The Aerosol Detection API will consist of  python classifiers that shall analyze user submitted images, and remove unacceptable images.
+		\end{singlespace}
+	\end{abstract}
+
+	\vfill
+	\vfill
+	\vfill
+	{\large10/25/17}
+	\vfill
 \end{titlepage}
 
 \tableofcontents
@@ -243,24 +245,16 @@ Exception Paths: None
 Aerolizer will be a smartphone application that grants its users information on aerosols in the atmosphere based on collected information from images taken by users as well as the exif data that came along with the image. It will use machine learning to analyze the wavelengths of the light refracting through our atmosphere to determine the size of the aerosols in the air. It will then relay the information to the user in a user-friendly UI. 
 
 \section{Performance}
-\subsection{Performance Requirements}
-When completed, this library shall identify horizons using Aerolyzer's classifier in a test-selection of images with a minimum accuracy of 66\% certainty. Images of horizons that contain sunsets and sunrises shall be identified using Aerolyzer's classifier library with a minimum of 50\% certainty. This certainty shall be verifiable through a series of regression tests to prove detection accuracy.
-The library will be able to handle up to 10 image submissions per minute and 500 images at most in a single day.
+	\subsection{Performance Requirements}
+	When completed, this library shall identify horizons using Aerolyzer's classifier in a test-selection of images with a minimum accuracy of 66\% certainty. Images of horizons that contain sunsets and sunrises shall be identified using Aerolyzer's classifier library with a minimum of 50\% certainty. This certainty shall be verifiable through a series of regression tests to prove detection accuracy.
+	The library will be able to handle up to 10 image submissions per minute and 500 images at most in a single day.
 
-\clearpage
-\section{Development Plan}
-\begin{sidewaysfigure}[!H]
-\centering
- \subfloat[Tentative Gantt Chart Schedule]{\label{fig:abc}\includegraphics{gantt.png}}
- \caption{Tentative Gantt Chart Schedule\label{fig:Tentative Schedule}}
-\end{sidewaysfigure}
-\begin{sidewaysfigure}
- \ContinuedFloat
- \centering
-% \subfloat[Change in DEF]{\label{fig:def}\includegraphics{gantt.png}}
- % \caption[]{Change in ABC and DEF} % Not necessary
-  % optional argument empty to suppress duplicate entry in LoF
-\end{sidewaysfigure}
+\section{Tentative Development Schedule}
+	\begin{sidewaysfigure}[H]
+		\centering
+		\subfloat[Tentative Gantt Chart Schedule]{\label{fig:abc}\includegraphics{gantt.png}}
+		\caption{Tentative Gantt Chart Schedule\label{fig:Tentative Schedule}}
+	\end{sidewaysfigure}
 
 \nocite{*}
 \bibliographystyle{plain}

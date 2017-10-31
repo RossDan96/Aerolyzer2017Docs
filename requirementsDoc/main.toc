@@ -16,5 +16,5 @@
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Functionality}{5}
 \contentsline {section}{\numberline {V}Performance}{5}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-A}}Performance Requirements}{5}
-\contentsline {section}{\numberline {VI}Development Plan}{6}
-\contentsline {section}{References}{6}
+\contentsline {section}{\numberline {VI}Tentative Development Schedule}{5}
+\contentsline {section}{References}{5}

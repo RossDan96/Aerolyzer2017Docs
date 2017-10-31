@@ -45,8 +45,7 @@
 
 	\begin{abstract}
 		\begin{singlespace}
-			
-			Monitoring atmospheric aerosols \ref{def:aerosol}  is important due to their effects on the atmosphere's chemical composition and radiation distribution.
+			Monitoring atmospheric aerosols \ref{def:aerosol} is important due to their effects on the atmosphere's chemical composition and radiation distribution.
 			The presence of aerosols reduces air quality which can potentially lead to health complications such as bronchitis or respiratory inflammation.
 			Analyzing atmospheric content in the air provides insight on air quality. 
 			However, existing methods to gather aerosol data such as satellites, planes, and ground-based instruments provide data that are too complex to be useful for the average person to understand or do not provide data fast enough.
@@ -73,51 +72,45 @@
 \section{Introduction}
 
 \subsection{Purpose}
-	The Aerolyzer Project aims to serve as a new source of air quality and weather information through leveraging crowd-sourced images of the horizon to characterize aerosol content in the atmosphere.
-	The Aerolyzer Project project shall feature a Python library \ref{def:lib} with functionality that supports determining if a given image is an Acceptable Image \ref{def:accImg}, and extracting EXIF \ref{def:exif} data from Acceptable Images.\\
-	The API shall also 
-
-	uses image classification and third-party weather APIs, displayed with an intuitive web-based user interface.
-	The Aerolyzer project requires a Python library that identifies images relevant to aerosols, analyzes acceptable images for aerosol content, stores relevant information for trend analysis, and compiles weather information with its aerosol data. 
+	The Aerolyzer Project serves as a new source of air quality and weather information through leveraging crowd-sourced images of the horizon to characterize aerosol \ref{def:aerosol} content in the atmosphere.
+	Achieving this functionality calls for the creation of a Python library \ref{def:lib} that identifies and analyzes acceptable images \ref{def:accImg}, stores relevant information for trend analysis, and compiles weather information with aerosol data. 
 
 \subsection{Scope}
-Bringing aerosol analysis to a mainstream audience calls for an open-source back-end Python API to perform image analysis.
-This front-end UI shall present the Aerolyzer library's weather and air quality inference based on analyzed images or by a requested location.
-The UI shall collect user-submitted cell phone images of the horizon, sunset, and sunrise to be fed to the library for analysis.
-The Aerolyzer project shall exclusively serve users in the United States.
+	Bringing the Aerolyzer Project to a mainstream audience calls for an open-source back-end Python API to perform image analysis.
+	This front-end UI shall present the Aerolyzer library's weather and air quality inference based on analyzed images or by a requested location.
+	The UI shall collect user-submitted cell phone images of the horizon \ref{def:horizon}, sunset \ref{def:sunset}, or sunrise \ref{def:sunrise} to be fed to the library for analysis.
+	The Python library shall use image classification algorithms to characterize acceptable images.
+	The Aerolyzer project shall exclusively serve users in the United States.
 
 \subsection{Definitions}
+	\begin{enumerate}
+		\item \label{def:aerosol} Aerosol: Aerosols are tiny particles dispersed throughout the atmosphere.
+		These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
+		One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises. \\
 
-\begin{enumerate}
-	\item \label{def:aerosol} Aerosol: Aerosols are tiny particles dispersed throughout the atmosphere.
-	These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
-	One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises. \\
+		\item \label{def:accImg} Acceptable Image: An acceptable image is defined as an unedited image of the horizon \ref{def:horizon}, sunset \ref{def:sunset}, or sunrise \ref{def:sunrise}.
+		Images used in data collection must have valid EXIF metadata, while the images used in training classifiers only require relevant image content.\\
 
-	\item \label{def:accImg} Acceptable Image: An acceptable image is defined as an unedited image of the horizon \ref{def:horizon}, sunset \ref{def:sunset}, or sunrise \ref{def:sunrise}.
-	Images used in data collection must have valid EXIF metadata, while the images used in training classifiers only require relevant image content.\\
+		\item \label{def:horizon} Horizon: The horizon is defined as the line at which the sky and earth's surface appear to meet.\\
 
-	\item \label{def:horizon} Horizon: The horizon is defined as the line at which the sky and earth's surface appear to meet.\\
+		\item \label{def:sunrise} Sunrise: A sunrise is defined as the colors and light visible in the sky produced by the sun's first appearance in the morning.\\
 
-	\item \label{def:sunrise} Sunrise: A sunrise is defined as the colors and light visible in the sky produced by the sun's first appearance in the morning.\\
+		\item \label{def:sunset} Sunset: A sunset is defined as the colors and light visible in the sky produced when the sun disappears in the evening.\\
 
-	\item \label{def:sunset} Sunset: A sunset is defined as the colors and light visible in the sky produced when the sun disappears in the evening.\\
+		\item \label{def:exif} EXIF: Exchangeable image file format. \\
 
-	\item \label{def:exif} EXIF: Exchangeable image file format. \\
+		\item \label{def:local} Local: Local is defined as the circular area around an observer with the radius being the distance from an observer's position to the horizon. For an observer on the ground, this distance is approximately 2.9 miles (4.7 km) and for an observer standing at an elevation of 100 ft (30 m) above ground level this distance is approximately 12.2 miles (19.6 km). \\
 
-	\item \label{def:local} Local: Local is defined as the circular area around an observer with the radius being the distance from an observer's position to the horizon. For an observer on the ground, this distance is approximately 2.9 miles (4.7 km) and for an observer standing at an elevation of 100 ft (30 m) above ground level this distance is approximately 12.2 miles (19.6 km). \\
+		\item \label{def:lib} Library: A library is defined a Python module. The terms "Python module" and "Python library" are used interchangeably.
+	\end{enumerate}
 
-\end{enumerate}
-
-\clearpage
 \nocite{*}
 \bibliographystyle{plain}
 \bibliography{ref}
 
 \subsection{Overview}
 
-
 \clearpage
-
 \section{Project Overview}
 
 \subsection{Product Perspective}

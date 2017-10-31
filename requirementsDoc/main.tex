@@ -2,9 +2,11 @@
 \usepackage[doublespacing]{setspace}
 \usepackage[margin=0.75in]{geometry}
 \usepackage{graphicx}
-
 \usepackage{rotating}
 \usepackage[lofdepth]{subfig}
+\usepackage{hyperref}
+
+\usepackage[round, sort, numbers]{natbib}
 
 \begin{document}
 	\begin{titlepage}
@@ -43,14 +45,14 @@
 
 	\begin{abstract}
 		\begin{singlespace}
-			Atmospheric aerosols are tiny particles dispersed throughout the atmosphere.
-			These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
-			Monitoring atmospheric aerosols is important due to their effects on the atmosphere's chemical composition and radiation distribution.
+			
+			Monitoring atmospheric aerosols \ref{def:aerosol}  is important due to their effects on the atmosphere's chemical composition and radiation distribution.
 			The presence of aerosols reduces air quality which can potentially lead to health complications such as bronchitis or respiratory inflammation.
-			One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises.
 			Analyzing atmospheric content in the air provides insight on air quality. 
 			However, existing methods to gather aerosol data such as satellites, planes, and ground-based instruments provide data that are too complex to be useful for the average person to understand or do not provide data fast enough.
-			Aerolyzer is a web application that uses weather information and acceptable images of the horizon to infer local atmospheric phenomena in the United States. 
+
+
+			Aerolyzer is a web application that uses weather information and acceptable images \ref{def:accImg} of the horizon to infer local atmospheric phenomena in the United States. 
 			The following document details the software requirement specifications for Aerolyzer Aerosol Detection API. The Aerosol Detection API will consist of  python classifiers that shall analyze user submitted images, and remove unacceptable images.
 		\end{singlespace}
 	\end{abstract}
@@ -62,6 +64,7 @@
 	\vfill
 \end{titlepage}
 
+\section{Table of Contents}
 \tableofcontents
 \clearpage
 
@@ -70,9 +73,12 @@
 \section{Introduction}
 
 \subsection{Purpose}
-The Aerolyzer Project aims to deliver a new source of air quality and weather information through leveraging machine learning algorithms to characterize aerosol content in the atmosphere.
-When complete, this open-source project shall feature a Python library that uses image classification and third-party weather APIs, displayed with an intuitive web-based user interface.
-The Aerolyzer project requires a Python library that identifies images relevant to aerosols, analyzes acceptable images for aerosol content, stores relevant information for trend analysis, and compiles weather information with its aerosol data. 
+	The Aerolyzer Project aims to serve as a new source of air quality and weather information through leveraging crowd-sourced images of the horizon to characterize aerosol content in the atmosphere.
+	The Aerolyzer Project project shall feature a Python library \ref{def:lib} with functionality that supports determining if a given image is an Acceptable Image \ref{def:accImg}, and extracting EXIF \ref{def:exif} data from Acceptable Images.\\
+	The API shall also 
+
+	uses image classification and third-party weather APIs, displayed with an intuitive web-based user interface.
+	The Aerolyzer project requires a Python library that identifies images relevant to aerosols, analyzes acceptable images for aerosol content, stores relevant information for trend analysis, and compiles weather information with its aerosol data. 
 
 \subsection{Scope}
 Bringing aerosol analysis to a mainstream audience calls for an open-source back-end Python API to perform image analysis.
@@ -81,19 +87,36 @@ The UI shall collect user-submitted cell phone images of the horizon, sunset, an
 The Aerolyzer project shall exclusively serve users in the United States.
 
 \subsection{Definitions}
-Aerosol: Small particles suspended in the atmosphere.
-One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises. \\
 
-Acceptable image: An acceptable image is defined as an unedited image of the horizon, sunset, or sunrise.
-Images used in data collection must have valid EXIF metadata, while the images used in training classifiers only require relevant image content.\\
+\begin{enumerate}
+	\item \label{def:aerosol} Aerosol: Aerosols are tiny particles dispersed throughout the atmosphere.
+	These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
+	One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises. \\
 
-Horizon: The horizon is defined as the line at which the sky and earth's surface appear to meet.\\
+	\item \label{def:accImg} Acceptable Image: An acceptable image is defined as an unedited image of the horizon \ref{def:horizon}, sunset \ref{def:sunset}, or sunrise \ref{def:sunrise}.
+	Images used in data collection must have valid EXIF metadata, while the images used in training classifiers only require relevant image content.\\
 
-Sunrise: A sunrise is defined as the colors and light visible in the sky produced by the sun's first appearance in the morning.\\
+	\item \label{def:horizon} Horizon: The horizon is defined as the line at which the sky and earth's surface appear to meet.\\
 
-Sunset: A sunset is defined as the colors and light visible in the sky produced when the sun disappears in the evening.\\
+	\item \label{def:sunrise} Sunrise: A sunrise is defined as the colors and light visible in the sky produced by the sun's first appearance in the morning.\\
 
-EXIF: Exchangeable image file format \\
+	\item \label{def:sunset} Sunset: A sunset is defined as the colors and light visible in the sky produced when the sun disappears in the evening.\\
+
+	\item \label{def:exif} EXIF: Exchangeable image file format. \\
+
+	\item \label{def:local} Local: Local is defined as the circular area around an observer with the radius being the distance from an observer's position to the horizon. For an observer on the ground, this distance is approximately 2.9 miles (4.7 km) and for an observer standing at an elevation of 100 ft (30 m) above ground level this distance is approximately 12.2 miles (19.6 km). \\
+
+\end{enumerate}
+
+\clearpage
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{ref}
+
+\subsection{Overview}
+
+
+\clearpage
 
 \section{Project Overview}
 
@@ -143,6 +166,8 @@ We assume that the user's web browser supports the application's interface.\\
 The library will make external calls to the Weather Underground API for current weather conditions at a certain ZIP code.\\
 The library will also facilitate the storage of images into a external database.\\
 The last external connection is to image classifiers, that will have access to the same database, which will do their classification externally.
+
+\clearpage
 
 \section{Functions}
 \subsection{Functions}
@@ -241,6 +266,8 @@ Postcondition: The user is taken to a page to display the fetched data.\\
 Exception Paths: None
 \end{enumerate}
 
+\clearpage
+
 \subsection{Functionality}
 Aerolizer will be a smartphone application that grants its users information on aerosols in the atmosphere based on collected information from images taken by users as well as the exif data that came along with the image. It will use machine learning to analyze the wavelengths of the light refracting through our atmosphere to determine the size of the aerosols in the air. It will then relay the information to the user in a user-friendly UI. 
 
@@ -255,11 +282,6 @@ Aerolizer will be a smartphone application that grants its users information on 
 		\subfloat[Tentative Gantt Chart Schedule]{\label{fig:abc}\includegraphics{gantt.png}}
 		\caption{Tentative Gantt Chart Schedule\label{fig:Tentative Schedule}}
 	\end{sidewaysfigure}
-
-\nocite{*}
-\bibliographystyle{plain}
-\bibliography{ref}
-
 
 \end{singlespace}
 \end{document}

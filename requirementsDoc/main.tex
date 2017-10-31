@@ -1,6 +1,7 @@
 \documentclass[journal,10pt,draftclsnofoot,onecolumn]{IEEEtran}
 \usepackage[doublespacing]{setspace}
 \usepackage[margin=0.75in]{geometry}
+\usepackage{graphicx}
 
 \begin{document}
 
@@ -104,15 +105,15 @@ The application then displays all data relevant to the user's ZIP code on their 
 \section{Users \& Functionality}
 \subsection{User Stories}
 Users shall either know their current ZIP code or have a mobile device that stores their location in the EXIF data of an image when it's taken.
-Users shall understand how to use their mobile device to capture an image of the horizon.
-Users shall have a basic understanding of how to navigate a web browser in order to use the web application.
-Users shall know the fundamentals of weather conditions, like temperature, wind speed, and humidity.
+
 
 \subsection{Expected user characteristics}
 \begin{enumerate}
 \item The user will own a smartphone
 \item The user has a general idea of what aerosols are
-\item 
+\item The users shall understand how to use their mobile device to capture an image of the horizon.
+\item The users shall have a basic understanding of how to navigate a web browser in order to use the web application.
+\item The users shall know the fundamentals of weather conditions, like temperature, wind speed, and humidity.
 \end{enumerate}
 
 \subsection{Input Constraints}
@@ -129,7 +130,9 @@ Users shall know the fundamentals of weather conditions, like temperature, wind 
 We assume users submitting photos have given permission for having their image stored and used in further processing.
 We assume the user is connected to the internet.
 We assume that the user's web browser supports the application's interface.
-
+\begin{figure}
+\includegraphics[width=\linewidth]{gantt.png}
+\end{figure}
 \subsection{External Interfaces}
 The library will make external calls to the Weather Underground API for current weather conditions at a certain ZIP code.
 The library will also facilitate the storage of images into a external database.

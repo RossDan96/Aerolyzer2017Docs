@@ -36,8 +36,15 @@ Dr. Kim \textsc{Whitehall}
 \vfill
 
 \begin{abstract}
+Atmospheric aerosols are tiny particles dispersed throughout the atmosphere.
+These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
+Monitoring atmospheric aerosols is important due to their effects on the atmosphere's chemical composition and radiation distribution.
+The presence of aerosols reduces air quality which can potentially lead to health complications such as bronchitis or respiratory inflammation.
+One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises.
+Analyzing atmospheric content in the air provides insight on air quality. 
+However, existing methods to gather aerosol data such as satellites, planes, and ground-based instruments provide data that are too complex to be useful for the average person to understand or do not provide data fast enough.
 Aerolyzer is a web application that uses weather information and acceptable images of the horizon to infer local atmospheric phenomena in the United States. 
-The following details the software requirement specifications for Aerolyzer Aerosol Detection API. 
+The following document details the software requirement specifications for Aerolyzer Aerosol Detection API. The Aerosol Detection API will consist of  python classifiers that shall analyze user submitted images, and remove unacceptable images.
 \end{abstract}
 
 \vfill\vfill\vfill
@@ -53,12 +60,12 @@ The following details the software requirement specifications for Aerolyzer Aero
 \section{Introduction}
 
 \subsection{Purpose}
-he Aerolyzer Project aims to deliver a new source of air quality and weather information through leveraging machine learning algorithms to characterize aerosol content in the atmosphere.
+The Aerolyzer Project aims to deliver a new source of air quality and weather information through leveraging machine learning algorithms to characterize aerosol content in the atmosphere.
 When complete, this open-source project shall feature a Python library that uses image classification and third-party weather APIs, displayed with an intuitive web-based user interface.
 The Aerolyzer project requires a Python library that identifies images relevant to aerosols, analyzes acceptable images for aerosol content, stores relevant information for trend analysis, and compiles weather information with its aerosol data. 
 
 \subsection{Scope}
-Aerolyzer's current front-end UI must be modified to become a useful tool. Bringing aerosol analysis functionality to a mainstream audience calls for an open-source back-end Python API to perform image analysis.
+Bringing aerosol analysis to a mainstream audience calls for an open-source back-end Python API to perform image analysis.
 This front end UI shall present the Aerolyzer library's weather and air quality inference based on analyzed images or by a requested location.
 The UI shall also collect user-submitted cell phone images of the horizon, sunset, and sunrise to be fed to the library for analysis.
 The Aerolyzer project shall exclusively serve users in the United States.

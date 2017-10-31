@@ -7,13 +7,14 @@
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-B}}Product Functions}{2}
 \contentsline {section}{\numberline {III}Users \& Functionality}{2}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}User Stories}{2}
-\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-B}}Expected user characteristics}{2}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-B}}Expected user characteristics}{3}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-C}}Input Constraints}{3}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-D}}Assumptions and Dependencies}{3}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-E}}External Interfaces}{3}
 \contentsline {section}{\numberline {IV}Functions}{3}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}Functions}{3}
-\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Functionality}{4}
-\contentsline {section}{\numberline {V}Performance}{4}
-\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-A}}Performance Requirements}{4}
-\contentsline {section}{References}{4}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Functionality}{5}
+\contentsline {section}{\numberline {V}Performance}{5}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {V-A}}Performance Requirements}{5}
+\contentsline {section}{\numberline {VI}Development Plan}{6}
+\contentsline {section}{References}{6}

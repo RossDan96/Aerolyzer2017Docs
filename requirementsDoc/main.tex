@@ -3,6 +3,11 @@
 \usepackage[margin=0.75in]{geometry}
 \usepackage{graphicx}
 
+\usepackage{rotating}
+\usepackage[lofdepth]{subfig}
+
+
+
 \begin{document}
 
 \begin{titlepage}
@@ -130,7 +135,6 @@ Users shall either know their current ZIP code or have a mobile device that stor
 We assume users submitting photos have given permission for having their image stored and used in further processing.\\
 We assume the user is connected to the internet.\\
 We assume that the user's web browser supports the application's interface.\\
-\includegraphics[width=\linewidth]{gantt.png}
 
 
 \subsection{External Interfaces}
@@ -243,6 +247,20 @@ Aerolizer will be a smartphone application that grants its users information on 
 When completed, this library shall identify horizons using Aerolyzer's classifier in a test-selection of images with a minimum accuracy of 66\% certainty. Images of horizons that contain sunsets and sunrises shall be identified using Aerolyzer's classifier library with a minimum of 50\% certainty. This certainty shall be verifiable through a series of regression tests to prove detection accuracy.
 The library will be able to handle up to 10 image submissions per minute and 500 images at most in a single day.
 
+\clearpage
+\section{Development Plan}
+\begin{sidewaysfigure}[!H]
+\centering
+ \subfloat[Tentative Gantt Chart Schedule]{\label{fig:abc}\includegraphics{gantt.png}}
+ \caption{Tentative Gantt Chart Schedule\label{fig:Tentative Schedule}}
+\end{sidewaysfigure}
+\begin{sidewaysfigure}
+ \ContinuedFloat
+ \centering
+% \subfloat[Change in DEF]{\label{fig:def}\includegraphics{gantt.png}}
+ % \caption[]{Change in ABC and DEF} % Not necessary
+  % optional argument empty to suppress duplicate entry in LoF
+\end{sidewaysfigure}
 
 \nocite{*}
 \bibliographystyle{plain}

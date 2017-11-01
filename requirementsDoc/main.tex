@@ -91,7 +91,7 @@
 			\item \label{def:aerosol} Aerosol:
 			Aerosols are tiny particles dispersed throughout the atmosphere.
 			These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
-			One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises.
+			One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' \cite{allen_2015} which visibly reddens sunsets and sunrises.
 
 			\item \label{def:accImg} Acceptable Image:
 			An acceptable image is defined as an unedited image of the horizon \ref{def:horizon}, sunset \ref{def:sunset}, or sunrise \ref{def:sunrise}.
@@ -122,18 +122,21 @@
 	\bibliography{ref}
 
 	\subsection{Overview}
+		The following Project Overview details the functionality of the Aerolyzer Library.
+		This functionality shall be explored through its planned work flow, expected user behavior, and general implementation in a larger system.
+		Finally, the Performance section details the expected state of the project when completed by the 2017-2018 team.
 
 \clearpage
 
 \section{Project Overview}
-	\subsection{Product Perspective}
+	\subsection{Project Perspective}
 		Aerolyzer is a web-based tool that provides weather and air quality information based on zip codes and submitted images.
 		A back-end Python Library \ref{def:lib} shall provide the Aerolyzer project's functionality.
 		Functions in the library shall take images of the horizon, sunrise, sunset or a user's ZIP code as input.
 		Image classifiers shall be developed using tools such as OpenCV or Google Tensorflow.
 		Human-selected acceptable images from public sources shall be used to train and verify the accuracy of the classifiers.
 
-	\subsection{Product Functions}
+	\subsection{Project Functions}
 		Aerolyzer's web interface shall take a user's location, either from a submitted image's EXIF \ref{def:exif} data or a provided ZIP code, as the primary input.
 		If a user submits an acceptable image, the results of color analysis on that image are add to the application's data for their ZIP code.
 		The library then calls on weather API for meteorological data for their ZIP code.
@@ -175,10 +178,10 @@
 
 	\subsection{External Interfaces}
 		\begin{enumerate}
-			\item The library shall make external calls to the Weather Underground API for current weather conditions at a certain ZIP code.
-			\item The library shall facilitate the storage of images onto a external database.\\
+			\item The library shall make external calls to the Weather Underground API \cite{api_weather_underground} for current weather conditions at a certain ZIP code.
+			\item The library shall facilitate the storage of images onto an external database.
+			\item The library shall enable classifier task parallelization.
 		\end{enumerate}
-		The last external connection is to image classifiers, that will have access to the same database, which will do their classification externally.
 
 \clearpage
 

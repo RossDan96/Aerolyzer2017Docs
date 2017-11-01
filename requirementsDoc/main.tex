@@ -9,11 +9,11 @@
 \usepackage{pdflscape}
 \usepackage[round, sort, numbers]{natbib}
 
-
+\hbadness=1000 % suppress warnings
 \makeatletter
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {-1.5ex \@plus -.2ex}% Formerly 1.5ex \@plus .2ex
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}
+                                     {-1.5ex \@plus -.2ex}
                                      {\normalfont\normalsize\bfseries}}
 \makeatother
 
@@ -96,20 +96,20 @@
 		\begin{enumerate}
 			\item \label{def:aerosol} Aerosol: Aerosols are tiny particles dispersed throughout the atmosphere.
 			These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
-			One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises. \\
+			One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' which visibly reddens sunsets and sunrises.
 
 			\item \label{def:accImg} Acceptable Image: An acceptable image is defined as an unedited image of the horizon \ref{def:horizon}, sunset \ref{def:sunset}, or sunrise \ref{def:sunrise}.
-			Images used in data collection must have valid EXIF metadata, while the images used in training classifiers only require relevant image content.\\
+			Images used in data collection must have valid EXIF metadata, while the images used in training classifiers only require relevant image content.
 
-			\item \label{def:horizon} Horizon: The horizon is defined as the line at which the sky and earth's surface appear to meet.\\
+			\item \label{def:horizon} Horizon: The horizon is defined as the line at which the sky and earth's surface appear to meet.
 
-			\item \label{def:sunrise} Sunrise: A sunrise is defined as the colors and light visible in the sky produced by the sun's first appearance in the morning.\\
+			\item \label{def:sunrise} Sunrise: A sunrise is defined as the colors and light visible in the sky produced by the sun's first appearance in the morning.
 
-			\item \label{def:sunset} Sunset: A sunset is defined as the colors and light visible in the sky produced when the sun disappears in the evening.\\
+			\item \label{def:sunset} Sunset: A sunset is defined as the colors and light visible in the sky produced when the sun disappears in the evening.
 
-			\item \label{def:exif} EXIF: Exchangeable image file format. \\
+			\item \label{def:exif} EXIF: Exchangeable image file format.
 
-			\item \label{def:local} Local: Local is defined as the circular area around an observer with the radius being the distance from an observer's position to the horizon. For an observer on the ground, this distance is approximately 2.9 miles (4.7 km) and for an observer standing at an elevation of 100 ft (30 m) above ground level this distance is approximately 12.2 miles (19.6 km). \\
+			\item \label{def:local} Local: Local is defined as the circular area around an observer with the radius being the distance from an observer's position to the horizon. For an observer on the ground, this distance is approximately 2.9 miles (4.7 km) and for an observer standing at an elevation of 100 ft (30 m) above ground level this distance is approximately 12.2 miles (19.6 km).
 
 			\item \label{def:lib} Library: A library is defined a Python module. The terms "Python module" and "Python library" are used interchangeably.
 		\end{enumerate}

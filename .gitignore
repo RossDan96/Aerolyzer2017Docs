@@ -4,7 +4,7 @@
 *.ps
 *.pdf
 *.toc
-*.out 
+*.out
 *.bbl
 *.blg
 *.pyg

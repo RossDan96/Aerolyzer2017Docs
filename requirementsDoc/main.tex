@@ -1,4 +1,5 @@
 \documentclass[journal,10pt,draftclsnofoot,onecolumn]{IEEEtran}
+
 \usepackage[doublespacing]{setspace}
 \usepackage[margin=0.75in]{geometry}
 \usepackage{graphicx}
@@ -7,6 +8,15 @@
 \usepackage{hyperref}
 \usepackage{pdflscape}
 \usepackage[round, sort, numbers]{natbib}
+
+
+\makeatletter
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {-1.5ex \@plus -.2ex}% Formerly 1.5ex \@plus .2ex
+                                     {\normalfont\normalsize\bfseries}}
+\makeatother
+
 
 \begin{document}
 	\begin{titlepage}
@@ -165,111 +175,108 @@
 
 \clearpage
 
-\section{Functions}
+\section{Function}
 	\subsection{Functions}
-		\begin{enumerate}
-			\item Web Application Interface\\
+		\subsubsection{Web Application Interface}
 			Trigger: User navigates to the Application site using a Web Browser\\
 			Precondition: User has access to a web browser and the internet.\\
-			Basic Path:\begin{enumerate}
-			\item User opens web browser
-			\item User navigates to the Aerolyzer URL in the web browser
-			\item System serves start page to the user
-		\end{enumerate}
-		Alternative Paths: Users can navigate to the Aerolyzer start page via link\\
-		Postcondition: User has access to the application\\
-		Exception Paths: If the user isn't connected to the internet or their web browser can't access the page, the use case is abandoned.
-	
-
-	\item ZIP code submission\\
-		Trigger: User clicks submit on form for ZIP code\\
-		Precondition: User's web browser correctly displays the form for ZIP input.\\
-		Basic Path:
-		\begin{enumerate}
-			\item User types ZIP code in form
-			\item User clicks “Submit” button on form
-		\end{enumerate}
-		Alternative Paths: See Function 3.) Upload Photo\\
-		Postcondition: User is navigated to output page.\\
-		Exception Paths: If the submitted ZIP code isn't a valid 5 digit ZIP, the user is notified and the use case is abandoned.
-	
-
-	\item Upload Photo\\
-		Trigger: User clicks the “Upload a Photo” button\\
-		Precondition: Users have a picture from a mobile device and their web browser has access to this photo.\\
-		Basic Path:
-		\begin{enumerate}
-			\item User clicks the "Upload Photo" button on page.
-			\item User is prompted to select a photo from their library.
-		\end{enumerate}
-		Alternative Paths: See Function 2.) ZIP code submission\\
-		Postcondition: The image is passed to the server\\
-		Exception Paths: If some connection error or other issue occurs, the user is informed and the case is abandoned.
-	\\
-	\item Extract EXIF\\
-		Trigger: An image is passed to the EXIF function\\
-		Precondition: Photo has been successfully uploaded as per use case 3\\
-		Basic Path:
-		\begin{enumerate} 
-			\item Aerolyzer library receives image as input for extraction script.
-			\item Script outputs the image's EXIF data as a JSON file.
-			\item The JSON file is stored with the image prior to classification.
-		\end{enumerate}
-		Alternative Paths: Images and their associated metadata can be added manually to the database.\\
-		Postcondition: The central database has access to the image and its metadata.\\
-		Exception Paths: None
-	\\
-	\item Classify photo\\
-		Trigger: A unclassified photo has been added to the central database.\\
-		Precondition: The image and its JSON metadata are accessible to the classifier as per use case 4.\\
-		Basic Path:
-		\begin{enumerate}
-			\item The image's latitude and longitude are read from the JSON metadata.
-			\item The latitude and longitude are used to identify the image's ZIP code.
-			\item The image is checked with the horizon classifier to confirm the presence of a horizon in the image.
-			\item If Horizon is confirmed, the image is checked using a sunset/sunrise classifier to confirm the presence of a sunset or sunrise.
-			\item The image is stored in the database with it's content and ZIP code identifying it.
-		\end{enumerate}
-		Alternative Paths: The image is checked with the horizon classifier and the image isn't confirmed to have the horizon in it. The user is notified, the image isn't stored, and the ZIP code is used in use case 6.\\
-		Postcondition: The user's image is stored and categorized for further use.\\
-		Exception Paths: The latitude and longitude in the image JSON data aren't in the United States, the user is notified and the use case abandoned.
-	\\
-	\item Call Weather API\\
-		Trigger: The user's ZIP code is received.\\
-		Precondition: The user submitted their ZIP code as per use case 2 or The user submitted an image that was successfully identified as per use case 5.\\
-		Basic Path:
-		\begin{enumerate}
-			\item A request is made to the weather API for data on the recieved ZIP code.
-			\item The data received from the weather API is stored in the central database under the ZIP code it pertains to.
-		\end{enumerate}
-		Alternative Paths: None\\
-		Postcondition: The central database has meteorological and astronomical data for a ZIP code.\\
-		Exception Paths: If data is unable to be retrieved from the weather API, an error message will be displayed.
-	\\
-	\item Identify Aerosols\\
-		Trigger: The user's ZIP code and their submitted image is received.\\
-		Precondition: The user submitted an image that was successfully identified as per use case 5.\\
-		Basic Path:
-		\begin{enumerate}
-			\item The colors in the image are analyzed.
-			\item The analysis returns the type of aerosol most likely to cause the colors in the image.
-			\item The type of aerosol and the current time are stored in the central database under the user's ZIP code.
-		\end{enumerate}
-		Alternative Paths: None\\
-		Postcondition: The central database has a type of aerosol at a particular time for a certain ZIP code.\\
-		Exception Paths: None
-	\\
-	\item Display data\\
-		Trigger: Use case 6 is completed.\\
-		Precondition: The central database has completed any updates in progress on the user's requested ZIP code.\\
-		Basic Path:
-		\begin{enumerate}
-			\item All of the most recent data for the user's ZIP code is fetched from the central database.
-		\end{enumerate}
-		Alternative Paths:None\\
-		Postcondition: The user is taken to a page to display the fetched data.\\
-		Exception Paths: None
-\end{enumerate}
+			Basic Path:
+			\begin{enumerate}
+				\item User opens web browser
+				\item User navigates to the Aerolyzer URL in the web browser
+				\item System serves start page to the user
+			\end{enumerate}
+			Alternative Paths: Users can navigate to the Aerolyzer start page via link\\
+			Postcondition: User has access to the application\\
+			Exception Paths: If the user isn't connected to the internet or their web browser can't access the page, the use case is abandoned.
+		
+		\subsubsection{ZIP code submission}
+			Trigger: User clicks submit on form for ZIP code\\
+			Precondition: User's web browser correctly displays the form for ZIP input.\\
+			Basic Path:
+			\begin{enumerate}
+				\item User types ZIP code in form
+				\item User clicks “Submit” button on form
+			\end{enumerate}
+			Alternative Paths: See Function 3.) Upload Photo\\
+			Postcondition: User is navigated to output page.\\
+			Exception Paths: If the submitted ZIP code isn't a valid 5 digit ZIP, the user is notified and the use case is abandoned.
+		
+		\subsubsection{Upload Photo}
+			Trigger: User clicks the “Upload a Photo” button\\
+			Precondition: Users have a picture from a mobile device and their web browser has access to this photo.\\
+			Basic Path:
+			\begin{enumerate}
+				\item User clicks the "Upload Photo" button on page.
+				\item User is prompted to select a photo from their library.
+			\end{enumerate}
+			Alternative Paths: See Function 2.) ZIP code submission\\
+			Postcondition: The image is passed to the server\\
+			Exception Paths: If some connection error or other issue occurs, the user is informed and the case is abandoned.
+		
+		\subsubsection{Extract EXIF}
+			Trigger: An image is passed to the EXIF function\\
+			Precondition: Photo has been successfully uploaded as per use case 3\\
+			Basic Path:
+			\begin{enumerate} 
+				\item Aerolyzer library receives image as input for extraction script.
+				\item Script outputs the image's EXIF data as a JSON file.
+				\item The JSON file is stored with the image prior to classification.
+			\end{enumerate}
+			Alternative Paths: Images and their associated metadata can be added manually to the database.\\
+			Postcondition: The central database has access to the image and its metadata.\\
+			Exception Paths: None
+		
+		\subsubsection{Classify photo}
+			Trigger: A unclassified photo has been added to the central database.\\
+			Precondition: The image and its JSON metadata are accessible to the classifier as per use case 4.\\
+			Basic Path:
+			\begin{enumerate}
+				\item The image's latitude and longitude are read from the JSON metadata.
+				\item The latitude and longitude are used to identify the image's ZIP code.
+				\item The image is checked with the horizon classifier to confirm the presence of a horizon in the image.
+				\item If Horizon is confirmed, the image is checked using a sunset/sunrise classifier to confirm the presence of a sunset or sunrise.
+				\item The image is stored in the database with it's content and ZIP code identifying it.
+			\end{enumerate}
+			Alternative Paths: The image is checked with the horizon classifier and the image isn't confirmed to have the horizon in it. The user is notified, the image isn't stored, and the ZIP code is used in use case 6.\\
+			Postcondition: The user's image is stored and categorized for further use.\\
+			Exception Paths: The latitude and longitude in the image JSON data aren't in the United States, the user is notified and the use case abandoned.
+		
+		\subsubsection{Call Weather API}
+			Trigger: The user's ZIP code is received.\\
+			Precondition: The user submitted their ZIP code as per use case 2 or The user submitted an image that was successfully identified as per use case 5.\\
+			Basic Path:
+			\begin{enumerate}
+				\item A request is made to the weather API for data on the recieved ZIP code.
+				\item The data received from the weather API is stored in the central database under the ZIP code it pertains to.
+			\end{enumerate}
+			Alternative Paths: None\\
+			Postcondition: The central database has meteorological and astronomical data for a ZIP code.\\
+			Exception Paths: If data is unable to be retrieved from the weather API, an error message will be displayed.
+		
+		\subsubsection{Identify Aerosols}
+			Trigger: The user's ZIP code and their submitted image is received.\\
+			Precondition: The user submitted an image that was successfully identified as per use case 5.\\
+			Basic Path:
+			\begin{enumerate}
+				\item The colors in the image are analyzed.
+				\item The analysis returns the type of aerosol most likely to cause the colors in the image.
+				\item The type of aerosol and the current time are stored in the central database under the user's ZIP code.
+			\end{enumerate}
+			Alternative Paths: None\\
+			Postcondition: The central database has a type of aerosol at a particular time for a certain ZIP code.\\
+			Exception Paths: None
+		
+		\subsubsection{Display data}
+			Trigger: Use case 6 is completed.\\
+			Precondition: The central database has completed any updates in progress on the user's requested ZIP code.\\
+			Basic Path:
+			\begin{enumerate}
+				\item All of the most recent data for the user's ZIP code is fetched from the central database.
+			\end{enumerate}
+			Alternative Paths: None\\
+			Postcondition: The user is taken to a page to display the fetched data.\\
+			Exception Paths: None
 
 	\subsection{Functionality}
 		Aerolizer will be a smartphone application that grants its users information on aerosols in the atmosphere based on collected information from images taken by users as well as the exif data that came along with the image.

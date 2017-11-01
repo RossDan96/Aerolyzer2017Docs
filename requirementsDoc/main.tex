@@ -252,13 +252,13 @@
 				\item If Horizon is confirmed, the image is checked using a sunset/sunrise classifier to confirm the presence of a sunset or sunrise.
 				\item The image is stored in the database with it's content and ZIP code identifying it.
 			\end{enumerate}
-			Alternative Paths: The image is checked with the horizon classifier and the image isn't confirmed to have the horizon in it. The user is notified, the image isn't stored. If case Extract EXIF \ref{extexif} is properly performed on an image and a ZIP code is extracted, then the UI transitions to case Call Weather API \ref{def:weathAPI}\\
+			Alternative Paths: The image is checked with the horizon classifier and the image isn't confirmed to have the horizon in it. The user is notified, the image isn't stored. If case Extract EXIF \ref{def:extexif} is properly performed on an image and a ZIP code is extracted, then the UI transitions to case Call Weather API \ref{def:weathAPI}\\
 			Postcondition: The user's image is stored and categorized for further use.\\
 			Exception Paths: The latitude and longitude in the image JSON data aren't in the United States, the user is notified and the use case abandoned.
 		
 		\subsubsection{Call Weather API} \label{def:weathAPI}
 			Trigger: The user's ZIP code is received.\\
-			Precondition: The user submitted their ZIP code as per use case 2 or The user submitted an image that was successfully identified as per use case 5.\\
+			Precondition: The user submitted their ZIP code as per use case ZIP Code Submission \ref{def:zip} or The user submitted an image that was successfully identified as per use case Classify Photo \ref{def:classPh}.\\
 			Basic Path:
 			\begin{enumerate}
 				\item A request is made to the weather API for data on the recieved ZIP code.
@@ -268,9 +268,9 @@
 			Postcondition: The central database has meteorological and astronomical data for a ZIP code.\\
 			Exception Paths: If data is unable to be retrieved from the weather API, an error message will be displayed.
 		
-		\subsubsection{Identify Aerosols} 
+		\subsubsection{Identify Aerosols} \label{def:idAero}
 			Trigger: The user's ZIP code and their submitted image is received.\\
-			Precondition: The user submitted an image that was successfully identified as per use case 5.\\
+			Precondition: The user submitted an image that was successfully identified as per use case Call Weather API \ref{def:weathAPI}.\\
 			Basic Path:
 			\begin{enumerate}
 				\item The colors in the image are analyzed.
@@ -282,7 +282,7 @@
 			Exception Paths: None
 		
 		\subsubsection{Display data}
-			Trigger: Use case 6 is completed.\\
+			Trigger: Use case Identify Aerosols \ref{def:idAero} is completed.\\
 			Precondition: The central database has completed any updates in progress on the user's requested ZIP code.\\
 			Basic Path:
 			\begin{enumerate}

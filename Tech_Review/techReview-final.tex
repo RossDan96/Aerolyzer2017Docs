@@ -390,7 +390,88 @@ Since this is the case, Google Charts is the best option since it's terms of use
 		\hline
 	\end{tabular}
 \end{center}
-	
+
+\section{Neural Networks}
+\subsection{Available Technologies}
+\subsubsection{Shallow Neural Network using Numpy}
+Nerual networks are matrices of functions and floats that weighs each value itself after "learning" from multiple sets of data. It does this using a long, but simple sigmoidal function seen here:\\
+$\sigma(x_0*w_0 + x_1*w_1 + ... + x_m*w_m + b)$\cite{nn}\\
+Where the Ws are the weights, b is the bias, and Xs are the inputs. 
+With enough data, a shallow neural network could easily be written and trained in a simple python program using only base python and numpy. The program "learns" by generating random weights and biases, then checks the solution against known data, and adjusts the weights accordingly, until it has the accuracy desired. 
+
+\subsubsection{Deep Neural Network using Tensorflow by Google}
+For deep neural networks, a supervised machine learning library such as tensorflow by Google would be ideal. Deep neural networks are just neural networks with two or more hidden layers. With the more hidden layers, the faster and more accurate the neural network will be, though manually creating these using numpy or other libraries could be very time consuming.
+
+\subsection{Goals}
+Nerual networks could use color data extracted from images as input, and through numerous tests, use accurate weights and biases to accurately identify the types of aerosols in the air, and if they could possibly be harmful or not. To train a neural network such as this would take time and a lot of data, though would definitely be doable. 
+
+
+\subsection{Criteria}
+There are two main factors that will determine whether the use of a neural network would be valid or not, and these are the amount of data we have, and the amount of time we have. With much data that has already been classified by hand, the neural network would be as simple to set up as manually inserting data into a long array,and letting the program do its thing. Unfortunatly, classifying the images by hand so that the program could learn can take very long and may not be faster than creating a function that wil analyze the colors. 
+
+\subsection{Selection}
+Neural networks have a wide array of uses and may not be limited to color analysis. A shallow neural network made using functions available in the numpy python library could be used to check the validity of Aerolyzer's horizon detector. For color analysis, a supervised machine learning library such as tensor flow would be ideal for using a neural network to analyze images. 
+
+
+\section{Image Scraping}
+\subsection{Available Technologies}
+Getting enough data to work with is essential to testing the validity of images the Aerolyzer app will receive from its users. Finding these images is more complicated than it would come accross however. While the functionality of the finished program will include receiving images from users, for testing purposes, a method of scraping websites for valid images is a must. \cite{img}
+
+\subsubsection{python image scraper 2.0.7}
+There are multiplpe python libraries and third party API for image scraping that could supply the data needed. The python library that would work best would most likely be python image scraper 2.0.7.. Because this is a python library available from python's package index, it is fairly simple to install and use. With options such as max images to scrape, image sizes and types, and even order to scrape them, this is an efficient tool for scraping images from urls where the images are known to be valid.\cite{img}
+
+\subsubsection{3rd Party API}
+Other available technologies for image scraping includes a google image scraper and Instagram's image scraper. There are several instagram image scrapers, one of which is available on Pypi named instagram-scraper 1.5.14. As for Google images, there are even more readily available image scrapers, many on Pypi, that could pull images directly from Google images.\cite{img2}
+
+\subsection{Goals}
+What Aerolyzer hopes to get out of the image scraper is a high volume of valid images. Testing the validity of classifiers for percent accuracy requires hundreds, if not thousands of images that do not have filters, and have valid exif data. These images need to be available quickly as if an image scraper takes too long, it would just be faster to manually find images.
+
+\subsection{Criteria}
+The image scraper that will ultimately be used has to consistently supply many images that do not have filters and have valid exif data. The most important criteria however is the consistency. An instagram image scraper may supply numerous valid images, though these could be taken when location data was turned off, or have filters applied, making it an impractical image scraper for Aerolyzer. The image scraper to be used will find consistently valid images fast and in high volumes to make testing as simple as possible.  
+
+
+\subsection{Selection}
+Because of the extreme volume of images needed for testing purposes, most likely multiple image scrapers will get used. Due to horizon detection not needing exif data and can have filters, Aerolyzer could use any and all image scrapers to find enough images to test, while color detection is more precise and will likely need many filters to weed out unwanted images, therefore will be found using instagram scraper or Google scraper.
+
+
+\section{Python Modules/Libraries}
+\subsection{Available Technologies}
+\subsubsection{Pypi}
+PyPi is Python's package index. It is a massive database of packages created by developers to make custom python libraries widely accessable. This is the most valid technology to use for importing python modules. With the way Aerolyzer's repositories are set up, it would be best to upload the module to pypi. As for the design of our module, there is not much wiggle room as to importing and using the module. \cite{pypi}
+
+\subsection{Goals}
+Aerolyzer's goal is to create a custom library that will contain all the tools Aerolyzer creates in order to complete the goal of image classification, analysis, etc. Aerolyzer will not only produce an app that utilizes the Aerolyzer python library, but will also make the library readily available for others to use.
+
+\subsection{Criteria}
+The criteria that determines the library setup will be the availability and convenience. If the Aerolyzer library isn't easily accesible, no one will use it, or it would be too much of a hastle to import and use Aerolyzer's horizon detection, color analysis, and others.
+\subsection{Selection}
+Python's package index is a must use to make the Aerolyzer library easily available to the public. 
+
+
+\begin{table}[h!]
+\centering
+ \begin{tabular}{||p{6cm}  p{11cm}||} 
+ \hline
+ Tech & Description\\ [0.5ex] 
+ \hline\hline
+ Neural Networks&\\
+ \hline
+ Shallow & A neural network with a single hidden layer. One could be written in a short python script using little more than mase python and numpy.\\
+ 
+ Deep & A more complex neural network with two or more hidden layers. As these can get very complex, tools such as tensor flow by Google are used\\
+ \hline
+ Image Scrapers&\\
+ \hline
+ Image-Scraper2.0.7 & This is a python module available on Pypi. A URL is supplied and the image scraper pulls all the images from the specified URL \\
+ Instagram-Scraper & Instagram is a website with an extremely large amount of images, however, many have filters that could affect the data. \\
+ \hline
+ Python Library&\\
+ \hline
+ Pypi & Python Package Index. A large database of modules and libraries for python scripts.  \\ [1ex] 
+ \hline
+ \end{tabular}
+\end{table}
+
 	\nocite{*}
 	\bibliographystyle{plain}
 	\bibliography{ref}

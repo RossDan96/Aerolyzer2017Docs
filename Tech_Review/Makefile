@@ -1,7 +1,5 @@
-CC:=gcc
-CFLAGS:= -Wall -pthread
-
 LATEX	= latex -shell-escape
+BIBTEX	= bibtex
 DVIPS	= dvips
 DVIPDF  = dvipdft
 XDVI	= xdvi -gamma 4
@@ -21,7 +19,7 @@ pdf: $(PDF)
 
 ps: $(PSF)
 
-$(TRG): %.dvi: %.tex $(EXAMPLES)
+$(TRG): %.dvi: %.tex *.bib $(EXAMPLES)
 	$(LATEX) $<
 	$(LATEX) $<
 	$(LATEX) $<

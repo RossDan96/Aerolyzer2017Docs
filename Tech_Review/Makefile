@@ -13,14 +13,13 @@ PDF	= $(SRC:%.tex=%.pdf)
 
 default: all
 
-all: pdf
-
 pdf: $(PDF)
 
 ps: $(PSF)
 
 $(TRG): %.dvi: %.tex *.bib $(EXAMPLES)
 	$(LATEX) $<
+	$(BIBTEX) $(<:%.tex=%)
 	$(LATEX) $<
 	$(LATEX) $<
 
@@ -36,8 +35,10 @@ show: $(TRG)
 showps: $(PSF)
 	@for i in $(PSF) ; do $(GH) $$i & done
 
-run: concurrency
-	./concurrency -p 3 -c 3
+all: pdf
+	
+full: pdf
+	rm -f *.ps *.dvi *.out *.log *.aux *.bbl *.blg *.pyg *.toc
 
 clean:
 	rm -f *.pdf *.ps *.dvi *.out *.log *.aux *.bbl *.blg *.pyg *.toc

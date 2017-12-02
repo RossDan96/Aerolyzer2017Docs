@@ -144,7 +144,7 @@
           \paragraph{Design Relationships}
             \begin{figure}[h]
             	\centering
-                \includegraphics[width=4.5in]{DesignInterface}
+                \includegraphics[width=4.5in]{DesignInterface.png}
                 \caption{Library Interfaces}
                 \label{fig:1}
             \end{figure}
@@ -186,11 +186,11 @@
 	\subsection{Horizon Detection Filter}
       \subsubsection{Design Elements - OpenCV & Google Tensorflow}
       		\paragraph{Design Attributes}
-          		Outlined in the Software Design Document, a horizon detection filter shall be created using OpenCV and other python libraries as required. OpenCV is a BSD-licensed computer-vision library with many relevant sub-modules. Containing over 2,500 algorithms, OpenCV can analyze images and videos, recognize faces, identify objects, perform visual transformations, and more. One can use image transformations to normalize image data such that a classifier can more easily distinguish what is in a given image. 
+          		Outlined in the Software Design Document, a horizon detection filter shall be created using OpenCV and other python libraries as required. OpenCV is a BSD-licensed computer-vision library with many relevant sub-modules. Containing over 2,500 algorithms, OpenCV can analyze images and videos, recognize faces, identify objects, perform visual transformations, and more. One can use image transformations to normalize image data such that a classifier can more easily distinguish what is in a given image. \cite{svm}
 
-				An advanced machine learning library, Google Tensorflow can build versatile and accurate predictive data models provided a large dataset of training images. One can apply Tensorflow to the Aerolyzer project by training its inception module to recognize patterns in a large dataset consisting of acceptable images of the horizon. A human will need manually pre-classify and build a test dataset consisting of acceptable images. \ref{acc_img}  Tensorflow’s ease of use, proven library, and ample documentation makes it a potential candidate to create a powerful image classifier.
+				An advanced machine learning library, Google Tensorflow can build versatile and accurate predictive data models provided a large dataset of training images. One can apply Tensorflow to the Aerolyzer project by training its inception module to recognize patterns in a large dataset consisting of acceptable images of the horizon. A human will need manually pre-classify and build a test dataset consisting of acceptable images. \ref{acc_img}  Tensorflow’s ease of use, proven library, and ample documentation makes it a potential candidate to create a powerful image classifier. \cite{rhnvrm} \cite{RNN}
 
-				As of December 2017, Kin-Ho Lam has designed and tested two horizon detection classifiers using OpenCV 3.3.0. Ongoing work on the project can be viewed in the Aerolyzer library’s open-source Github. \cite{OUR GITHUB} These classifiers are horizon detection by straight line and horizon detection by color threshold.
+				As of December 2017, Kin-Ho Lam has designed and tested two horizon detection classifiers using OpenCV 3.3.0. Ongoing work on the project can be viewed in the Aerolyzer library’s open-source Github. These classifiers are horizon detection by straight line and horizon detection by color threshold.
 
           \paragraph{Design Relationships}
           		\includegraphics[width=4.5in]{tensor}
@@ -214,8 +214,8 @@
 				\begin{enumerate}
 					\item Perform a gaussian blur on the image
 					\item Convert the image to grayscale
-					\item Perform Canny Edge Detection \cite{canny_edge}
-					\item Perform Hough Line Transformation \cite{houghLines}
+					\item Perform Canny Edge Detection \cite{svm}
+					\item Perform Hough Line Transformation \cite{svm}
 					\item If there is a straight line, draw a green line spanning across the image. This is the classified horizon.
 					\item Else, if there are no straight lines, then reject the image.
 				\end{enumerate}

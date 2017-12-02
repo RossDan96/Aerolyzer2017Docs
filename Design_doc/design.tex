@@ -41,7 +41,7 @@
 	\begin{titlepage}
 		\pagenumbering{gobble}
 		\begin{singlespace}
-			\includegraphics[height=4cm]{coe_v_spot1}
+			%\includegraphics[height=4cm]{coe_v_spot1.eps}
 			\hfill 
 			% 4. If you have a logo, use this includegraphics command to put it on the coversheet.
 			%\includegraphics[height=4cm]{CompanyLogo}   
@@ -224,7 +224,7 @@
 				This approach works well for some images such as fig X pulled from the Aerolyzer test image album. However, it is clear that this approach does not work for all cases, as seen in fig Y, detecting the horizon by straight line fails in images with a complex foreground that contains many straight lines. A new algorithm is necessary to enhance detection accuracy.
 
 				\includegraphics[width=4.5in,natwidth=640,natheight=427]{images/line1.jpg}
- +				\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/line2.jpg}
+ 				\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/line2.jpg}
 
 				\paragraph{OpenCV Horizon Detection by Threshold}
 					Horizon Detection by Threshold is a more versatile method compared to straight line detection because it relies on segmenting color distribution. Detection by Threshold was designed to classify images that contain complex foregrounds by distinguishing what part of the image is the sky. The Threshold algorithm shall accept or reject an image through the following procedure:

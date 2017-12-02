@@ -80,6 +80,8 @@
 
 \section{Table of Contents}
 \tableofcontents
+\bibliographystyle{IEEEtran}
+\bibliography{ref}
 \clearpage
 
 \begin{singlespace}
@@ -206,7 +208,7 @@
       				\item If there is no straight line stretching across the image, reject it.
       			\end{enumerate}
       			As a proof of concept, the algorithm is implemented in the following python function. This algorithm draws a straight green line where it believes the horizon is.
-      			\lstinputlisting[language=Python]{code/HorizonDetectionbyStraightLine.py}
+      			\lstinputlisting[language=Python,basicstyle=small]{code/HorizonDetectionbyStraightLine.py}
      			
      			Upon being fed an image, the Horizon Detection by Straight Line’s algorithm works as follows:
 				
@@ -301,13 +303,6 @@
       		The choice to use python’s package index is to keep the Aerolyzer library open source enabling software developers, data analysts, etc. to access the Aerolyzer library and use its image analyzing software for their own research needs. 
       \subsubsection{Design languages}
       The language used will be python 2.7.12 to write a setup script for when importing Aerolyzer.
-
-
-
-
-\section{Bibliography}
-	\bibliographystyle{IEEEtran}
-	\bibliography{ref}
 
 \end{singlespace}
 \end{document}

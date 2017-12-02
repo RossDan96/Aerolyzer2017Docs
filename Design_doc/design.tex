@@ -36,7 +36,7 @@
 \renewcommand{\NameSigPair}[1]{#1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\graphicspath{images/}
+\graphicspath{{images/}}
 \begin{document}
 	\begin{titlepage}
 		\pagenumbering{gobble}
@@ -144,7 +144,7 @@
           \paragraph{Design Relationships}
             \begin{figure}[h]
             	\centering
-                \includegraphics[width=4.5in]{DesignInterface.png}
+                \includegraphics[width=4.5in]{DesignInterface}
                 \caption{Library Interfaces}
                 \label{fig:1}
             \end{figure}
@@ -188,7 +188,7 @@
 				As of December 2017, Kin-Ho Lam has designed and tested two horizon detection classifiers using OpenCV 3.3.0. Ongoing work on the project can be viewed in the Aerolyzer library’s open-source Github. \cite{OUR GITHUB} These classifiers are horizon detection by straight line and horizon detection by color threshold.
 
           \paragraph{Design Relationships}
-          		\includegraphics[width=4.5in]{tensor.png}
+          		\includegraphics[width=4.5in]{tensor}
 
           \paragraph{Design Constraints}
           		Aerolyzer’s unique image criterion necessitates a predictive data model capable of detecting horizons with a minimum of 66\% certainty and sunsets or sunrises with a minimum of 50\% certainty. Efficient and expedient algorithm performance is necessary due to the expected user base who will be waiting for Aerolyzer to service their request. Pending further research, these criterion are achievable through OpenCV and Tensorflow. More computer vision libraries or modules may be required.
@@ -216,11 +216,13 @@
 
 				This approach works well for some images such as fig X pulled from the Aerolyzer test image album. However, it is clear that this approach does not work for all cases, as seen in fig Y, detecting the horizon by straight line fails in images with a complex foreground that contains many straight lines. A new algorithm is necessary to enhance detection accuracy.
 
-				\includegraphics[width=4.5in]{line1.png}
+				\includegraphics[width=4.5in]{line1}
 
       \subsubsection{Design rationale}
-
+		Using the Django framework serves as a reliable and appealing option for multiple reasons. Django, like the Aerolyzer library, is written in Python so the resulting interfaces with any HTML code is going to be written in python which offers additional consistency to development. Django’s built in templating API and development tools also remove the need for additional imported software that some other frameworks require.\cite{DjangoStart}\cite{DjangoOver}
+			Setting the Aerolyzer library in between the front end of the web framework and the back end of the MySQL database is the design choice here, because the Library’s functions are the only component that need to read or write to the database.
       \subsubsection{Design languages}
+		As stated previously, Django is written in python \cite{DjangoOver}. The web pages will be written in HTML5 and utilize javascript in order to use Google Charts \cite{GoogleCh}. The MySQL database is used with SQL (Structured Query Language).
 
 	\subsection{Library Structure}\label{des:LibStructure}
       \subsubsection{Design Elements}

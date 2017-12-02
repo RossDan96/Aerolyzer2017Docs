@@ -6,7 +6,6 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{cite}
-\usepackage{minted}
 \usepackage{geometry}
 \geometry{textheight=9.5in, textwidth=7in}
 
@@ -41,7 +40,7 @@
 	\begin{titlepage}
 		\pagenumbering{gobble}
 		\begin{singlespace}
-			\includegraphics[height=4cm]{images\coe_v_spot1}
+			\includegraphics[height=4cm]{./images/coe_v_spot1}
 			\hfill 
 			% 4. If you have a logo, use this includegraphics command to put it on the coversheet.
 			%\includegraphics[height=4cm]{CompanyLogo}   
@@ -144,7 +143,7 @@
           \paragraph{Design Relationships}
             \begin{figure}[h]
             	\centering
-                \includegraphics[width=4.5in]{images\DesignInterface.png}
+                \includegraphics[width=4.5in]{./images/DesignInterface.png}
                 \caption{Library Interfaces}
                 \label{fig:1}
             \end{figure}
@@ -179,13 +178,32 @@
       \subsubsection{Design languages}
 
 	\subsection{Horizon Detection Filter}
-      \subsubsection{Design Elements}
-          \paragraph{Design Entities}
-          \paragraph{Design Attributes}
+      \subsubsection{Design Elements - OpenCV & Google Tensorflow}
+      		\paragraph{Design Attributes}
+          		Outlined in the Software Design Document, a horizon detection filter shall be created using OpenCV and other python libraries as required. OpenCV is a BSD-licensed computer-vision library with many relevant sub-modules. Containing over 2,500 algorithms, OpenCV can analyze images and videos, recognize faces, identify objects, perform visual transformations, and more. One can use image transformations to normalize image data such that a classifier can more easily distinguish what is in a given image. 
+
+				An advanced machine learning library, Google Tensorflow can build versatile and accurate predictive data models provided a large dataset of training images. One can apply Tensorflow to the Aerolyzer project by training its inception module to recognize patterns in a large dataset consisting of acceptable images of the horizon. A human will need manually pre-classify and build a test dataset consisting of acceptable images. \ref{acc_img}  Tensorflow’s ease of use, proven library, and ample documentation makes it a potential candidate to create a powerful image classifier.
+
+				As of December 2017, Kin-Ho Lam has designed and tested two horizon detection classifiers using OpenCV 3.3.0. Ongoing work on the project can be viewed in the Aerolyzer library’s open-source Github. \cite{OUR GITHUB} These classifiers are horizon detection by straight line and horizon detection by color threshold.
+
           \paragraph{Design Relationships}
+          		\includegraphics[width=4.5in]{images\tensor.png}
+
           \paragraph{Design Constraints}
+          		Aerolyzer’s unique image criterion necessitates a predictive data model capable of detecting horizons with a minimum of 66\% certainty and sunsets or sunrises with a minimum of 50\% certainty. Efficient and expedient algorithm performance is necessary due to the expected user base who will be waiting for Aerolyzer to service their request. Pending further research, these criterion are achievable through OpenCV and Tensorflow. More computer vision libraries or modules may be required.
+      
       \subsubsection{Design overlays}
+      		\paragraph{OpenCV Horizon Detection by Straight Line Algorithm}
+      			Horizon detection by straight line seeks to detect the simplest possible acceptable image; a picture of the sunset/sunrise without obstructions. In this case, one can expect the most visible longest and straightest line in an image to be the horizon. With this assumption, the Horizon Detection by Straight Line algorithm shall accept or reject an image through the following procedure:
+      			\begin{enumerate}
+      				\item Upon receiving an image, detect the longest and straightest line.
+      				\item If there is no straight line stretching across the image, reject it.
+      			\end{enumerate}
+      			As a proof of concept, the algorithm is implemented in the following python function. This algorithm draws a straight green line where it believes the horizon is.
+      			\lstinputlisting[language=Python]{code\HorizonDetectionbyStraightLine.py}
+     
       \subsubsection{Design rationale}
+      
       \subsubsection{Design languages}
 
 	\subsection{Library Structure}\label{des:LibStructure}

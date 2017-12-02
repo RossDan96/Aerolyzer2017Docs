@@ -7,6 +7,7 @@
 \usepackage{listings}
 \usepackage{cite}
 \usepackage{geometry}
+
 \geometry{textheight=9.5in, textwidth=7in}
 
 % 1. Fill in these details
@@ -19,6 +20,9 @@
 \def \CapstoneSponsorCompany{	NASA JPL}
 \def \CapstoneSponsorPerson{		Kim Whitehall}
 
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 
 % 2. Uncomment the appropriate line below so that the document type works
 \def \DocType{		%Problem Statement
@@ -195,10 +199,9 @@
 				As of December 2017, Kin-Ho Lam has designed and tested two horizon detection classifiers using OpenCV 3.3.0. Ongoing work on the project can be viewed in the Aerolyzer library’s open-source Github. These classifiers are horizon detection by straight line and horizon detection by color threshold.
 
           \paragraph{Design Relationships}
-		        \begin{figure}[h]
-					\centering
+					.\\
 					\includegraphics[width=4.5in,natwidth=1907,natheight=787]{images/tensor.png}
-				\end{figure}
+
           \paragraph{Design Constraints}
           		Aerolyzer’s unique image criterion necessitates a predictive data model capable of detecting horizons with a minimum of 66\% certainty and sunsets or sunrises with a minimum of 50\% certainty. Efficient and expedient algorithm performance is necessary due to the expected user base who will be waiting for Aerolyzer to service their request. Pending further research, these criterion are achievable through OpenCV and Tensorflow. More computer vision libraries or modules may be required.
       
@@ -225,9 +228,10 @@
 				\end{enumerate}
 
 
-				This approach works well for some images such as fig X pulled from the Aerolyzer test image album. However, it is clear that this approach does not work for all cases, as seen in fig Y, detecting the horizon by straight line fails in images with a complex foreground that contains many straight lines. A new algorithm is necessary to enhance detection accuracy.\\
-
-				\includegraphics[width=4.5in,natwidth=640,natheight=427]{images/line1.jpg}\\
+				This approach works well for some images such as fig X pulled from the Aerolyzer test image album. However, it is clear that this approach does not work for all cases, as seen in fig Y, detecting the horizon by straight line fails in images with a complex foreground that contains many straight lines. A new algorithm is necessary to enhance detection accuracy.
+				\\
+				\includegraphics[width=4.5in,natwidth=640,natheight=427]{images/line1.jpg}
+				\\
  				\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/line2.jpg}
 
 				\paragraph{OpenCV Horizon Detection by Threshold}

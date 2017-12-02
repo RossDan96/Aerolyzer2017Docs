@@ -4,7 +4,9 @@
 \usepackage{url}
 \usepackage{setspace}
 \usepackage{hyperref}
+\usepackage{listings}
 \usepackage{cite}
+\usepackage{minted}
 \usepackage{geometry}
 \geometry{textheight=9.5in, textwidth=7in}
 
@@ -67,9 +69,11 @@
 				}
 				\vspace{20pt}
 			}
-			\begin{abstract}
-				% 6. Fill in your abstract    
-				Aerolyzer is a mobile web application capable of analyzing images and inferring atmospheric phenomena to provide our users with information about the aerosols in the air and the air quality. This document outlines the software design descriptions for Aerolyzer and will act as a representation of design to be used for communicating the decisions we made on design to stakeholders. 
+			\begin{abstract}  
+				The Aerolyzer Project aims to deliver a new source of air quality and weather information through leveraging existing weather data and image analysis algorithms.
+				% characterize aerosol content in the atmosphere
+				When complete, this open-source project shall feature a Python library that uses image classification and third-party weather APIs, displayed with an intuitive web-based user interface.
+				This document outlines the software design descriptions for the Aerolyzer Library. 
 			\end{abstract}     
 		\end{singlespace}
 	\end{titlepage}
@@ -81,111 +85,143 @@
 \begin{singlespace}
 \section{Overview}
 	\subsection{Scope}
-		Scope Scope Scope
+		Aerolyzer mobile web application is intended to retrieve data from user images in order to analyze colors in the images using wunderground data and image analysis software. This application proposed by NASA JPL is intended for aiding in the scientific research of air quality and of aerosols in the atmosphere. 
 	\subsection{Purpose}
-		Purpose Purpose Purpose
+		This document describes the three main components of Aerolyzer that will be designed, those being the library data interface, the horizon detection filter and the library structure. 
 	\subsection{Intended Audience}
-		Intended Audience Intended Audience Intended Audience
-	\subsection{Conformance}
-		Conformance Conformance Conformance
+		The intended audience for this software design document is the Aerolyzer developers and clients. It will serve to set design intentions so that the client can confirm the design plan will meet the requirements.
+
 \section{Definitions}
+	
 	\subsection{Aerosol}\label{def:aerosol}
 		Aerosols are tiny particles dispersed throughout the atmosphere.
 		These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
-		One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' \cite{allen_2015} which visibly reddens sunsets and sunrises.
+		One can visibly see the effects of aerosols in the 'Rayleigh scattering effect'  which visibly reddens sunsets and sunrises. \cite{allen_2015}
+	
 	\subsection{Acceptable Image}\label{def:accImg}
-		An acceptable image is defined as an unedited image of the horizon \ref{def:horizon}.
-		Images used in data collection must have valid EXIF \ref{def:exif} meta data, while the images used in training classifiers only require relevant image content.
+		An acceptable image is defined as an unedited image of the horizon. \ref{def:horizon}
+		Images used in data collection must have valid EXIF meta data, while the images used in training classifiers only require relevant image content. \ref{def:exif}
+	
 	\subsection{Horizon}\label{def:horizon}
 		The horizon is defined as the line at which the sky and earth's surface appear to meet.
+	
 	\subsection{EXIF}\label{def:exif}
 		Exchangeable image file format.
+	
 	\subsection{Local}\label{def:local}
 		Local is defined as the circular area around an observer with the radius being the distance from an observer's position to the horizon.
 		For an observer on the ground, this distance is approximately 2.9 miles (4.7 km) and for an observer standing at an elevation of 100 ft (30 m) above ground level this distance is approximately 12.2 miles (19.6 km).
-\section{Conceptual model for software design descriptions}
-	\subsection{Software design in context}
-		Aerolyzer is a web-based application that will provide users with weather and air quality information based on the user's zip code and user submitted images.
-		The software being developed is a Python Library that will provide the Aerolyzer application it's core functionality.
-	\subsection{Software design descriptions within the life cycle}
-		\subsubsection{Influences on SDD preparation}
-		\subsubsection{Influences on software life cycle products}
-		\subsubsection{Design verification and design role in validation}
-\section{Design description information content}
+
+\section{Design Description Information Content}
 	\subsection{Introduction}
-	\subsection{SDD identification}
-	\subsection{Design stakeholders and their concerns}
-	\subsection{Design views}
-	\subsection{Design viewpoints}
-	\subsection{Design elements}
-		\subsubsection{Design Entities}
-		\subsubsection{Design Attributes}
-			\subsubsubsection{Name attribute}
-			\subsubsubsection{Type attribute}
-			\subsubsubsection{Purpose attribute}
-			\subsubsubsection{Author attribute}
-		\subsubsection{Design Relationships}
-		\subsubsection{Design Constraints}
-	\subsection{Design overlays}
-	\subsection{Design rationale}
-	\subsection{Design languages}
-\section{Design Viewpoints}
-	\subsection{Introduction}
-	\subsection{Context viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-		\subsubsection{Example languages}
-	\subsection{Composition viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-			\subsubsubsection{Function attribute}
-			\subsubsubsection{Subordinates attribute}
-		\subsubsection{Example languages}
-	\subsection{Logical viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-		\subsubsection{Example languages}
-	\subsection{Dependency viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-			\subsubsubsection{Dependencies attribute}
-		\subsubsection{Example languages}
-	\subsection{Information viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-			\subsubsubsection{Data attribute}
-		\subsubsection{Example languages}
-	\subsection{Patterns use viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-		\subsubsection{Example languages}
-	\subsection{Interface viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-			\subsubsubsection{Interface attribute}
-		\subsubsection{Example languages}
-	\subsection{Structure viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-		\subsubsection{Example languages}
-	\subsection{Interaction viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-		\subsubsection{Example languages}
-	\subsection{State Dynamics viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-		\subsubsection{Example languages}
-	\subsection{Algorithm viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-		\subsubsection{Processing Attribute}
-		\subsubsection{Example languages}
-	\subsection{Resource viewpoint}
-		\subsubsection{Design Concerns}
-		\subsubsection{Design Elements}
-			\subsubsubsection{Resources attribute}
-		\subsubsection{Example languages}
+    
+    \subsection{Software Design Description Identification}
+    	\subsubsection{Library Data Interfaces}
+        The Aerolyzer Python library will need to have a framework to receive input from the user, send the results of the functions to the HTML which will display them, store data for later use, and retrieve data relevant to a user’s request.
+        \subsubsection{Horizon Detection Filter}
+        The Aerolyzer library hopes to feature a module that infers aerosol size based on the hue distribution in images of the sunrise or sunset. To this end, a filter that intelligently recognizes acceptable images \ref{acc_img} is necessary to save computation time and guarantee reliable data.
+        \subsubsection{Library Structure}
+        The Aerolyzer library aims to be accessible to import for scientific research purposes. The structure of this library will determine the ease of access of this library.
+	\subsection{Identified design stakeholders}
+    	\subsubsection{Library Data Interfaces}
+        The stakeholder in the Library data interfaces will be the users submitting ZIP codes and images. Without the proper channels for data transfer, the user’s will never receive results from the library and the library will never receive requests from the users.
+        \subsubsection{Horizon Detection Filter}
+        The stakeholders for the Horizon Detection Filter python module include users who will be using the Aerolyzer web service. Users will ideally not have to wait for long periods of time for the server to process weather and air quality analysis. The horizon filter will expedite this process by filtering out bad data.
+        \subsubsection{Library Structure}
+        The stakeholders for the Aerolyzer library’s structure will be the developers and the Aerolyzer’s primary stakeholder, Dr. Kim Whitehall. The Dr. Whitehall requires the library to be accessible from Python’s package index.
+\section{Selected Design Viewpoints}
+	\subsection{Library Data Interfaces}
+      \subsubsection{Design Elements}
+          \paragraph{Design Attributes}
+          Django is the python based web framework hosting the Aerolyzer application\cite{DjangoStart}.
+          The purpose of using Django is to enable servers to present the input prompts to the user and then present the output of the Python Library to the user.
+          The Django framework works on models that map out the database that the application is stored on \cite{DjangoDoc}.
+          Django is open source and written by Django Software Foundation \cite{DjangoOver}.
+		  
+          The Python library functions will be called by HTML code reacting to the user input.
+		  Once the library functions\ref{des:LibStructure} receive the user input, the library will store the user’s input and data associated with it in the database.
+		  The results returned from the library calls to the html code will coincide to a change in web page that will display returned data using Google Charts \cite{GoogleCh}.
+          \paragraph{Design Relationships}
+            \begin{figure}[h]
+            	\centering
+                \includegraphics[width=4.5in]{DesignInterface.png}
+                \caption{Library Interfaces}
+                \label{fig:1}
+            \end{figure}
+          \paragraph{Design Constraints}
+          The Python Library functions must make their calls to the MySQL database discrete in order to maintain consistent data between multiple users.
+          The HTML code of the application has to handle each page request correctly and pass any input from the user to its requests sent to the Aerolyzer library. 
+          Additionally, Google Charts is a imported javascript resource which will require a consistent internet connection when Django starts processing the web page.
+      \subsubsection{Design overlays}
+      Django will provide the data models for user input and the library output.
+      These models will be an Image class, for all cases where an user submits an image, and a ZIP class, for all cases where an user submits a ZIP code in lieu of an image.
+	  Each class contains all of the fields for the data that the HTML will need in either case. This will contain weather API data, results, and user data in both cases.
+	  EXIF field, Image ID field, and filename are unique to the Image class while the ZIP field is unique to the ZIP class. 
+		\begin{lstlisting}[language=Python]
+        from django.db import models
+        
+        class Image(models.Model):
+            imageId = models.AutoField(primary_key=True)
+            filename = models.CharField(max_length=200, default = "none")
+            exif = models.CharField(max_length=200)
+            wunder = models.CharField(max_length=200)
+            results = models.CharField(max_length=200)
+            
+        def __unicode__(self):
+            return self.results
+			\end{lstlisting}
+            The HTML code will call on the Google Charts API on the results display page which Django will only navigate to if there were no issues for the Library.
+			In the case that the user inputs an invalid ZIP code, rather than attempt to navigate to a new page the HTML code will display an error.
+			Django’s input forms will designate what types of files are accepted for image upload and an error message will be thrown if the image isn’t a .png, .jpeg, or .jpg.
+			
+			The MySQL database will use ZIP codes as primary keys which subsequent weather data, image analysis, and images will be stored under.
+      \subsubsection{Design rationale}
+      \subsubsection{Design languages}
+
+	\subsection{Horizon Detection Filter}
+      \subsubsection{Design Elements}
+          \paragraph{Design Entities}
+          \paragraph{Design Attributes}
+          \paragraph{Design Relationships}
+          \paragraph{Design Constraints}
+      \subsubsection{Design overlays}
+      \subsubsection{Design rationale}
+      \subsubsection{Design languages}
+
+	\subsection{Library Structure}\label{des:LibStructure}
+      \subsubsection{Design Elements}
+          \paragraph{Design Attributes}
+                    One goal of Aerolyzer is to create an accessible python package capable of being imported and giving access to all of the horizon detecting and color analyzing software written when creating a functioning Aerolyzer mobile web application. This will include an Apache licensed python script setup.py that ensures required packages such as numpy 1.8.0, exifread, opencv-python, and pyyaml are installed. 
+      The structure of this library is important to the usability of the library. To maximize simplicity and usability of the Aerolyzer library, the semantics of the python init file need to make it clear where each function is from. Aerolyzer is designed such that “import aerolyzer” will be the needed import to access the aerolyzer functions later on in the code by calling “aerolyzer.<function-name>()”.
+			In the Aerolyzer package, \_\_init\_\_.py is a python file that determines how a module is imported. Aerolyzer’s \_\_init\_\_.py contains imports of the python scripts that supply Aerolyzer functionality. Setup.py is a python file that determines which packages will be installed when downloading the Aerolyzer module. The code for these files can be seen here.
+            \_\_init\_\_.py
+            \begin{lstlisting}[language=Python]
+            version = "0.0.0.4"
+            import image_restriction_functions
+            import image_restriction_main
+            import retrieve_image_data
+            from wunderData import *
+            from horizon import *
+			\end{lstlisting}
+            setup.py (The line that sets the required packages)
+            \begin{lstlisting}[language=Python]
+
+            _requirements = ['exifread', 'numpy>=1.8.0', 'opencv-python', 'pyyaml',]
+
+            \end{lstlisting}
+          \paragraph{Design Relationships}
+          When importing Aerolyzer, the \_\_init\_\_.py script executes and imports all python scripts with Aerolyzer functionality, including wunderground data script, image restriction script, image analysis script, etc.
+          \paragraph{Design Constraints}
+          The setup script for importing Aerolyzer is licensed under the Apache License, Version 2.0 and is constrained to the compliance of said licence. 
+      \subsubsection{Design overlays}
+      		The Aerolyzer library is Under the Apache Licence Version 2.0 and follows Apaches permissions and limitations.
+      \subsubsection{Design rationale}
+      		The choice to use python’s package index is to keep the Aerolyzer library open source enabling software developers, data analysts, etc. to access the Aerolyzer library and use its image analyzing software for their own research needs. 
+      \subsubsection{Design languages}
+      The language used will be python 2.7.12 to write a setup script for when importing Aerolyzer.
+
+
+
 
 \section{Bibliography}
 	\bibliographystyle{IEEEtran}

@@ -4,9 +4,8 @@
 \usepackage{url}
 \usepackage{setspace}
 \usepackage{hyperref}
-\usepackage[round, sort, numbers]{natbib}
+\usepackage{cite}
 \usepackage{geometry}
-\usepackage{listings}
 \geometry{textheight=9.5in, textwidth=7in}
 
 % 1. Fill in these details
@@ -70,7 +69,7 @@
 			}
 			\begin{abstract}
 				% 6. Fill in your abstract    
-				This 
+				Aerolyzer is a mobile web application capable of analyzing images and inferring atmospheric phenomena to provide our users with information about the aerosols in the air and the air quality. This document outlines the software design descriptions for Aerolyzer and will act as a representation of design to be used for communicating the decisions we made on design to stakeholders. 
 			\end{abstract}     
 		\end{singlespace}
 	\end{titlepage}
@@ -80,331 +79,116 @@
 \clearpage
 
 \begin{singlespace}
+\section{Overview}
+	\subsection{Scope}
+		Scope Scope Scope
+	\subsection{Purpose}
+		Purpose Purpose Purpose
+	\subsection{Intended Audience}
+		Intended Audience Intended Audience Intended Audience
+	\subsection{Conformance}
+		Conformance Conformance Conformance
+\section{Definitions}
+	\subsection{Aerosol}\label{def:aerosol}
+		Aerosols are tiny particles dispersed throughout the atmosphere.
+		These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as pollution. 
+		One can visibly see the effects of aerosols in the 'Rayleigh scattering effect' \cite{allen_2015} which visibly reddens sunsets and sunrises.
+	\subsection{Acceptable Image}\label{def:accImg}
+		An acceptable image is defined as an unedited image of the horizon \ref{def:horizon}.
+		Images used in data collection must have valid EXIF \ref{def:exif} meta data, while the images used in training classifiers only require relevant image content.
+	\subsection{Horizon}\label{def:horizon}
+		The horizon is defined as the line at which the sky and earth's surface appear to meet.
+	\subsection{EXIF}\label{def:exif}
+		Exchangeable image file format.
+	\subsection{Local}\label{def:local}
+		Local is defined as the circular area around an observer with the radius being the distance from an observer's position to the horizon.
+		For an observer on the ground, this distance is approximately 2.9 miles (4.7 km) and for an observer standing at an elevation of 100 ft (30 m) above ground level this distance is approximately 12.2 miles (19.6 km).
+\section{Conceptual model for software design descriptions}
+	\subsection{Software design in context}
+		Aerolyzer is a web-based application that will provide users with weather and air quality information based on the user's zip code and user submitted images.
+		The software being developed is a Python Library that will provide the Aerolyzer application it's core functionality.
+	\subsection{Software design descriptions within the life cycle}
+		\subsubsection{Influences on SDD preparation}
+		\subsubsection{Influences on software life cycle products}
+		\subsubsection{Design verification and design role in validation}
+\section{Design description information content}
+	\subsection{Introduction}
+	\subsection{SDD identification}
+	\subsection{Design stakeholders and their concerns}
+	\subsection{Design views}
+	\subsection{Design viewpoints}
+	\subsection{Design elements}
+		\subsubsection{Design Entities}
+		\subsubsection{Design Attributes}
+			\subsubsubsection{Name attribute}
+			\subsubsubsection{Type attribute}
+			\subsubsubsection{Purpose attribute}
+			\subsubsubsection{Author attribute}
+		\subsubsection{Design Relationships}
+		\subsubsection{Design Constraints}
+	\subsection{Design overlays}
+	\subsection{Design rationale}
+	\subsection{Design languages}
+\section{Design Viewpoints}
+	\subsection{Introduction}
+	\subsection{Context viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+		\subsubsection{Example languages}
+	\subsection{Composition viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+			\subsubsubsection{Function attribute}
+			\subsubsubsection{Subordinates attribute}
+		\subsubsection{Example languages}
+	\subsection{Logical viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+		\subsubsection{Example languages}
+	\subsection{Dependency viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+			\subsubsubsection{Dependencies attribute}
+		\subsubsection{Example languages}
+	\subsection{Information viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+			\subsubsubsection{Data attribute}
+		\subsubsection{Example languages}
+	\subsection{Patterns use viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+		\subsubsection{Example languages}
+	\subsection{Interface viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+			\subsubsubsection{Interface attribute}
+		\subsubsection{Example languages}
+	\subsection{Structure viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+		\subsubsection{Example languages}
+	\subsection{Interaction viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+		\subsubsection{Example languages}
+	\subsection{State Dynamics viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+		\subsubsection{Example languages}
+	\subsection{Algorithm viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+		\subsubsection{Processing Attribute}
+		\subsubsection{Example languages}
+	\subsection{Resource viewpoint}
+		\subsubsection{Design Concerns}
+		\subsubsection{Design Elements}
+			\subsubsubsection{Resources attribute}
+		\subsubsection{Example languages}
 
-\section{Sunset and Sunrise Classification}
-	\subsection{Overview}
-		Aerolyzer’s unique image criterion necessitates a predictive data model capable of detecting horizons with a minimum of 66\% certainty and sunsets or sunrises with a minimum of 50\% certainty.
-		As outlined in the Software Design Document, this project shall create the initial horizon classifier using the OpenCV library, and possibly integrate other libraries as required.		
-		OpenCV is a BSD-licensed computer-vision library with many relevant sub-modules.
-		Containing over 2,500 algorithms, OpenCV can analyze images and videos; recognizing faces, identifying objects, performing visual transformations, and much more.
-		One can use image transformations to normalize image data such that a classifier can more easily distinguish what is in a given image.
-		
-	\subsection{Sky Detection Algorithm}
-	The following details the specific functions of Aerolyzer's Threshold sky detection algorithm.
-	This horizon classifier is a work-in-progress, modules and code are subject to change.
-	As of December, two algorithms have been written, Horizon detection by straight line and horizon detection by color threshold.
-	
-	\subsubsection{Horizon Detection by Line}
-		The following code requires OpenCV 3.
-		
-		\lstinputlisting[language=Python]{./code/line.py}
-		
-		\begin{enumerate}
-			\item 
-		\end{enumerate}
-
-	\subsection{Tensorflow Inception}
-		One of the most advanced machine learning libraries, Tensorflow can build versatile and accurate predictive data models.
-		One can apply Tensorflow to the Aerolyzer project by training its Inception model.
-		Rohan Verma’s Galaxy Image Classifier is an example of a classification library built with Tensorflow Inception.
-		This library can detect whether a submitted image contains a spiral or elliptical galaxy.
-		Verma’s galaxy classifier is conceptually like Aerolyzer’s planned horizon/sunset/sunrise classifier in that both can feed images into Tensorflow to build a predictive model, and both have specific criterion which can be reflected in a training dataset.
-		Tensorflow’s ease of use, proven library, and ample documentation makes it a potential candidate to create a powerful image classifier. \cite{rhnvrm}
-		
-	\subsection{Conclusion}
-		Tensorflow and OpenCV are strong image recognition platforms.
-		Their powerful libraries make building a predictive model to filter unacceptable images possible.
-		Although the final algorithm and its components are subject to change; at the request of Dr.
-		Whitehall, horizon classification development shall focus on OpenCV algorithms.
-
-
-\section{Aerosol Inference}
-	\subsection{Overview}
-		Monitoring atmospheric aerosols is important due to their effects on the atmosphere's chemical composition and radiation distribution.
-		These particles originate from natural sources such as volcanic eruptions, and unnatural sources such as fossil fuel combustion.
-		Called the "Rayleigh scattering effect", aerosol particles whose diameter is smaller than the wavelengths of visible light scatter the sun’s beams.
-		During the daytime when the sun is almost directly above an observer, the shortest wavelengths of sunlight (blues and violets) refract, resulting in the typical blue color of the sky.
-		For an observer looking at the sun as it approaches the horizon during sunrise or sunset, the Sun’s light rays travel further through the atmosphere.
-		This lengthened path scatters an increased amount of violet and blue light to out of the beam, noticeably reddening sunsets or sunrises. \cite{corfidi_2014}
-		
-
-		The presence of airborne aerosol pollutants, typically 0.5 to 1 μm in diameter, diminishes the vibrancy of sunsets or sunrises, resulting in hazy colors.
-		Red or deep orange sunrises or sunsets typically indicate larger aerosols which can suggest of poor air quality. \cite{corfidi_2014}
-		The Aerolyzer library hopes to feature a module that infers aerosol size based on the hue distribution in acceptable horizon images. 
-		
-	\subsection{Criteria}
-		Third-party tools or libraries to be used in Aerolyzer's aerosol inference module shall be compared by utility.
-		Desirable libraries shall incorporate some method of statistical analysis to identify patterns.
-
-	\subsection{TFLearn}
-		TFLearn is a wrapper built around Tensorflow.
-		It features a modular deep learning library with an easy-to-use higher-level API to enable faster algorithm prototyping.
-		While the underlying algorithms are still Tensorflow, TFLearn is advantageous in that it simplifies complex Tensorflow functions into less verbose calls.
-		This can be combined with a Tensorflow Inception module implementation by simplifying lower-level algorithms to higher-level system calls.
-		This simplification will make the overall inference algorithm more accurate. \cite{TFLearn}
-
-
-	\subsection{Conclusion}
-		While the overall software focus is subject to change throughout the development of the Aerolyzer library, a supervised machine learning library is an optimum choice for performing aerosol analysis on images of the horizon.
-
-
-\section{Data Trend Prediction}
-	\subsection{Overview}
-		The Aerolyzer project hopes to perform trend analysis and predict future aerosol data as a stretch-goal.
-		Predicting air quality based on aerosol data requires in-depth atmospheric knowledge.
-		However, one can expect that a trained neural-network can generate a probabilistic model given a large dataset.
-		To accomplish this stretch-goal, Aerolyzer library requires algorithms that utilize deep statistical analysis libraries to interpret and present Aerosol information in an understandable format.
-
-	\subsection{Criteria}
-		The Aerolyzer project will need to generate a trend analysis using a large dataset.
-		This dataset may consist of data scraped from 3rd party weather APIs and Aerolyzer’s own aerosol inference data.			
-
-	\subsection{Tensorflow LSTM}
-		Tensorflow Long Short-Term Memory networks are a special type of Recurrent Neural Network that avoid the long-term learning dependency problem encountered in some RNNs.
-		This is accomplished by the LSTM’s incorporation of sub-networks within each neural network module.
-		In short, LTSMs do not immediately incorporate all data that passes through the RNN.
-		Instead, an LTSM "regulates" the information it uses to form its computational graph by choosing to leave some data unmodified.
-		The result is a predictive model that adds, modifies, and concatenates information as new data re-shapes old models.
-		Tensorflow LTSMs are widely used and have been proven to work in many probabilistic models.
-		LTSM models have successfully been applied to shape prediction.
-		One can surmise that given adequate testing data, the same can be done for aerosol weather trend inference. \cite{LSTM} \cite{LSTM_REG}
-
-	\subsection{Conclusion}
-		Data interpretation is a challenging task.
-		This will require a large dataset of weather information, and a correct implementation of RNN, LTSM, or a universal weather statistical model.
-		Included as a "stretch-goal", complete implementation of a predictive model may be out of the scope of this project given the time constrains and lack of training data.
-		Current research efforts shall focus on Tensorflow LTSM.
-		
-
-\section{Web Framework}
-\subsection{Overview}
-Web frameworks are what will enable the Aerolyzer library to interact with the users, so the framework's performance will directly affect the end product of the Aerolyzer app. Depending on which framework the Aerolyzer app utilizes, the integration of the Aerolyzer python library could be simpler. The web framework will also inform the structure of any user input, so clarity in this aspect is critical.
-\subsection{Criteria}
-\begin{enumerate}
-	\item Speed
-	\item Security
-	\item Web Development features
-\end{enumerate}
-\subsection{Options}
-\subsubsection{Express.Js}
-Express is a streamlined version of Node.js.
-Express itself doesn't have database support, but is capable of running third-party modules to interface with the database.
-Express is useful for API development as it includes the neccesary http functionality to provide users functions.
-Since Express is a form of Node, an app built on Express will crash if an exception goes uncaught. This can make potential debugging a hassle since the app will have to be restarted completely if anything goes wrong.
-Express typically performs a little quicker than it's parent framework, Node.js, but it's speed can suffer significantly under high traffic.
-Security isn't built in Express functionality, but there is third-party middleware that sets up HTTP headers and transmission security.
-\cite{Express}
-\subsubsection{Ruby on Rails}
-Ruby on Rails, 'Rails' for short, is a Ruby based web framework.
-Rails claims to value web application conventions and will default to many of those conventions in the case that the developer didn't make custom configurations.
-This hopes to make Rails code shorter and less buggy than other frameworks that require minutiae from the developer.
-Rails runs off of a SQLite3 database and is best suited for interfacing with that type of database.
-Rails has a default HTTP security built directly into the framework.
-Being written in Ruby and having many features built-in means that Rails isn't the fastest framework.
-\cite{Rails}
-\subsubsection{Django}
-Django is a python based framework that claims to make database-driven Web development fast and easy.
-Django also supports clean URL designs and in framework templating.
-The first step to using Django is writing the model which maps out your database layout.
-\cite{DjangoStart}
-Since Django apps are centered around these models, Django has a built-in API for manipulating any objects in the model.
-\cite{DjangoOver}
-\subsection{Web Framework Discussion}
-Express immediately takes 3rd place amongst these choices, because it's overly reliant on third party middleware\cite{Express}. Rails and Django are similar in respect to included features, but Django has it's model API for increased ease of use\cite{Rails}\cite{DjangoOver}. 
-\subsection{Conclusion}
-Django offers the most complete set of framework features while maintaining speed. Since Django is written in python and the Aerolyzer library is also written in python, integrating the Aerolyzer library would be easiest with Django. \cite{DjangoOver}
-\begin{center}
-	\begin{tabular}{|l|c|c|} 
-		\hline
-		\multicolumn{3}{|c|}{Web Framework} \\
-		\hline
-		Choice & Pros & Cons\\ [0.5ex] 
-		\hline\hline
-		Express.js & Lightweight, Quick & Requires Middleware for many features, Prone to crash \\ 
-		\hline
-		Ruby on Rails & Robust features & Not particularly fast\\
-		\hline
-		Django & Robust features, Quick & Largest framework\\ [1ex] 
-		\hline
-	\end{tabular}
-\end{center}
-
-
-\section{Database Management System}
-\subsection{Overview}
-A database is how computers store data and its relationships with other values. For Aerolyzer to work properly we'll need a database to store photos and weather analysis under the zip code they apply to. Since the 3 most reasonable choices are all SQL based, the management system that works with the web framework will most likely be the best choice.
-\subsection{Criteria}
-\begin{enumerate}
-	\item Speed
-	\item Size
-\end{enumerate}
-\subsection{Options}
-\subsubsection{SQLite3}
-SQLite boasts it's status as the most deployed database in the world\cite{SQLiteAbout}.
-SQLite manages the SQL database within a single disk file and the library itself is about 1.8 MiB\cite{SQLiteAbout}.
-Since SQLite is self-contained and lightweight it's suitable for most low traffic applications\cite{SQLiteUse}.
-Where SQLite starts to suffer is it's speed when given requests for data that are large relative to the available memory. For Aerolyzer this may be problematic, since the database hase to be capable of fetching high definition pictures quickly\cite{SQLiteAbout}.
-\subsubsection{MySQL}
-MySQL is Oracle's SQL database server.
-MySQL has a larger library to install and has administrative functionality included.
-This means that MySQL would require considerable set up and potential maintenance.
-The size and effort required for MySQL is all in order to provide a database that can handle large requests and high traffic.\cite{MySQLDoc}
-\subsubsection{PostgreSQL}
-PostgreSQL is the SQL supporting descendant of the POSTGRES database system.
-PostgreSQL includes a wide function library with Python support.
-The transfer size PostgreSQL supports is more than enough for the Aerolyzer app.
-The administrative functions included in PostgreSQL would make monitoring the database efficient.\cite{PostgreSQLDoc}
-\subsection{Database Management System Discussion}
-All three database systems would work in the Aerolyzer app, but the question remains which would work the best. PostgreSQL and MySQL would most likely have similar performance once set up, while SQLite might have issues under high traffic.
-\subsection{Conclusion}
-MySQL is the most complete SQL system of these choices, and its performance is most likely going to be similar to PostgreSQL.
-The fact that MySQL has a more expansive library means that it's more likely to have the database solutions we need during development.
-\begin{center}
-	\begin{tabular}{|l|c|c|} 
-		\hline
-		\multicolumn{3}{|c|}{Database Management System} \\
-		\hline
-		Choice & Pros & Cons\\ [0.5ex] 
-		\hline\hline
-		SQLite3 & Lightweight, Fast & Not suited for high traffic \\ 
-		\hline
-		MySQL & Fast, Robust features & Large, Administration required \\
-		\hline
-		PostgreSQL & Fast & Administration required\\ [1ex] 
-		\hline
-	\end{tabular}
-\end{center}
-
-
-\section{Visualization \& Display}
-\subsection{Overview}
-Presenting the output from the Aerolyzer library is the key step in making the user understand the project.
-Having unclear or unappealing visuals to show the results could potentially be worse than simple outputs.
-Most of the presentation can be acheived with HTML alone, but the main display will need a script to insert charts.
-\subsection{Criteria}
-\begin{enumerate}
-	\item Clarity
-	\item Reliability
-\end{enumerate}
-\subsection{Options}
-\subsubsection{Google Charts}
-Google Charts is a JavaScript that is inserted into the web page and is then fed the data to be charted.
-There are 28 different types of charts and they all are rendered as SVG or VML.
-Google Charts lets the chart make a query to the database directly and displays customizable tooltips when moused over.\cite{GoogleCh}
-\subsubsection{CanvasJS}
-CanvasJS, in addition to having 30 types of charts, claims to be an ultra fast HTML5 charting library.
-Rather than render SVG charts, CanvasJS inserts HTML code when rendered.
-With a wide library of customization, CanvasJS claims to make the developer's charts work on Chrome, Firefox, Safari, and Internet Explorer.\cite{CanvasJS}
-\subsubsection{ChartJS}
-ChartJS renders charts into HTML5, like CanvasJS, but is open source.
-ChartJS only has 8 chart types, but offers custimization that lets developers mix chart types.\cite{ChartJS}
-\subsection{Visualization \& Display Discussion}
-CanvasJS is the most robust JavaScript of the 3, which may take some additional code to get the desired results, but the end product will most likely be closer to the ideal visualization. \cite{CanvasJS}
-\subsection{Conclusion}
-Having visuals rendered into HTML5 elements would be ideal.
-It ensures that the graphics are rendered with the rest of the page.
-Of these three libraries, CanvasJS is most appealing but isn't open source.
-Aerolyzer is an open source project and avoiding conflicting licences is important.
-Since this is the case, Google Charts is the best option since it's terms of use won't interfere with Aerolyzer's liscencing.\cite{GoogleCh}\cite{CanvasJS}
-\begin{center}
-	\begin{tabular}{|l|c|c|} 
-		\hline
-		\multicolumn{3}{|c|}{Visualization \& Display} \\
-		\hline
-		Choice & Pros & Cons\\ [0.5ex] 
-		\hline\hline
-		Google Charts & Free to use, sufficient features & not as fast as CanvasJS \\ 
-		\hline
-		ChartJS & Open Source & Not as many features\\
-		\hline
-		CanvasJS & Very Robust & Not Open Source\\ [1ex] 
-		\hline
-	\end{tabular}
-\end{center}
-
-\section{Neural Networks}
-\subsection{Available Technologies}
-\subsubsection{Shallow Neural Network using Numpy}
-Nerual networks are matrices of functions and floats that weighs each value itself after "learning" from multiple sets of data. It does this using a long, but simple sigmoidal function seen here:\\
-$\sigma(x_0*w_0 + x_1*w_1 + ... + x_m*w_m + b)$\cite{nn}\\
-Where the Ws are the weights, b is the bias, and Xs are the inputs. 
-With enough data, a shallow neural network could easily be written and trained in a simple python program using only base python and numpy. The program "learns" by generating random weights and biases, then checks the solution against known data, and adjusts the weights accordingly, until it has the accuracy desired. 
-
-\subsubsection{Deep Neural Network using Tensorflow by Google}
-For deep neural networks, a supervised machine learning library such as tensorflow by Google would be ideal. Deep neural networks are just neural networks with two or more hidden layers. With the more hidden layers, the faster and more accurate the neural network will be, though manually creating these using numpy or other libraries could be very time consuming.
-
-\subsection{Goals}
-Nerual networks could use color data extracted from images as input, and through numerous tests, use accurate weights and biases to accurately identify the types of aerosols in the air, and if they could possibly be harmful or not. To train a neural network such as this would take time and a lot of data, though would definitely be doable. 
-
-
-\subsection{Criteria}
-There are two main factors that will determine whether the use of a neural network would be valid or not, and these are the amount of data we have, and the amount of time we have. With much data that has already been classified by hand, the neural network would be as simple to set up as manually inserting data into a long array,and letting the program do its thing. Unfortunatly, classifying the images by hand so that the program could learn can take very long and may not be faster than creating a function that wil analyze the colors. 
-
-\subsection{Selection}
-Neural networks have a wide array of uses and may not be limited to color analysis. A shallow neural network made using functions available in the numpy python library could be used to check the validity of Aerolyzer's horizon detector. For color analysis, a supervised machine learning library such as tensor flow would be ideal for using a neural network to analyze images. 
-
-
-\section{Image Scraping}
-\subsection{Available Technologies}
-Getting enough data to work with is essential to testing the validity of images the Aerolyzer app will receive from its users. Finding these images is more complicated than it would come accross however. While the functionality of the finished program will include receiving images from users, for testing purposes, a method of scraping websites for valid images is a must. \cite{img}
-
-\subsubsection{python image scraper 2.0.7}
-There are multiplpe python libraries and third party API for image scraping that could supply the data needed. The python library that would work best would most likely be python image scraper 2.0.7.. Because this is a python library available from python's package index, it is fairly simple to install and use. With options such as max images to scrape, image sizes and types, and even order to scrape them, this is an efficient tool for scraping images from urls where the images are known to be valid.\cite{img}
-
-\subsubsection{3rd Party API}
-Other available technologies for image scraping includes a google image scraper and Instagram's image scraper. There are several instagram image scrapers, one of which is available on Pypi named instagram-scraper 1.5.14. As for Google images, there are even more readily available image scrapers, many on Pypi, that could pull images directly from Google images.\cite{img2}
-
-\subsection{Goals}
-What Aerolyzer hopes to get out of the image scraper is a high volume of valid images. Testing the validity of classifiers for percent accuracy requires hundreds, if not thousands of images that do not have filters, and have valid exif data. These images need to be available quickly as if an image scraper takes too long, it would just be faster to manually find images.
-
-\subsection{Criteria}
-The image scraper that will ultimately be used has to consistently supply many images that do not have filters and have valid exif data. The most important criteria however is the consistency. An instagram image scraper may supply numerous valid images, though these could be taken when location data was turned off, or have filters applied, making it an impractical image scraper for Aerolyzer. The image scraper to be used will find consistently valid images fast and in high volumes to make testing as simple as possible.  
-
-
-\subsection{Selection}
-Because of the extreme volume of images needed for testing purposes, most likely multiple image scrapers will get used. Due to horizon detection not needing exif data and can have filters, Aerolyzer could use any and all image scrapers to find enough images to test, while color detection is more precise and will likely need many filters to weed out unwanted images, therefore will be found using instagram scraper or Google scraper.
-
-
-\section{Python Modules/Libraries}
-\subsection{Available Technologies}
-\subsubsection{Pypi}
-PyPi is Python's package index. It is a massive database of packages created by developers to make custom python libraries widely accessable. This is the most valid technology to use for importing python modules. With the way Aerolyzer's repositories are set up, it would be best to upload the module to pypi. As for the design of our module, there is not much wiggle room as to importing and using the module. \cite{pypi}
-
-\subsection{Goals}
-Aerolyzer's goal is to create a custom library that will contain all the tools Aerolyzer creates in order to complete the goal of image classification, analysis, etc. Aerolyzer will not only produce an app that utilizes the Aerolyzer python library, but will also make the library readily available for others to use.
-
-\subsection{Criteria}
-The criteria that determines the library setup will be the availability and convenience. If the Aerolyzer library isn't easily accesible, no one will use it, or it would be too much of a hastle to import and use Aerolyzer's horizon detection, color analysis, and others.
-\subsection{Selection}
-Python's package index is a must use to make the Aerolyzer library easily available to the public. 
-
-
-\begin{table}[h!]
-\centering
- \begin{tabular}{||p{6cm}  p{11cm}||} 
- \hline
- Tech & Description\\ [0.5ex] 
- \hline\hline
- Neural Networks&\\
- \hline
- Shallow & A neural network with a single hidden layer. One could be written in a short python script using little more than mase python and numpy.\\
- 
- Deep & A more complex neural network with two or more hidden layers. As these can get very complex, tools such as tensor flow by Google are used\\
- \hline
- Image Scrapers&\\
- \hline
- Image-Scraper2.0.7 & This is a python module available on Pypi. A URL is supplied and the image scraper pulls all the images from the specified URL \\
- Instagram-Scraper & Instagram is a website with an extremely large amount of images, however, many have filters that could affect the data. \\
- \hline
- Python Library&\\
- \hline
- Pypi & Python Package Index. A large database of modules and libraries for python scripts.  \\ [1ex] 
- \hline
- \end{tabular}
-\end{table}
-
-	\nocite{*}
-	\bibliographystyle{plain}
+\section{Bibliography}
+	\bibliographystyle{IEEEtran}
 	\bibliography{ref}
 
 \end{singlespace}

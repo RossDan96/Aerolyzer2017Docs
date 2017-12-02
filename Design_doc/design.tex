@@ -204,6 +204,8 @@
       			\lstinputlisting[language=Python]{code\HorizonDetectionbyStraightLine.py}
      			
      			Upon being fed an image, the Horizon Detection by Straight Line’s algorithm works as follows:
+				
+
 				\begin{enumerate}
 					\item Perform a gaussian blur on the image
 					\item Convert the image to grayscale
@@ -216,11 +218,42 @@
 
 				This approach works well for some images such as fig X pulled from the Aerolyzer test image album. However, it is clear that this approach does not work for all cases, as seen in fig Y, detecting the horizon by straight line fails in images with a complex foreground that contains many straight lines. A new algorithm is necessary to enhance detection accuracy.
 
-				\includegraphics[width=4.5in]{line1.png}
+				\includegraphics[width=4.5in]{line1}
+				\includegraphics[width=4.5in]{line2}
 
-      \subsubsection{Design rationale}
+				\paragraph{OpenCV Horizon Detection by Threshold}
+					Horizon Detection by Threshold is a more versatile method compared to straight line detection because it relies on segmenting color distribution. Detection by Threshold was designed to classify images that contain complex foregrounds by distinguishing what part of the image is the sky. The Threshold algorithm shall accept or reject an image through the following procedure:
+					\begin{enumerate}
+						\item Separate the image by distinct color spaces
+						\item Perform a binary threshold with the minimum color threshold being the color of the sky.
+						\item Calculate the area of the largest continuous contour that is within the sky color threshold.
+						\item Apply a statistical function to ratio the area of sky color over the total area of the image to produce a confidence rating. A high confidence rating shall indicate that the image contains a horizon while a low confidence rating indicates there is no horizon.
+					\end{enumerate}
+
+					As a proof of concept, the algorithm is implemented in the following python function. This algorithm draws a green outline of what it believes to be the sky.
+
+					\lstinputlisting[language=Python]{code\HorizonDetectionbyStraightLine.py}
+
+					Upon being fed an image, (this example features Fig. Y) the Horizon Detection by Threshold works as follows:
+					\begin{enumerate}
+						\item Convert image into converted to TCbCr digital color space (not to be confused with YUV colorspace).
+						\item A TCbCr digital color space separates the pictures intensity from its colors, enabling a histogram equalization on the blue channel. After performing this equalization, the red-green-blue channels are merged back together. This enables a separation of the sky and clouds from the foreground.
+						\item This separation of sky and foreground becomes clearer after the image is converted back to BGR.
+						\item Prepare to segment the sky from the foreground by greyscaling the image and applying a gaussian blur.
+						\item Apply a binary threshold; if a pixel value is at least 120, it is assigned grey otherwise it is assigned a black value.
+						\item Erode the image to de-noise and improve clarity.
+						\item Finish de-noise with a dialite to de-chunk the image.
+						\item Draw contours, in this case it visually appears as a white outline around the largest continuous grey section.
+						\item If contours can be drawn, then the largest contour is overlaid on the original image. Fig. Y “passes” as acceptable and as see it accurately outlines the visible sky.
+						\item If no contours can be drawn, the algorithm fails the image, meaning no sky or horizon can be detected.
+					\end{enumerate}
+					This algorithm struggles to classify low-light images, improvements and fine-tuning are necessary. One can see the threshold algorithm works well for fig. Y.
+
+      \subsubsection{Design Rationale}
+      	The Aerolyzer Horizon Detection Filter needs to identify acceptable images, namely ones of the sunset or sunrise. Research indicates that specific sunset or sunrise image classification  necessitates a predictive Tensorflow model because creating such an unsupervised classifier in OpenCV is a challenging task. As demonstrated in Fig. Z, this design rationale is accomplished by incorporating a trained Tensorflow model as a secondary step after OpenCV Horizon Detection by Threshold. Tensorflow analysis is a computationally expensive process. An OpenCV classifier to detect the presence of the sky saves computation time by rejecting all images that do not have skies. If no sky is present then it logically follows that there can be no sunrise or sunset in the image.
 
       \subsubsection{Design languages}
+      	An element in the greater Aerolizer python library, the horizon detection algorithm shall be written in Python 2.7.12 while importing OpenCV 3.3.0 and Numpy 1.13.3. The Aerolyzer project’s sponsor, Dr. Whitehall, chose Python as the library’s primary language. 
 
 	\subsection{Library Structure}\label{des:LibStructure}
       \subsubsection{Design Elements}

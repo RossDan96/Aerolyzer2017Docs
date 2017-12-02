@@ -3,11 +3,12 @@ def HorizonDetectionbyStraightLine(self, directory, img_noblur,image):
 	img = cv2.equalizeHist(img)
 	img = cv2.equalizeHist(img)
 	img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-	edges = cv2.Canny(img,150,200) 					#magic numbers (min & max tolerance)
-	lines = cv2.HoughLines(edges,1,np.pi/180,10) 	#magic numbers (min line length)
+	edges = cv2.Canny(img,150,200) 					
+	lines = cv2.HoughLines(edges,1,np.pi/180,10) 	
 	print(str(lines))
 	for rho,theta in lines[0]:
-	    if (theta > 5.49  or theta < 0.78) or (theta > 2.35 and theta < 3.92): #limiting angle so that it is not more than 45 deg or less than -45
+		#limiting angle so that it is not more than 45 deg or less than -45
+	    if (theta > 5.49  or theta < 0.78) or (theta > 2.35 and theta < 3.92): 
 		continue
 	    a = np.cos(theta)
 	    b = np.sin(theta)

@@ -15,7 +15,9 @@
 % 1. Fill in these details
 \def \CapstoneTeamName{		Aerolyzer}
 \def \CapstoneTeamNumber{		19}
-\def \GroupMemberOne{			Kin-Ho Lam}
+\def \GroupMemberOne{			Daniel Ross}
+\def \GroupMemberTwo{			Kin-Ho Lam}
+\def \GroupMemberThree{			Logan Wingard}
 \def \CapstoneProjectName{		Aerolyzer}
 \def \CapstoneSponsorCompany{	NASA JPL}
 \def \CapstoneSponsorPerson{		Kim Whitehall}
@@ -25,8 +27,8 @@
 \def \DocType{		%Problem Statement
 	%Requirements Document
 	%Technology Review
-	%Design Document
-	Progress Report
+	Design Document
+	%Progress Report
 }
 
 \newcommand{\NameSigPair}[1]{\par
@@ -42,7 +44,6 @@
 	\begin{titlepage}
 		\pagenumbering{gobble}
 		\begin{singlespace}
-
 			\centering
 			\includegraphics[height=4cm,natwidth=345,natheight=435]{images/coe_v_spot1.png}
 			\hfill 
@@ -67,18 +68,19 @@
 				\vspace{5pt}
 				{\large
 					\NameSigPair{\GroupMemberOne}\par
+					\NameSigPair{\GroupMemberTwo}\par
+					\NameSigPair{\GroupMemberThree}\par
 				}
 				\vspace{20pt}
 			}
 			\begin{abstract}  
 				The Aerolyzer Project aims to deliver a new source of air quality and weather information through leveraging existing weather data and image analysis algorithms.
+				% characterize aerosol content in the atmosphere
 				When complete, this open-source project shall feature a Python library that uses image classification and third-party weather APIs, displayed with an intuitive web-based user interface.
-				This document outlines the software design descriptions for the Aerolyzer Library.
-		
+				This document outlines the software design descriptions for the Aerolyzer Library. 
 			\end{abstract}     
 		\end{singlespace}
 	\end{titlepage}
-
 \section{Table of Contents}
 \tableofcontents
 \bibliographystyle{IEEEtran}

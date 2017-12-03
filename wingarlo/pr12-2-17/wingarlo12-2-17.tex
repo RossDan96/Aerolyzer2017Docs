@@ -1,0 +1,126 @@
+\documentclass[onecolumn, draftclsnofoot,10pt, compsoc]{IEEEtran}
+\hbadness=1000 % suppress warnings
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{cite}
+\usepackage{geometry}
+
+\usepackage{longtable}
+
+\geometry{textheight=9.5in, textwidth=7in}
+
+% 1. Fill in these details
+\def \CapstoneTeamName{		Aerolyzer}
+\def \CapstoneTeamNumber{		19}
+\def \GroupMemberOne{			Logan Wingard}
+\def \CapstoneProjectName{		Aerolyzer}
+\def \CapstoneSponsorCompany{	NASA JPL}
+\def \CapstoneSponsorPerson{		Kim Whitehall}
+
+
+% 2. Uncomment the appropriate line below so that the document type works
+\def \DocType{		%Problem Statement
+	%Requirements Document
+	%Technology Review
+	%Design Document
+	Progress Report
+}
+
+\newcommand{\NameSigPair}[1]{\par
+	\makebox[2.75in][r]{#1} \hfil 	\makebox[3.25in]{\makebox[2.25in]{\hrulefill} \hfill		\makebox[.75in]{\hrulefill}}
+	\par\vspace{-12pt} \textit{\tiny\noindent
+		\makebox[2.75in]{} \hfil		\makebox[3.25in]{\makebox[2.25in][r]{Signature} \hfill	\makebox[.75in][r]{Date}}}}
+% 3. If the document is not to be signed, uncomment the RENEWcommand below
+\renewcommand{\NameSigPair}[1]{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{images/}}
+\begin{document}
+	\begin{titlepage}
+		\pagenumbering{gobble}
+		\begin{singlespace}
+
+			\centering
+			%\includegraphics[height=4cm,natwidth=345,natheight=435]{images/coe_v_spot1.png}
+			\hfill 
+			% 4. If you have a logo, use this includegraphics command to put it on the coversheet.
+			%\includegraphics[height=4cm]{CompanyLogo}   
+			\par\vspace{.2in}
+			\centering
+			\scshape{
+				\huge CS Capstone \DocType \par
+				{\large\today}\par
+				\vspace{.5in}
+				\textbf{\Huge\CapstoneProjectName}\par
+				\vfill
+				{\large Prepared for}\par
+				\Huge \CapstoneSponsorCompany\par
+				\vspace{5pt}
+				{\Large\NameSigPair{\CapstoneSponsorPerson}\par}
+				{\large Prepared by }\par
+				Group\CapstoneTeamNumber\par
+				% 5. comment out the line below this one if you do not wish to name your team
+				\CapstoneTeamName\par 
+				\vspace{5pt}
+				{\large
+					\NameSigPair{\GroupMemberOne}\par
+				}
+				\vspace{20pt}
+			}
+			\begin{abstract}  
+				The Aerolyzer Project aims to deliver a new source of air quality and weather information through leveraging existing weather data and image analysis algorithms.
+				When complete, this open-source project shall feature a Python library that uses image classification and third-party weather APIs, displayed with an intuitive web-based user interface.
+				This document outlines the software design descriptions for the Aerolyzer Library.
+		
+			\end{abstract}     
+		\end{singlespace}
+	\end{titlepage}
+
+\tableofcontents
+\bibliographystyle{IEEEtran}
+\bibliography{ref}
+\clearpage
+
+\begin{singlespace}
+
+	\section{Project Purpose and Goals}
+
+		
+	\section{Current State}
+
+
+	\section{Issues}
+
+
+	\section{Retrospective}
+		\begin{tabular}{|l|p{0.3\linewidth}|p{0.3\linewidth}|p{0.3\linewidth}|}\hline \textbf{Week} & \textbf{Positives} & \textbf{Deltas} & \textbf{Actions}\\\hline
+		1 	& We chose our top 5 projects. & All of the projects I selected were taken. Five more project preferences need to be submitted. & I sent in my additional five project preferences. \\\hline
+
+		2 	& We met with Kim Whitehall, the client for our chosen project "Aerolyzer". & We must write our individual problem statements. The problem statement should clearly describe the problem that Aerolyzer will solve, the proposed solution (how we plan to solve the problem), and performance metrics, which includes definitions and accuracy specifics.  & We met with Kim Whitehall and were able to get an understanding of the problem we are trying to solve using Aerolyzer. I used this information to write and submit my individual problem statement. \\\hline
+
+		3 	& I recieved a lot of feedback on my individual problem statement. We met with our TA for the first time this week and learned what is being looked for in the complete team problem statement, as well as the requirements doc.  & Much of my problem statement needs to change before we can compile all the problem statements into one. & I made edits to my problem statement and we started the compilation process. \\\hline
+
+		4 	& We completed our problem statement and submitted it. Kin-Ho was able to set up a virtual machine to use as a development environment.  & Boundaries need to be set in our group after high tensions lead to some unwanted surprises. We also need to start writing the requirements document. & We submitted the problem statement and tensions have lowered. We spoke with the TA and got some instructions for the requirements document. \\\hline
+
+		5 	& Submitted the requirements document rough draft. & Rough draft is missing a ghant chart. We need to make and include a ghant chart into our requirements doc before we submit the final. We need to configure the library so that the functions we write are imported along with Aeorlyzer. & We submitted the rough draft of the requirements document. I researched a bit into creating modules in python. \\\hline
+
+		6 	& Daniel created a very nice ghant chart to go in the requirements document and the final draft is looking great. & We've been looking into horizon detection in OpenCV and found a python script online. We are going to modify it to see if it would work in our context, and if it does, we will contact the writer to ask permission to use it. & After tinkering with the code we found, we determined it does not meet our needs and we will not be contacting the creator of it. \\\hline
+
+		7 	& Succesfully setup the python module on the virtual machine. & I need to look into the setup.py file and determine what needs to be done to ensure anyone who imports aerolyzer from Pypi has access to all the functions we have been writing. & I've been researching python's package index and understanding the syntax needed in the setup.py file to ensure Aerolyzer has what it needs to run our functions. \\\hline
+
+		8 	& Set a meeting with Kim Whitehall to help me understand git and github better. & I've been pushing my work to the wrong fork and need to get git straightened out. & I've arranged a meeting with Kim to ensure that I understand git and our project's workflow. I also forked the repo and created, then removed, a test file and made a pull request as practice. \\\hline
+
+		9 	& I had my meeting with Kim about git and it all makes much more sense to me. I found the meeting extremely helpful. & We need to work on the Technology review document. & Been working on the Tech review. putting a lot of research time into neural networks, image scrapers and library structures. \\\hline
+
+		10 	& Fixed many of the errors in my section of the Tech review thanks to helpful feedback from Winters. & The design document needs to get started and submitted by Friday. We are also now having problems with the google drive and are unable to upload files to the drive. & We've been putting a lot of time into the design document and have been struggling a lot with the LateX syntax. After troubleshooting the LateX file for a bit, we succesfully got it to compile how we liked it and submitted it to our Onenote and emailed it to Winters. \\\hline
+		\end{tabular}\\
+
+
+
+
+
+\end{singlespace}
+\end{document}

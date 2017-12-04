@@ -27,8 +27,8 @@
 \def \DocType{		%Problem Statement
 	%Requirements Document
 	%Technology Review
-	Design Document
-	%Progress Report
+	%Design Document
+	Progress Report
 }
 
 \newcommand{\NameSigPair}[1]{\par
@@ -193,17 +193,27 @@
 			&
 			Issues with Github are ongoing, we need to work harder on trying to understand what she needs.
 			&
-
+			Logan is having a 1-1 session with Kim to talk about how to use Github. I'll do research on my own and ask Logan what he learned.
 			\\\hline
 
 		9	&
+			I created the Horizon Detection by Threshold algorithm.
+			This new approach uses a binary threshold to separate the sky from the foreground.
+			Further details can be found below.
 			&
+			Kim was not happy with the large amount of data I had in my pull request.
 			&
+			I removed the test images I used and moved them to the shared Google drive.
+			I also squashed my commits.
 			\\\hline
 
 		10	&
+			We are struggling to finish the design document and compile all our notes.
+			I have managed to solve a few compile errors in our Progress Report and Design document.
+			We submitted all documents by midnight.
 			&
-			&
+			Latex was giving us a bit of a hard time, I stopped writing in overleaf and started following the errors it was giving us.
+
 			\\\hline
 		\end{longtable}
 		\subsection{Logan Wingard}
@@ -290,52 +300,25 @@
  				\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/line2.jpg}
 
 				\subsubsection{OpenCV Horizon Detection by Threshold}
-					Horizon Detection by Threshold is a more versatile method compared to straight line detection because it relies on segmenting color distribution.
-		Detection by Threshold was designed to classify images that contain complex foregrounds by distinguishing what part of the image is the sky.
-		The Threshold algorithm shall accept or reject an image through the following procedure:
+						Horizon Detection by Threshold is a more versatile method compared to straight line detection because it relies on segmenting color distribution.
+					Detection by Threshold was designed to classify images that contain complex foregrounds by distinguishing what part of the image is the sky.
+					The Threshold algorithm shall accept or reject an image through the following procedure:
 					\begin{enumerate}
 						\item Separate the image by distinct color spaces
 						\item Perform a binary threshold with the minimum color threshold being the color of the sky.
 						\item Calculate the area of the largest continuous contour that is within the sky color threshold.
 						\item Apply a statistical function to ratio the area of sky color over the total area of the image to produce a confidence rating.
-		A high confidence rating shall indicate that the image contains a horizon while a low confidence rating indicates there is no horizon.
+								A high confidence rating shall indicate that the image contains a horizon while a low confidence rating indicates there is no horizon.
 					\end{enumerate}
 
 					As a proof of concept, the algorithm is implemented in the following python function.
-		This algorithm draws a green outline of what it believes to be the sky.
+					This algorithm draws a green outline of what it believes to be the sky.
+					If no contours can be drawn, the algorithm fails the image, meaning no sky or horizon can be detected.\\
 
 					\lstinputlisting[language=Python]{code/HorizonDetectionbyThreshold.py}
-
-					Upon being fed an image, (this example features Fig.
-		Y) the Horizon Detection by Threshold works as follows:
-					\begin{enumerate}
-						\item Convert image into converted to TCbCr digital color space (not to be confused with YUV colorspace).\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/1.jpg}
-						\item A TCbCr digital color space separates the pictures intensity from its colors, enabling a histogram equalization on the blue channel.
-		After performing this equalization, the red-green-blue channels are merged back together.
-		This enables a separation of the sky and clouds from the foreground.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/2.jpg}
-						\item This separation of sky and foreground becomes clearer after the image is converted back to BGR.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/3.jpg}
-						\item Prepare to segment the sky from the foreground by greyscaling the image and applying a gaussian blur.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/4.jpg}
-						\item Apply a binary threshold; if a pixel value is at least 120, it is assigned grey otherwise it is assigned a black value.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/5.jpg}
-						\item Erode the image to de-noise and improve clarity.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/6.jpg}
-						\item Finish de-noise with a dialite to de-chunk the image.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/7.jpg}
-						\item Draw contours, in this case it visually appears as a white outline around the largest continuous grey section.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/8.jpg}
-						\item If contours can be drawn, then the largest contour is overlaid on the original image.
-		Fig.
-		Y “passes” as acceptable and as see it accurately outlines the visible sky.\\
 							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/9.jpg}
-						\item If no contours can be drawn, the algorithm fails the image, meaning no sky or horizon can be detected.\\
 					\end{enumerate}
 					This algorithm struggles to classify low-light images, improvements and fine-tuning are necessary.
-		One can see the threshold algorithm works well for fig.
-		Y.
 
       \subsubsection{Design Rationale}
       	The Aerolyzer Horizon Detection Filter needs to identify acceptable images, namely ones of the sunset or sunrise.

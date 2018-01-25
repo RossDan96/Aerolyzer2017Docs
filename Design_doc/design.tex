@@ -14,10 +14,10 @@
 \def \CapstoneTeamName{		Aerolyzer}
 \def \CapstoneTeamNumber{		19}
 \def \GroupMemberOne{			Daniel Ross}
-\def \GroupMemberTwo{			Kin-Ho Lam}
-\def \GroupMemberThree{			Logan Wingard}
+\def \GroupMemberTwo{			Logan Wingard}
+%\def \GroupMemberThree{			}
 \def \CapstoneProjectName{		Aerolyzer}
-\def \CapstoneSponsorCompany{	NASA JPL}
+\def \CapstoneSponsorCompany{}
 \def \CapstoneSponsorPerson{		Kim Whitehall}
 
 
@@ -55,9 +55,9 @@
 				\textbf{\Huge\CapstoneProjectName}\par
 				\vfill
 				{\large Prepared for}\par
-				\Huge \CapstoneSponsorCompany\par
-				\vspace{5pt}
-				{\Large\NameSigPair{\CapstoneSponsorPerson}\par}
+				%\Huge \CapstoneSponsorCompany\par
+				%\vspace{5pt}
+				{\Huge\NameSigPair{\CapstoneSponsorPerson}\par}
 				{\large Prepared by }\par
 				Group\CapstoneTeamNumber\par
 				% 5. comment out the line below this one if you do not wish to name your team
@@ -66,7 +66,7 @@
 				{\large
 					\NameSigPair{\GroupMemberOne}\par
 					\NameSigPair{\GroupMemberTwo}\par
-					\NameSigPair{\GroupMemberThree}\par
+					%\NameSigPair{\GroupMemberThree}\par
 				}
 				\vspace{20pt}
 			}
@@ -88,7 +88,7 @@
 \begin{singlespace}
 \section{Overview}
 	\subsection{Scope}
-		Aerolyzer mobile web application is intended to retrieve data from user images in order to analyze colors in the images using wunderground data and image analysis software. This application proposed by NASA JPL is intended for aiding in the scientific research of air quality and of aerosols in the atmosphere. 
+		Aerolyzer mobile web application is intended to retrieve data from user images in order to analyze colors in the images using Wunderground data and image analysis software. This application proposed by Kim Whitehall is intended for aiding in the public understanding of air quality and of aerosols in the atmosphere. 
 	\subsection{Purpose}
 		This document describes the three main components of Aerolyzer that will be designed, those being the library data interface, the horizon detection filter and the library structure. 
 	\subsection{Intended Audience}
@@ -119,88 +119,44 @@
 	\subsection{Introduction}
     
     \subsection{Software Design Description Identification}
-    	\subsubsection{Library Data Interfaces}
-        The Aerolyzer Python library will need to have a framework to receive input from the user, send the results of the functions to the HTML which will display them, store data for later use, and retrieve data relevant to a user’s request.
+    	\subsubsection{Image Data Preprocessing}
+        When a user submits an image to the web framework
         \subsubsection{Horizon Detection Filter}
         The Aerolyzer library hopes to feature a module that infers aerosol size based on the hue distribution in images of the sunrise or sunset. To this end, a filter that intelligently recognizes acceptable images \ref{def:accImg} is necessary to save computation time and guarantee reliable data.
         \subsubsection{Library Structure}
         The Aerolyzer library aims to be accessible to import for scientific research purposes. The structure of this library will determine the ease of access of this library.
 	\subsection{Identified design stakeholders}
-    	\subsubsection{Library Data Interfaces}
-        The stakeholder in the Library data interfaces will be the users submitting ZIP codes and images. Without the proper channels for data transfer, the user’s will never receive results from the library and the library will never receive requests from the users.
+    	\subsubsection{Image Data Preprocessing}
+        
         \subsubsection{Horizon Detection Filter}
         The stakeholders for the Horizon Detection Filter python module include users who will be using the Aerolyzer web service. Users will ideally not have to wait for long periods of time for the server to process weather and air quality analysis. The horizon filter will expedite this process by filtering out bad data.
         \subsubsection{Library Structure}
         The stakeholders for the Aerolyzer library’s structure will be the developers and the Aerolyzer’s primary stakeholder, Dr. Kim Whitehall. The Dr. Whitehall requires the library to be accessible from Python’s package index.
 \section{Selected Design Viewpoints}
-	\subsection{Library Data Interfaces}
+	\subsection{Image Data Preprocessing}
       \subsubsection{Design Elements}
           \paragraph{Design Attributes}
-          Django is the python based web framework hosting the Aerolyzer application\cite{DjangoStart}.
-          The purpose of using Django is to enable servers to present the input prompts to the user and then present the output of the Python Library to the user.
-          The Django framework works on models that map out the database that the application is stored on \cite{DjangoDoc}.
-          Django is open source and written by Django Software Foundation \cite{DjangoOver}.
-		  
-          The Python library functions will be called by HTML code reacting to the user input.
-		  Once the library functions\ref{des:LibStructure} receive the user input, the library will store the user’s input and data associated with it in the database.
-		  The results returned from the library calls to the html code will coincide to a change in web page that will display returned data using Google Charts \cite{GoogleCh}.
-          \paragraph{Design Relationships}
-            \begin{figure}[h]
-            	\centering
-                \includegraphics[width=4.5in,natwidth=600,natheight=588]{images/DesignInterface.png}
-                \caption{Library Interfaces}
-                \label{fig:1}
-            \end{figure}
-          \paragraph{Design Constraints}
-          The Python Library functions must make their calls to the MySQL database discrete in order to maintain consistent data between multiple users.
-          The HTML code of the application has to handle each page request correctly and pass any input from the user to its requests sent to the Aerolyzer library. 
-          Additionally, Google Charts is a imported javascript resource which will require a consistent internet connection when Django starts processing the web page.
+          
       \subsubsection{Design overlays}
-      Django will provide the data models for user input and the library output.
-      These models will be an Image class, for all cases where an user submits an image, and a ZIP class, for all cases where an user submits a ZIP code in lieu of an image.
-	  Each class contains all of the fields for the data that the HTML will need in either case. This will contain weather API data, results, and user data in both cases.
-	  EXIF field, Image ID field, and filename are unique to the Image class while the ZIP field is unique to the ZIP class. 
-		\begin{lstlisting}[language=Python]
-        from django.db import models
-        
-        class Image(models.Model):
-            imageId = models.AutoField(primary_key=True)
-            filename = models.CharField(max_length=200, default = "none")
-            exif = models.CharField(max_length=200)
-            wunder = models.CharField(max_length=200)
-            results = models.CharField(max_length=200)
-            
-        def __unicode__(self):
-            return self.results
-			\end{lstlisting}
-            The HTML code will call on the Google Charts API on the results display page which Django will only navigate to if there were no issues for the Library.
-			In the case that the user inputs an invalid ZIP code, rather than attempt to navigate to a new page the HTML code will display an error.
-			Django’s input forms will designate what types of files are accepted for image upload and an error message will be thrown if the image isn’t a .png, .jpeg, or .jpg.
-			
-			The MySQL database will use ZIP codes as primary keys which subsequent weather data, image analysis, and images will be stored under.
       
       \subsubsection{Design rationale}
-		Using the Django framework serves as a reliable and appealing option for multiple reasons. Django, like the Aerolyzer library, is written in Python so the resulting interfaces with any HTML code is going to be written in python which offers additional consistency to development. Django’s built in templating API and development tools also remove the need for additional imported software that some other frameworks require.\cite{DjangoStart}\cite{DjangoOver}
-			Setting the Aerolyzer library in between the front end of the web framework and the back end of the MySQL database is the design choice here, because the Library’s functions are the only component that need to read or write to the database.
+		
      
       \subsubsection{Design languages}
-		As stated previously, Django is written in python \cite{DjangoOver}. The web pages will be written in HTML5 and utilize javascript in order to use Google Charts \cite{GoogleCh}. The MySQL database is used with SQL (Structured Query Language).
-
+		
 	\subsection{Horizon Detection Filter}
-      \subsubsection{Design Elements - OpenCV \& Google Tensorflow}
+      \subsubsection{Design Elements - OpenCV }
       		\paragraph{Design Attributes}
           		Outlined in the Software Design Document, a horizon detection filter shall be created using OpenCV and other python libraries as required. OpenCV is a BSD-licensed computer-vision library with many relevant sub-modules. Containing over 2,500 algorithms, OpenCV can analyze images and videos, recognize faces, identify objects, perform visual transformations, and more. One can use image transformations to normalize image data such that a classifier can more easily distinguish what is in a given image. \cite{svm}
-
-				An advanced machine learning library, Google Tensorflow can build versatile and accurate predictive data models provided a large dataset of training images. One can apply Tensorflow to the Aerolyzer project by training its inception module to recognize patterns in a large dataset consisting of acceptable images of the horizon. A human will need manually pre-classify and build a test dataset consisting of acceptable images. \ref{acc_img}  Tensorflow’s ease of use, proven library, and ample documentation makes it a potential candidate to create a powerful image classifier. \cite{rhnvrm} \cite{RNN}
 
 				As of December 2017, Kin-Ho Lam has designed and tested two horizon detection classifiers using OpenCV 3.3.0. Ongoing work on the project can be viewed in the Aerolyzer library’s open-source Github. These classifiers are horizon detection by straight line and horizon detection by color threshold.
 
           \paragraph{Design Relationships}
 					.\\
-					\includegraphics[width=4.5in,natwidth=1907,natheight=787]{images/tensor.png}
+					\includegraphics[width=4.5in,natwidth=1907,natheight=787]{images/Design2.png}
 
           \paragraph{Design Constraints}
-          		Aerolyzer’s unique image criterion necessitates a predictive data model capable of detecting horizons with a minimum of 66\% certainty and sunsets or sunrises with a minimum of 50\% certainty. Efficient and expedient algorithm performance is necessary due to the expected user base who will be waiting for Aerolyzer to service their request. Pending further research, these criterion are achievable through OpenCV and Tensorflow. More computer vision libraries or modules may be required.
+          		Aerolyzer’s unique image criterion necessitates a predictive data model capable of detecting horizons with a minimum of 66\% certainty and identifying aersols with a minimum of 50\% certainty. Efficient and expedient algorithm performance is necessary due to the expected user base who will be waiting for Aerolyzer to service their request. Pending further research, these criterion are achievable through OpenCV though more computer vision libraries or modules may be required.
       
       \subsubsection{Design overlays}
       		\paragraph{OpenCV Horizon Detection by Straight Line Algorithm}

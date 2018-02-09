@@ -1,0 +1,4 @@
+The outcomes that were worked towards did not stray far to the actual results. Though many attempts were made to get accurate horizon detection and color analysis, the decided method was chosen for its accuracy, while sacrificing execution time. The execution times can be seen here:
+FIGURE W/ TIME STATS
+
+The accuracy of the image classifier function was ""% accurate, which is (only) ""% lower|higher than the goal accuracy of 66%.

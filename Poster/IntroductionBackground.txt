@@ -1,3 +1,6 @@
 Why did you undertake this project? What generated the idea? What goals and hypotheses did you have?
 
-Aerosols are particles suspended in the air and they have a direct impact on our lives. From Climate concious standpoint, Aerosols affect the amount of radiation that our atmosphere can contain and Aerosols contribute to the amount of c
+The Aerolyzer project is aimed to provide users with information about what's in the air they breath. Aerosols can have lasting health effects or even cause more immediate issues for people with asthma. 
+About 10% of Aerosols are man made while the other 90% of aerosols are from natural sources, like volcanic eruptions, sea salt, or mineral dust. Natural Aerosols are generally larger particles than anthropogenic aerosols.
+Since humans can't typically see aerosols with our naked eye, Aerolyzer analyzes the effect that aerosols have on sunrises and sunsets. When the sun is close to the horizon, the light from the sun has a higher likelihood to pass by or collide with aerosols. Aerosols can more effectively scatter light of shorter wavelengths which results in the more red light passing through.
+

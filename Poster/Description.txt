@@ -1,0 +1,7 @@
+Aerolyzer is a mobile application that takes user submitted images, and through computer vision software, analyzes the colors of a sunset or sunrise in order to present information on air quality and aerosols in the atmosphere.
+
+We did this using the opencv python library to single out the haze layer in the sky, and calculate the wave lengths of the color emmited from the sunset. using this wavelength data, we are able to tell if the aerosols in the atmosphere are potentially harmful or not. Using google geocoding api, we are able to get the images location through exif data to accurately give local aerosol information.
+
+We chose to use OpenCV as opposed to larger computer vision libraries such as Tensorflow because we did not need many of the functions Tensorflow offers. OpenCV is a simple enough library to complete the task assigned.
+
+The Aerolyzer Python library uses the EXIF data attached to an image when it's taken on a smart device. The EXIF data tells the library whether an image was taken during sunrise or sunset, where the image was taken, what the size of the image is, and whether the image has been changed since it was taken. Only after confirming that an image's EXIF data is valid the computer vison functions receive the image.

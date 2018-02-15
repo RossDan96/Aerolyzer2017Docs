@@ -18,7 +18,6 @@
 \def \GroupMemberOne{			Daniel Ross}
 \def \GroupMemberTwo{			Logan Wingard}
 \def \CapstoneProjectName{		Aerolyzer}
-\def \CapstoneSponsorCompany{	NASA JPL}
 \def \CapstoneSponsorPerson{		Kim Whitehall}
 
 
@@ -57,8 +56,6 @@
 				\textbf{\Huge\CapstoneProjectName}\par
 				\vfill
 				{\large Prepared for}\par
-				\Huge \CapstoneSponsorCompany\par
-				\vspace{5pt}
 				{\Large\NameSigPair{\CapstoneSponsorPerson}\par}
 				{\large Prepared by }\par
 				Group\CapstoneTeamNumber\par
@@ -96,8 +93,8 @@
 		The team is done with image metadata analysis and the weather data calls.
 		Logan is currently optimizing the horizon check so the color analysis isn't performed on invalid images.
 		\subsection{Logan Wingard}
-		The last restriction function is the horizon detection which is currently at 50% accuracy with valid images.
-		The goal for horizon detection is 66% on valid images, which is just 16% off from what it is now.
+		The last restriction function is the horizon detection which is currently at 50\% accuracy with valid images.
+		The goal for horizon detection is 66\% on valid images, which is just 16\% off from what it is now.
 		\subsection{Daniel Ross}
 		I've completed the functions needed to locate the image source.
 		I've written drafts of the first functions needed for color analysis.
@@ -110,12 +107,13 @@
 		During Fall term we worked quite a bit under the notion that the bulk of our project was going to be the development of a image classifier that identified sunrises and sunsets.
 		\subsection{Logan Wingard}
 			Another problem that has come about was git log messiness.
-			There have been too many junk commits (Ex: "Removing junk files, please ignore", "^", etc.).
+			There have been too many junk commits.
+            EX: ``Removing junk files. Please ignore''.
 			The simple fix is to git rebase and go through each commit specifying which ones to pick, and which ones to fixup, though this proved not to be so simple.
 			Many of the commits were chained together, making it very difficult to rebase.
 			The most recent issue has been getting data to train a shallow neural network that is being implemented in an attempt to increase horizon detection accuracy.
 			With the amount of data needed to train a neural network, manually entering in data could be extremely time consuming, though may be the simplest way of implementing the neural network into the functions.
-		\subsection{Daniel Ross
+		\subsection{Daniel Ross}
 			At the beginning of Fall term our client informed us that this is not what she wanted for the project.
 			We refocused the project, moving our development focus away from in-depth image recognition software to color analysis.
 			We now have a workable version of the horizon checking function and now we're starting the color analysis like the client wants.
@@ -123,9 +121,9 @@
 			In order to get the Zip Code of an image I used a call to the Google Geocoding API, which returns a json of google maps data.
 			The formatting of this returned json was exceptionally difficult to work with because the API returns a dictionary containing all the results for a location search and I only needed the data from the first results.
 			I spoke with our TA about it during a weekly meeting, but I ended up going to Stack Overflow to find the simplest way to navigate the API results.
-
+		
 	\section{Interesting Code}
-      
+
 
 \end{singlespace}
 \end{document}

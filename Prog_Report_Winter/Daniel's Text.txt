@@ -1,0 +1,23 @@
+briefly recaps the project purposes and goals
+
+
+describes where you are currently on the project
+
+
+describes what you have left to do
+
+
+describes any problems that have impeded your progress, with any solutions you have
+
+
+includes particularly interesting pieces of code (if coding is involved)
+
+
+(research only) includes descriptions of experimental design
+
+
+(interface design only) includes description of first user study, hopefully with results
+
+
+includes images of your project -- screen shots, photos, whatever is appropriate
+

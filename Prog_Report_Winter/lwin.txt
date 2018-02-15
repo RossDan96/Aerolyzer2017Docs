@@ -1,0 +1,24 @@
+
+Current State:
+
+So far, the image restriction functions have nearly been completed.
+The last restriction function is the horizon detection which is currently at 50% accuracy with valid images.
+The goal for horizon detection is 66% on valid images, which is just 16% off from what it is now.
+
+
+What's left to do:
+
+While horizon detection is getting closer and closer to that 66% accuracy goal, the largest portion of work left to do is on the color analysis.
+Once a solid function for converting colors from RGB to wavelength gets written, the wavelength data can be used to get information on the aerosols in the atmosphere that day and time, and inform the user if these aerosols could be potentially harmful or not.
+
+
+Problems:
+
+A few of the problems that have risen in team Aerolyzer were caused by conflicts amoungst the team members.
+Since the begining of winter term however, one member of team Aerolyzer has been removed, and much of these conflicts have been resolved.
+Another problem that has come about was git log messiness.
+There have been too many junk commits (Ex: "Removing junk files, please ignore", "^", etc.).
+The simple fix is to git rebase and go through each commit specifying which ones to pick, and which ones to fixup, though this proved not to be so simple.
+Many of the commits were chained together, making it very difficult to rebase.
+The most recent issue has been getting data to train a shallow neural network that is being implemented in an attempt to increase horizon detection accuracy.
+With the amount of data needed to train a neural network, manually entering in data could be extremely time consuming, though may be the simplest way of implementing the neural network into the functions.

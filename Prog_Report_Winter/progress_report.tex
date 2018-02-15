@@ -93,10 +93,36 @@
 		The major goals this presents to the project are a quick weather data retrieval, the identification of an image that can be used for color analysis, and the analysis of the colors in an image to estimate the level of aerosols.
 	
 	\section{Current State}
-
+		The team is done with image metadata analysis and the weather data calls.
+		Logan is currently optimizing the horizon check so the color analysis isn't performed on invalid images.
+		\subsection{Logan Wingard}
+		The last restriction function is the horizon detection which is currently at 50% accuracy with valid images.
+		The goal for horizon detection is 66% on valid images, which is just 16% off from what it is now.
+		\subsection{Daniel Ross}
+		I've completed the functions needed to locate the image source.
+		I've written drafts of the first functions needed for color analysis.
+		The first function creates an array of Hue values that correspond to certain wavelengths of light.
+		The second function compares a provided color to the array and returns the closest matching wavelength of light.
 
 	\section{Problems}
+		Since the begining of winter term however, one member of team Aerolyzer has been removed, and much of these conflicts have been resolved.
+		Towards the beginning of the term our team had a few internal issues and our client had some problems with how the project was going.
+		During Fall term we worked quite a bit under the notion that the bulk of our project was going to be the development of a image classifier that identified sunrises and sunsets.
+		\subsection{Logan Wingard}
+			Another problem that has come about was git log messiness.
+			There have been too many junk commits (Ex: "Removing junk files, please ignore", "^", etc.).
+			The simple fix is to git rebase and go through each commit specifying which ones to pick, and which ones to fixup, though this proved not to be so simple.
+			Many of the commits were chained together, making it very difficult to rebase.
+			The most recent issue has been getting data to train a shallow neural network that is being implemented in an attempt to increase horizon detection accuracy.
+			With the amount of data needed to train a neural network, manually entering in data could be extremely time consuming, though may be the simplest way of implementing the neural network into the functions.
+		\subsection{Daniel Ross
+			At the beginning of Fall term our client informed us that this is not what she wanted for the project.
+			We refocused the project, moving our development focus away from in-depth image recognition software to color analysis.
+			We now have a workable version of the horizon checking function and now we're starting the color analysis like the client wants.
 
+			In order to get the Zip Code of an image I used a call to the Google Geocoding API, which returns a json of google maps data.
+			The formatting of this returned json was exceptionally difficult to work with because the API returns a dictionary containing all the results for a location search and I only needed the data from the first results.
+			I spoke with our TA about it during a weekly meeting, but I ended up going to Stack Overflow to find the simplest way to navigate the API results.
 
 	\section{Interesting Code}
       

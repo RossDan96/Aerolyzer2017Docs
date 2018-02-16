@@ -123,7 +123,52 @@
 			I spoke with our TA about it during a weekly meeting, but I ended up going to Stack Overflow to find the simplest way to navigate the API results.
 		
 	\section{Interesting Code}
+		The following is an excerpt from the horizon detection function. It splits the image at the horizon and then splits the sky in half to analyze the histogram data in both the top and bottom half of the sky.
+		These are used to further determin if the image is actually valid.
+		If the image is valid, it moves onto color analysis with the bottm half of the sky.
+		\begin{lstlisting}
+			color = ('b', 'g', 'r')
+			b, g, r = cv2.split(img)
+			dimy, dimx = img.shape[:2]
 
+			largest = [0, 0]
+			it = dimy / 200 #iterations = total number of rows(pixels) / 200
+			for i in range(dimy / 4, (dimy / 4) * 3, it):   #only looking at the middle half of the image
+				ravg = (sum(r[i]) / float(len(r[i])))
+				gavg = (sum(g[i]) / float(len(g[i])))
+				bavg = (sum(b[i]) / float(len(b[i])))
+				avg = (ravg + gavg + bavg) / 3
+				pravg = (sum(r[i - it]) / float(len(r[i - it])))
+				pgavg = (sum(g[i - it]) / float(len(g[i - it])))
+				pbavg = (sum(b[i - it]) / float(len(b[i - it])))
+				pavg = (pravg + pgavg + pbavg) / 3
+				diff = pavg - avg
+				if diff > largest[0]:   #only getting the largest intensity drop.
+					largest = [diff,i-(it/2)]
+			if largest[0] >= 11:
+				sky = img[0:largest[1],0:dimx]#cropping out landscape
+				h1 = sky[0:(sky.shape[0] / 2),0:dimx]#top half of sky
+				h2 = sky[(sky.shape[0] / 2):(sky.shape[0]), 0:dimx]#bottom half
 
+				mask = np.zeros(h1.shape[:2], np.uint8)
+				mask[0:(h1.shape[0] / 2), 0:h1.shape[1]] = 255
+
+				for i,col in enumerate(color):
+					histr = cv2.calcHist([h1], [i], mask, [255], [0, 255])
+					plt.plot(histr, color = col)
+					plt.xlim([0,255])
+
+				mask = np.zeros(h2.shape[:2], np.uint8)
+				mask[0:(h2.shape[0] / 2), 0:h2.shape[1]] = 255
+
+				for i,col in enumerate(color):
+					histr = cv2.calcHist([h2], [i], mask, [255], [0, 255])
+					plt.plot(histr, color = col)
+					plt.xlim([0, 255])
+			\end{lstlisting}	
+			Here are the results of this function:
+			\includegraphics[height=4cm,natwidth=640,natheight=426]{images/horizon_uncropped.jpg}
+			\includegraphics[height=4cm,natwidth=1281,natheight=537]{images/horizon_cropped.png}
+			
 \end{singlespace}
 \end{document}

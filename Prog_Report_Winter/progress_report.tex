@@ -106,7 +106,10 @@
 	\section{What's left to accomplish}
 		Color analysis is the last feature we plan on adding before we get into stretch goal territory.
 		\subsection{Logan Wingard}
-			
+			As mentioned in the previous section, currently the horizon detection function is at 50\% accuracy. 
+			The 16 additional percent should be reachable by adjusting the current algorithm, though in an attempt to go above and beyond the 66\% goal, a test neural network will be implemented.
+			This neural network will take in the histogram data of an image, and output either a 1 or 0, 1 for valid sky, and 0 for invalid.
+			After reaching the 66\% goal and converting from RGB to wavelength, a color analysis function will get written.
 		\subsection{Daniel Ross}
 			Right now the process of accepting an image is working fairly well, but the accuracy needs to be improved to meet our original goal.
 			Given the start on the color analysis produces the prominent wavelength of a certain color, the next step in color analysis is determining what that wavelength means in terms of aerosol content.

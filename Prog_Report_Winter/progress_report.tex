@@ -75,16 +75,18 @@
 			\end{abstract}     
 		\end{singlespace}
 	\end{titlepage}
-\section{Table of Contents}
+
 \tableofcontents
+
 \bibliographystyle{IEEEtran}
 \bibliography{ref}
+
 \clearpage
 
 \begin{singlespace}
 
 	\section{Project Purpose}
-		Monitoring atmospheric aerosols is important due to their effects on people’s health and the atmosphere's chemical composition and radiation distribution.
+		Monitoring atmospheric aerosols is important due to their effects on people’s health and the atmosphere's chemical composition and radiation distribution.\cite{template}
 		Currently delayed or inaccurate atmospheric reports complicate getting reliable local atmospheric information.
 		The primary objective of the Aerolyzer project is to create a tool that infers local air quality using regional weather data and image analysis.
 		The major goals this presents to the project are a quick weather data retrieval, the identification of an image that can be used for color analysis, and the analysis of the colors in an image to estimate the level of aerosols.
@@ -93,16 +95,16 @@
 		The team is done with image metadata analysis and the weather data calls.
 		Logan is currently optimizing the horizon check so the color analysis isn't performed on invalid images.
 		\subsection{Logan Wingard}
-		The last restriction function is the horizon detection which is currently at 50\% accuracy with valid images.
-		The goal for horizon detection is 66\% on valid images, which is just 16\% off from what it is now.
+			The last restriction function is the horizon detection which is currently at 50\% accuracy with valid images.
+			The goal for horizon detection is 66\% on valid images, which is just 16\% off from what it is now.
 		\subsection{Daniel Ross}
-		I've completed the functions needed to locate the image source.
-		I've written drafts of the first functions needed for color analysis.
-		The first function creates an array of Hue values that correspond to certain wavelengths of light.
-		The second function compares a provided color to the array and returns the closest matching wavelength of light.
+			I've completed the functions needed to locate the image source.
+			I've written drafts of the first functions needed for color analysis.
+			The first function creates an array of Hue values that correspond to certain wavelengths of light.
+			The second function compares a provided color to the array and returns the closest matching wavelength of light.
 
 	\section{Problems}
-		Since the begining of winter term however, one member of team Aerolyzer has been removed, and much of these conflicts have been resolved.
+		Since the beginning of winter term however, one member of team Aerolyzer has been removed, and much of these conflicts have been resolved.
 		Towards the beginning of the term our team had a few internal issues and our client had some problems with how the project was going.
 		During Fall term we worked quite a bit under the notion that the bulk of our project was going to be the development of a image classifier that identified sunrises and sunsets.
 		\subsection{Logan Wingard}
@@ -169,6 +171,23 @@ if largest[0] >= 11:
 			Here are the results of this function:\\
 			\includegraphics[height=4cm,natwidth=640,natheight=426]{images/horizon_uncropped.jpg}
 			\includegraphics[height=4cm,natwidth=1281,natheight=537]{images/horizon_cropped.png}
-			
+			The following is the zip code to coordinate function that Daniel wrote to call the google Geocoding API.
+			\begin{lstlisting}
+def zip_to_coord(zipcode):
+    try:
+        url = 'https://maps.googleapis.com/maps/api/geocode/json?address='+zipcode+'&key=AIzaSyD0SIrsNBNbE9-hSnfa6gMHALCdLZWJ6uI'
+        c = urllib2.urlopen(url)
+        results = c.read()
+        parsedResults = json.loads(results)
+        lat = float(parsedResults['results'][0]['geometry']['location']['lat'])
+        lon = float(parsedResults['results'][0]['geometry']['location']['lng'])
+
+    except Exception:
+        print "Unable to retrieve data: ", sys.exc_info()[0]
+        (lat,lon) = (0.0,0.0)
+
+    finally:
+        return (lat,lon)
+			\end{lstlisting}
 \end{singlespace}
 \end{document}

@@ -94,8 +94,10 @@
 		The team is done with image metadata analysis and the weather data calls.
 		Logan is currently optimizing the horizon check so the color analysis isn't performed on invalid images.
 		\subsection{Logan Wingard}
+			It was found that much of the image restriction functions that were believed to just a framework, had actually been written and were working with some minor errors.
 			There were many errors and bugs in the pre-existing image restriction functions, some minor such as swapped variable names, and some more serious such as only allowing up to 1000x1000 pixel images instead of six times that.
 			These errors have been fixed.
+			There are now working image restriction functions for checking image size, image type, image resolution, phone models, for valid location data, and for if it is edited.
 			The last restriction function is the horizon detection which is currently at 50\% accuracy with valid images.
 			The goal for horizon detection is 66\% on valid images, which is just 16\% off from what it is now.
 		\subsection{Daniel Ross}
@@ -135,13 +137,15 @@
 		Towards the beginning of the term our team had a few internal issues and our client had some problems with how the project was going.
 		During Fall term we worked quite a bit under the notion that the bulk of our project was going to be the development of a image classifier that identified sunrises and sunsets.
 		\subsection{Logan Wingard}
-			Another problem that has come about was git log messiness.
+			One problem that has come about was git log messiness.
 			There have been too many junk commits in pull requests. 
 			For example, this is one of the commits that needed to be squashed: ``Removing junk files. Please ignore''.
 			The simple fix is to git rebase and go through each commit specifying which ones to pick, and which ones to fixup or squash, though this proved not to be so simple.
 			Many of the commits were chained together, making it very difficult to rebase.
 			The most recent issue has been getting data to train a shallow neural network that is being implemented in an attempt to increase horizon detection accuracy.
 			With the amount of data needed to train a neural network, manually entering in data could be extremely time consuming, though may be the simplest way of implementing the neural network into the functions.
+			The neural network that runs now takes in numpy arrays as input, though these numpy arrays work differently than the python lists I am used to. 
+			Getting the data to go from integers to a numpy array of python lists of integers is proving to be a dificult task, though if succesfully implemented, would save an immense amount of time, considering the alternative would be manually entering in hundreds of data points.
 		\subsection{Daniel Ross}
 			At the beginning of Fall term our client informed us that this is not what she wanted for the project.
 			We refocused the project, moving our development focus away from in-depth image recognition software to color analysis.
@@ -157,6 +161,7 @@
 			Converting from Degrees, Minutes, Seconds to decimal requires parsing out the original to 3 smaller conversions and then returning the sum.
 	\section{Interesting Code}
 		The following is an excerpt from the horizon detection function.
+		It has since been updated with slightly different numbers in order to increase accuracy, but this is what is currently pushed to out master Aerolyzer github.
 		It splits the image at the horizon and then splits the sky in half to analyze the histogram data in both the top and bottom half of the sky.
 		These are used to further determine if the image is actually valid.
 		If the image is valid, it moves onto color analysis with the bottom half of the sky.

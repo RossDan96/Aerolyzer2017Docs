@@ -101,17 +101,76 @@
 			The last restriction function is the horizon detection which is currently at 50\% accuracy with valid images.
 			The goal for horizon detection is 66\% on valid images, which is just 16\% off from what it is now.
 		\subsection{Daniel Ross}
-			I've completed the functions needed to locate the image source.
+			I completed the location data related functions for the image restriction process that occurs before calling OpenCV.
+			The first, get_coord, takes the GPS data from an image and convert that to coordinates in decimal.
+			The second and third are ZIP_to_Coord and Coord_to_ZIP which call the Google Geocoding API to produce the image location in either format.
+			The last is get_sun_position which takes an image, calls get_coord and Coord_to_ZIP on that image, calls a Weather API using that ZIP code, Extracts the times of sunrise and sunset from the weather data, and finally compares the time the picture was taken to the time of the sunrise and sunset.
+			
 			I've written drafts of the first two functions needed for color analysis.
 			The first function creates an array of RGB values that correspond to certain wavelengths of light.
 			This array is created by taking a image of the visible light spectrum, that spans a range of 370nm, and scaling it so the image has a length of 370 pixels before cropping it to a height of one pixel.
 			\includegraphics[height=0.02cm,natwidth=370,natheight=7]{images/Visible_Color_Spectrum_1_pixel.png}
-			Then I iterate an OpenCV command over each pixel in the image to capture their RGB values and store them in an array.
+			Then I iterate over an OpenCV image's RGB values and store them in an array.
 			
 			The second function compares a provided color to the array and returns the closest matching wavelength of light.
 			Using the array from the first function, the function compares the subject color to each element in the array.
 			Once it has the index of the closest matching color, the closest matching wavelength can be produced.
 			Since the array has each element correspond to a certain wavelength in nm, all that needs to be done is add the lowest possible wavelength to the index.
+			This is a rough draft of those functions.
+			\begin{lstlisting}
+def comparisonArray(mode)
+		img = cv2.imread('VisColorSpectrum1.png')
+		BGRArray = []
+		HSVArray = []
+		i=0
+		if mode==0:
+			while i<(img.shape[1]):
+				BGRArray+=img[0,i]
+				i+=1
+			return BGRArray
+		else:
+			hsvimg = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+			i=0
+			while i<(img.shape[1]):
+				HSVArray+=hsvimg[0,i]
+				i+=1
+			return HSVArray
+
+def get_wavelengthrgb((b,g,r))
+	closest_r=255
+	closest_g=255
+	closest_b=255
+	r_diff=0
+	g_diff=0
+	b_diff=0
+	score=0
+	best=0
+	i=0
+
+	while i < ARRAYLENGTH:
+		if BGRArray[i][0] > b:
+			b_diff = BGRArray[i][0] - b
+		else:
+			b_diff = b - BGRArray[i][0] 
+		if BGRArray[i][1] > g:
+			g_diff = BGRArray[i][1] - g
+		else:
+			g_diff = g - BGRArray[i][1] 
+		if BGRArray[i][2] > r:
+			r_diff = BGRArray[i][2] - r
+		else:
+			r_diff = r - BGRArray[i][2]
+		if (closest_r > r_diff):
+			score+=1
+			closest_r=r_diff
+		if (closest_b > b_diff):
+			score+=1
+			closest_b=b_diff
+		if (closest_b > b_diff):
+			score+=1
+			closest_b=b_diff
+			\end{lstlisting}
+			
 			
 	\section{What's left to accomplish}
 		Color analysis is the last feature we plan on adding before we get into stretch goal territory.
@@ -124,12 +183,15 @@
 
 		\subsection{Daniel Ross}
 			Right now the process of accepting an image is working fairly well, but the accuracy needs to be improved to meet our original goal.
-			Given the start on the color analysis produces the prominent wavelength of a certain color, the next step in color analysis is determining what that wavelength means in terms of aerosol content.
-			\includegraphics[height=0.05cm,natwidth=370,natheight=7]{images/Visible_Color_Spectrum.png}
-			
-			In my color analysis functions there are still a few things to be accomplished.
+			In my current color analysis functions there are still a few things to be accomplished.
 			When creating the wavelength comparison array I'm unsure as to whether RGB or HSV will be more accurate.
 			On one hand RGB doesn't require any conversions for the openCV functions, but on the other hand HSV would be much easier to use in comparisons during the second function.
+			\includegraphics[height=0.05cm,natwidth=370,natheight=7]{images/Visible_Color_Spectrum.png}
+			
+			Given the start on the color analysis produces the prominent wavelength of a certain color, the next step in color analysis is determining what that wavelength means in terms of aerosol content.
+			This is the most intimidating task as far as research and correctness is concerned.
+			There is possibly going to a large amount of atmospheric and physics research.
+			The Rayleigh Scattering effect\cite{corfidi_2014} is the most likely route for how we're going to mathematically convert from wavelength of light to amount of aerosols in the air.
 
 
 	\section{Problems}
@@ -208,24 +270,28 @@ if largest[0] >= 11:
 			Here are the results of this function:\\
 			\includegraphics[height=4cm,natwidth=640,natheight=426]{images/horizon_uncropped.jpg}\\
 			\includegraphics[height=4cm,natwidth=1281,natheight=537]{images/horizon_cropped.png}\\
-			The following is the zip code to coordinate function that Daniel wrote to call the google Geocoding API.
-			\begin{lstlisting}
-def zip_to_coord(zipcode):
-    try:
-        url = 'https://maps.googleapis.com/maps/api/geocode/json?address='+zipcode+'&key=AIzaSyD0SIrsNBNbE9-hSnfa6gMHALCdLZWJ6uI'
-        c = urllib2.urlopen(url)
-        results = c.read()
-        parsedResults = json.loads(results)
-        lat = float(parsedResults['results'][0]['geometry']['location']['lat'])
-        lon = float(parsedResults['results'][0]['geometry']['location']['lng'])
+			The following is the sun_position function
+		\begin{lstlisting}
+def sun_position(exifdict):
+	coord = get_coord(exifdict)
+	wData = wunderData.get_data(str(coord[0])+","+str(coord[1]))
+	sunriseTime = wData['sunrise'].split(':')
+	sunsetTime = wData['sunset'].split(':')
+	sunriseTarget = (int(sunriseTime[0])*60)+int(sunriseTime[1])
+	sunsetTarget = (int(sunsetTime[0])*60)+int(sunsetTime[1])
 
-    except Exception:
-        print "Unable to retrieve data: ", sys.exc_info()[0]
-        (lat,lon) = (0.0,0.0)
+	hoursTime = (str(exifdict['exif datetimeoriginal']).split(' '))[1].split(':')
+	pictureTime = (int(hoursTime[0])*60)+int(hoursTime[1])+int(float(hoursTime[2])/60)
 
-    finally:
-        return (lat,lon)
-			\end{lstlisting}
+	if ((pictureTime >= (sunriseTarget - 15)) & (pictureTime <= (sunriseTarget + 30))):
+		return 1
+	elif ((pictureTime >= (sunsetTarget - 15)) & (pictureTime <= (sunsetTarget + 30))):
+		return 2
+	elif ((pictureTime > (sunsetTarget + 15))|(pictureTime < (sunriseTarget - 15))):
+		return 0
+	else:
+		return 0
+		\end{lstlisting}
 \end{singlespace}
 \clearpage
 \bibliographystyle{IEEEtran}

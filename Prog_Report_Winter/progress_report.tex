@@ -117,6 +117,7 @@
 			As mentioned in the previous section, currently the horizon detection function is at 50\% accuracy. 
 			The 16 additional percent should be reachable by adjusting the current algorithm, though in an attempt to go above and beyond the 66\% goal, a test neural network will be implemented.
 			This neural network will take in the histogram data of an image, and output either a 1 or 0, 1 for valid sky, and 0 for invalid.
+			It is still up in the air whether a neural network is even a viable solution for this task, so much testing needs to get done before it can be implemented into our algorithm.
 			After reaching the 66\% goal and converting from RGB to wavelength, a color analysis function will be written that uses information known on aerosols and how light refracts through these particles, and will get this info from the wavelengths obtained from the images.
 
 		\subsection{Daniel Ross}
@@ -135,9 +136,9 @@
 		During Fall term we worked quite a bit under the notion that the bulk of our project was going to be the development of a image classifier that identified sunrises and sunsets.
 		\subsection{Logan Wingard}
 			Another problem that has come about was git log messiness.
-			There have been too many junk commits.
-			EX: ``Removing junk files. Please ignore''.
-			The simple fix is to git rebase and go through each commit specifying which ones to pick, and which ones to fixup, though this proved not to be so simple.
+			There have been too many junk commits in pull requests. 
+			For example, this is one of the commits that needed to be squashed: ``Removing junk files. Please ignore''.
+			The simple fix is to git rebase and go through each commit specifying which ones to pick, and which ones to fixup or squash, though this proved not to be so simple.
 			Many of the commits were chained together, making it very difficult to rebase.
 			The most recent issue has been getting data to train a shallow neural network that is being implemented in an attempt to increase horizon detection accuracy.
 			With the amount of data needed to train a neural network, manually entering in data could be extremely time consuming, though may be the simplest way of implementing the neural network into the functions.
@@ -155,7 +156,8 @@
 			Weather Underground and Google both use decimal coordinates in their API calls.
 			Converting from Degrees, Minutes, Seconds to decimal requires parsing out the original to 3 smaller conversions and then returning the sum.
 	\section{Interesting Code}
-		The following is an excerpt from the horizon detection function. It splits the image at the horizon and then splits the sky in half to analyze the histogram data in both the top and bottom half of the sky.
+		The following is an excerpt from the horizon detection function.
+		It splits the image at the horizon and then splits the sky in half to analyze the histogram data in both the top and bottom half of the sky.
 		These are used to further determine if the image is actually valid.
 		If the image is valid, it moves onto color analysis with the bottom half of the sky.
 		\begin{lstlisting}

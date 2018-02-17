@@ -102,9 +102,9 @@
 			The goal for horizon detection is 66\% on valid images, which is just 16\% off from what it is now.
 		\subsection{Daniel Ross}
 			I completed the location data related functions for the image restriction process that occurs before calling OpenCV.
-			The first, get_coord, takes the GPS data from an image and convert that to coordinates in decimal.
-			The second and third are ZIP_to_Coord and Coord_to_ZIP which call the Google Geocoding API to produce the image location in either format.
-			The last is get_sun_position which takes an image, calls get_coord and Coord_to_ZIP on that image, calls a Weather API using that ZIP code, Extracts the times of sunrise and sunset from the weather data, and finally compares the time the picture was taken to the time of the sunrise and sunset.
+			The first, get\_coord, takes the GPS data from an image and convert that to coordinates in decimal.
+			The second and third are ZIP\_to\_Coord and Coord\_to\_ZIP which call the Google Geocoding API to produce the image location in either format.
+			The last is get\_sun\_position which takes an image, calls get\_coord and Coord\_to\_ZIP on that image, calls a Weather API using that ZIP code, Extracts the times of sunrise and sunset from the weather data, and finally compares the time the picture was taken to the time of the sunrise and sunset.
 			
 			I've written drafts of the first two functions needed for color analysis.
 			The first function creates an array of RGB values that correspond to certain wavelengths of light.
@@ -270,8 +270,8 @@ if largest[0] >= 11:
 			Here are the results of this function:\\
 			\includegraphics[height=4cm,natwidth=640,natheight=426]{images/horizon_uncropped.jpg}\\
 			\includegraphics[height=4cm,natwidth=1281,natheight=537]{images/horizon_cropped.png}\\
-			The following is the sun_position function
-		\begin{lstlisting}
+			The following is the sun\_position function
+			\begin{lstlisting}
 def sun_position(exifdict):
 	coord = get_coord(exifdict)
 	wData = wunderData.get_data(str(coord[0])+","+str(coord[1]))
@@ -291,7 +291,7 @@ def sun_position(exifdict):
 		return 0
 	else:
 		return 0
-		\end{lstlisting}
+			\end{lstlisting}
 \end{singlespace}
 \clearpage
 \bibliographystyle{IEEEtran}

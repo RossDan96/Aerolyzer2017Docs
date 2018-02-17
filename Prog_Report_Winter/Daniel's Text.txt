@@ -1,51 +1,124 @@
-briefly recaps the project purposes and goals
-Monitoring atmospheric aerosols is important due to their effects on people’s health and the atmosphere's chemical composition and radiation distribution.
-Currently delayed or inaccurate atmospheric reports complicate getting reliable local atmospheric information.
-The primary objective of the Aerolyzer project is to create a tool that infers local air quality using regional weather data and image analysis.
-The major goals this presents to the project are a quick weather data retrieval, the identification of an image that can be used for color analysis, and the analysis of the colors in an image to estimate the level of aerosols.
+		Monitoring atmospheric aerosols is important due to their effects on people’s health and the atmosphere's chemical composition and radiation distribution.
+		Currently delayed or inaccurate atmospheric reports complicate getting reliable local atmospheric information.
+		The primary objective of the Aerolyzer project is to create a tool that infers local air quality using regional weather data and image analysis.
+		The major goals this presents to the project are a quick weather data retrieval, the identification of an image that can be used for color analysis, and the analysis of the colors in an image to estimate the level of aerosols.
+	
+	\section{Current State}
+			I completed the location data related functions for the image restriction process that occurs before calling OpenCV.
+			The first, get_coord, takes the GPS data from an image and convert that to coordinates in decimal.
+			The second and third are ZIP_to_Coord and Coord_to_ZIP which call the Google Geocoding API to produce the image location in either format.
+			The last is get_sun_position which takes an image, calls get_coord and Coord_to_ZIP on that image, calls a Weather API using that ZIP code, Extracts the times of sunrise and sunset from the weather data, and finally compares the time the picture was taken to the time of the sunrise and sunset.
+			
+			I've written drafts of the first two functions needed for color analysis.
+			The first function creates an array of RGB values that correspond to certain wavelengths of light.
+			This array is created by taking a image of the visible light spectrum, that spans a range of 370nm, and scaling it so the image has a length of 370 pixels before cropping it to a height of one pixel.
+			\includegraphics[height=0.02cm,natwidth=370,natheight=7]{images/Visible_Color_Spectrum_1_pixel.png}
+			Then I iterate over an OpenCV image's RGB values and store them in an array.
+			
+			The second function compares a provided color to the array and returns the closest matching wavelength of light.
+			Using the array from the first function, the function compares the subject color to each element in the array.
+			Once it has the index of the closest matching color, the closest matching wavelength can be produced.
+			Since the array has each element correspond to a certain wavelength in nm, all that needs to be done is add the lowest possible wavelength to the index.
+			This is a rough draft of those functions.
+			\begin{lstlisting}
+def comparisonArray(mode)
+		img = cv2.imread('VisColorSpectrum1.png')
+		BGRArray = []
+		HSVArray = []
+		i=0
+		if mode==0:
+			while i<(img.shape[1]):
+				BGRArray+=img[0,i]
+				i+=1
+			return BGRArray
+		else:
+			hsvimg = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+			i=0
+			while i<(img.shape[1]):
+				HSVArray+=hsvimg[0,i]
+				i+=1
+			return HSVArray
 
-describes where you are currently on the project
-The team is done with image metadata analysis and the weather data calls.
-Logan is currently optimizing the horizon check so the color analysis isn't performed on invalid images.
-I've completed the functions needed to locate the image source.
-I've written drafts of the first functions needed for color analysis.
-The first function creates an array of Hue values that correspond to certain wavelengths of light.
-The second function compares a provided color to the array and returns the closest matching wavelength of light.
+def get_wavelengthrgb((b,g,r))
+	closest_r=255
+	closest_g=255
+	closest_b=255
+	r_diff=0
+	g_diff=0
+	b_diff=0
+	score=0
+	best=0
+	i=0
 
-describes what you have left to do
-Color analysis is the last feature we plan on adding before we get into stretch goal territory.
-Right now the process of accepting an image is working fairly well, but the accuracy needs to be improved to meet our original goal.
-Given the start on the color analysis produces the prominent wavelength of a certain color, the next step in color analysis is determining what that wavelength means in terms of aerosol content.
+	while i < ARRAYLENGTH:
+		if BGRArray[i][0] > b:
+			b_diff = BGRArray[i][0] - b
+		else:
+			b_diff = b - BGRArray[i][0] 
+		if BGRArray[i][1] > g:
+			g_diff = BGRArray[i][1] - g
+		else:
+			g_diff = g - BGRArray[i][1] 
+		if BGRArray[i][2] > r:
+			r_diff = BGRArray[i][2] - r
+		else:
+			r_diff = r - BGRArray[i][2]
+		if (closest_r > r_diff):
+			score+=1
+			closest_r=r_diff
+		if (closest_b > b_diff):
+			score+=1
+			closest_b=b_diff
+		if (closest_b > b_diff):
+			score+=1
+			closest_b=b_diff
+			\end{lstlisting}
+			
+	\section{What's left to accomplish}
+			Right now the process of accepting an image is working fairly well, but the accuracy needs to be improved to meet our original goal.
+			In my current color analysis functions there are still a few things to be accomplished.
+			When creating the wavelength comparison array I'm unsure as to whether RGB or HSV will be more accurate.
+			On one hand RGB doesn't require any conversions for the openCV functions, but on the other hand HSV would be much easier to use in comparisons during the second function.
+			\includegraphics[height=0.05cm,natwidth=370,natheight=7]{images/Visible_Color_Spectrum.png}
+			
+			Given the start on the color analysis produces the prominent wavelength of a certain color, the next step in color analysis is determining what that wavelength means in terms of aerosol content.
+			This is the most intimidating task as far as research and correctness is concerned.
+			There is possibly going to a large amount of atmospheric and physics research.
+			The Rayleigh Scattering effect\cite{corfidi_2014} is the most likely route for how we're going to mathematically convert from wavelength of light to amount of aerosols in the air.
 
 
-describes any problems that have impeded your progress, with any solutions you have
-Towards the beginning of the term our team had a few internal issues and our client had some problems with how the project was going.
-During Fall term we worked quite a bit under the notion that the bulk of our project was going to be the development of a image classifier that identified sunrises and sunsets.
-At the beginning of Fall term our client informed us that this is not what she wanted for the project.
-We refocused the project, moving our development focus away from in-depth image recognition software to color analysis.
-We now have a workable version of the horizon checking function and now we're starting the color analysis like the client wants.
+	\section{Problems}
+			At the beginning of Fall term our client informed us that this is not what she wanted for the project.
+			We refocused the project, moving our development focus away from in-depth image recognition software to color analysis.
+			We now have a workable version of the horizon checking function and now we're starting the color analysis like the client wants.
 
-In order to get the Zip Code of an image I used a call to the Google Geocoding API, which returns a json of google maps data.
-The formatting of this returned json was exceptionally difficult to work with because the API returns a dictionary containing all the results for a location search and I only needed the data from the first results.
-I spoke with our TA about it during a weekly meeting, but I ended up going to Stack Overflow to find the simplest way to navigate the API results.
+			In order to get the Zip Code of an image I used a call to the Google Geocoding API\cite{GoogleGeo}, which returns a json of google maps data.
+			The formatting of this returned json was exceptionally difficult to work with because the API returns a dictionary containing all the results for a location search and I only needed the data from the first results.
+			I spoke with our TA about it during a weekly meeting, but I ended up going to Stack Overflow to find the simplest way to navigate the API results.
+			
+			The other issue I encountered came from the format that EXIF data stores location data.
+			EXIF stores coordinates in the traditional GPS format of Degrees,Minutes,Seconds.
+			Weather Underground and Google both use decimal coordinates in their API calls.
+			Converting from Degrees, Minutes, Seconds to decimal requires parsing out the original to 3 smaller conversions and then returning the sum.
+			
+		\begin{lstlisting}
+def sun_position(exifdict):
+	coord = get_coord(exifdict)
+	wData = wunderData.get_data(str(coord[0])+","+str(coord[1]))
+	sunriseTime = wData['sunrise'].split(':')
+	sunsetTime = wData['sunset'].split(':')
+	sunriseTarget = (int(sunriseTime[0])*60)+int(sunriseTime[1])
+	sunsetTarget = (int(sunsetTime[0])*60)+int(sunsetTime[1])
 
+	hoursTime = (str(exifdict['exif datetimeoriginal']).split(' '))[1].split(':')
+	pictureTime = (int(hoursTime[0])*60)+int(hoursTime[1])+int(float(hoursTime[2])/60)
 
-includes particularly interesting pieces of code (if coding is involved)
-def zip_to_coord(zipcode):
-    try:
-        url = 'https://maps.googleapis.com/maps/api/geocode/json?address='+zipcode+'&key=AIzaSyD0SIrsNBNbE9-hSnfa6gMHALCdLZWJ6uI'
-        c = urllib2.urlopen(url)
-        results = c.read()
-        parsedResults = json.loads(results)
-	lat = float(parsedResults['results'][0]['geometry']['location']['lat'])
-        lon = float(parsedResults['results'][0]['geometry']['location']['lng'])
-
-    except Exception:
-        print "Unable to retrieve data: ", sys.exc_info()[0]
-        (lat,lon) = (0.0,0.0)
-
-    finally:
-        return (lat,lon)
-
-includes images of your project -- screen shots, photos, whatever is appropriate
-
+	if ((pictureTime >= (sunriseTarget - 15)) & (pictureTime <= (sunriseTarget + 30))):
+		return 1
+	elif ((pictureTime >= (sunsetTarget - 15)) & (pictureTime <= (sunsetTarget + 30))):
+		return 2
+	elif ((pictureTime > (sunsetTarget + 15))|(pictureTime < (sunriseTarget - 15))):
+		return 0
+	else:
+		return 0
+		\end{lstlisting}

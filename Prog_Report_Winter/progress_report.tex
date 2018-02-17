@@ -84,6 +84,9 @@
 	\section{Project Purpose}
 		Monitoring atmospheric aerosols is important due to their effects on people’s health and the atmosphere's chemical composition and radiation distribution.
 		Currently delayed or inaccurate atmospheric reports complicate getting reliable local atmospheric information.
+		Unfortunately, aerosols in the atmosphere are constantly changing, and current satellite, aircraft, and ground-based instruments do not simplify data enough for the average person to understand.
+		There is currently no way to judge local air quality using regional aerosol data without in-depth atmospheric knowledge.
+		Additionally, delayed or inaccurate atmospheric reports complicate getting reliable local atmospheric information.
 		The primary objective of the Aerolyzer project is to create a tool that infers local air quality using regional weather data and image analysis.
 		The major goals this presents to the project are a quick weather data retrieval, the identification of an image that can be used for color analysis, and the analysis of the colors in an image to estimate the level of aerosols.
 	
@@ -91,6 +94,8 @@
 		The team is done with image metadata analysis and the weather data calls.
 		Logan is currently optimizing the horizon check so the color analysis isn't performed on invalid images.
 		\subsection{Logan Wingard}
+			There were many errors and bugs in the pre-existing image restriction functions, some minor such as swapped variable names, and some more serious such as only allowing up to 1000x1000 pixel images instead of six times that.
+			These errors have been fixed.
 			The last restriction function is the horizon detection which is currently at 50\% accuracy with valid images.
 			The goal for horizon detection is 66\% on valid images, which is just 16\% off from what it is now.
 		\subsection{Daniel Ross}
@@ -112,7 +117,8 @@
 			As mentioned in the previous section, currently the horizon detection function is at 50\% accuracy. 
 			The 16 additional percent should be reachable by adjusting the current algorithm, though in an attempt to go above and beyond the 66\% goal, a test neural network will be implemented.
 			This neural network will take in the histogram data of an image, and output either a 1 or 0, 1 for valid sky, and 0 for invalid.
-			After reaching the 66\% goal and converting from RGB to wavelength, a color analysis function will get written.
+			After reaching the 66\% goal and converting from RGB to wavelength, a color analysis function will be written that uses information known on aerosols and how light refracts through these particles, and will get this info from the wavelengths obtained from the images.
+
 		\subsection{Daniel Ross}
 			Right now the process of accepting an image is working fairly well, but the accuracy needs to be improved to meet our original goal.
 			Given the start on the color analysis produces the prominent wavelength of a certain color, the next step in color analysis is determining what that wavelength means in terms of aerosol content.

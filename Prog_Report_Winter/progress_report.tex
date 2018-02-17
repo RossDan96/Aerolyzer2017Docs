@@ -99,9 +99,16 @@
 			The goal for horizon detection is 66\% on valid images, which is just 16\% off from what it is now.
 		\subsection{Daniel Ross}
 			I've completed the functions needed to locate the image source.
-			I've written drafts of the first functions needed for color analysis.
-			The first function creates an array of Hue values that correspond to certain wavelengths of light.
+			I've written drafts of the first two functions needed for color analysis.
+			The first function creates an array of RGB values that correspond to certain wavelengths of light.
+			This array is created by taking a image of the visible light spectrum, that spans a range of 370nm, and scaling it so the image has a length of 370 pixels before cropping it to a height of one pixel.
+			\includegraphics[height=0.05cm,natwidth=370,natheight=7]{images/Visible_Color_Spectrum_1_pixel.png}
+			Then I iterate an OpenCV command over each pixel in the image to capture their RGB values and store them in an array.
+			
 			The second function compares a provided color to the array and returns the closest matching wavelength of light.
+			Using the array from the first function, the function compares the subject color to each element in the array.
+			Once it has the index of the closest matching color, the closest matching wavelength can be produced.
+			Since the array has each element correspond to a certain wavelength in nm, all that needs to be done is add the lowest possible wavelength to the index.
 			
 	\section{What's left to accomplish}
 		Color analysis is the last feature we plan on adding before we get into stretch goal territory.
@@ -114,6 +121,10 @@
 			Right now the process of accepting an image is working fairly well, but the accuracy needs to be improved to meet our original goal.
 			Given the start on the color analysis produces the prominent wavelength of a certain color, the next step in color analysis is determining what that wavelength means in terms of aerosol content.
 			\includegraphics[height=0.05cm,natwidth=370,natheight=7]{images/Visible_Color_Spectrum.png}
+			
+			In my color analysis functions there are still a few things to be accomplished.
+			When creating the wavelength comparison array I'm unsure as to whether RGB or HSV will be more accurate.
+			On one hand RGB doesn't require any conversions for the openCV functions, but on the other hand HSV would be much easier to use in comparisons during the second function.
 
 
 	\section{Problems}
@@ -123,7 +134,7 @@
 		\subsection{Logan Wingard}
 			Another problem that has come about was git log messiness.
 			There have been too many junk commits.
-            EX: ``Removing junk files. Please ignore''.
+			EX: ``Removing junk files. Please ignore''.
 			The simple fix is to git rebase and go through each commit specifying which ones to pick, and which ones to fixup, though this proved not to be so simple.
 			Many of the commits were chained together, making it very difficult to rebase.
 			The most recent issue has been getting data to train a shallow neural network that is being implemented in an attempt to increase horizon detection accuracy.
@@ -136,11 +147,15 @@
 			In order to get the Zip Code of an image I used a call to the Google Geocoding API, which returns a json of google maps data.
 			The formatting of this returned json was exceptionally difficult to work with because the API returns a dictionary containing all the results for a location search and I only needed the data from the first results.
 			I spoke with our TA about it during a weekly meeting, but I ended up going to Stack Overflow to find the simplest way to navigate the API results.
-		
+			
+			The other issue I encountered came from the format that EXIF data stores location data.
+			EXIF stores coordinates in the traditional GPS format of Degrees,Minutes,Seconds.
+			Weather Underground and Google both use decimal coordinates in their API calls.
+			Converting from Degrees, Minutes, Seconds to decimal requires parsing out the original to 3 smaller conversions and then returning the sum.
 	\section{Interesting Code}
 		The following is an excerpt from the horizon detection function. It splits the image at the horizon and then splits the sky in half to analyze the histogram data in both the top and bottom half of the sky.
 		These are used to further determine if the image is actually valid.
-		If the image is valid, it moves onto color analysis with the bottm half of the sky.
+		If the image is valid, it moves onto color analysis with the bottom half of the sky.
 		\begin{lstlisting}
 color = ('b', 'g', 'r')
 b, g, r = cv2.split(img)

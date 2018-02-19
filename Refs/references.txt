@@ -1,0 +1,10 @@
+Neural networks:
+https://github.com/llSourcell/Make_a_neural_network/blob/master/demo.py
+https://iamtrask.github.io/2015/07/12/basic-python-network/
+
+Aerosols:
+https://aeronet.gsfc.nasa.gov/new_web/Documents/Aerosol_Optical_Depth.pdf
+
+Pypi:
+https://packaging.python.org/tutorials/distributing-packages/#setup-py
+

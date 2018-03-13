@@ -110,6 +110,7 @@
 	
 	\subsection{EXIF}\label{def:exif}
 		Exchangeable image file format.
+		This is the standard format for the metadata attached to jpg and png type images.
 	
 	\subsection{Local}\label{def:local}
 		Local is defined as the circular area around an observer with the radius being the distance from an observer's position to the horizon.
@@ -128,7 +129,7 @@
         \subsubsection{Library Structure}
         The Aerolyzer library aims to be accessible to import for scientific research purposes. The structure of this library will determine the ease of access of this library.
 		\subsubsection{Color Analysis}
-        The 
+        Once the image of a horizon at sunrise or sunset has passed all of the restraints put in place by the rest of the library it's passed to Color Analysis. This is the most time intensive function of the library since it performs a series of comparisons on the Color of each pixel in a large set.
 	\subsection{Identified design stakeholders}
     	\subsubsection{Image Data Preprocessing}
         The primary stakeholders for the Image Data Preprocessing are the users and the development team.
@@ -139,7 +140,7 @@
         \subsubsection{Library Structure}
         The stakeholders for the Aerolyzer library’s structure will be the developers and the Aerolyzer’s primary stakeholder, Dr. Kim Whitehall. The Dr. Whitehall requires the library to be accessible from Python’s package index.
 		\subsubsection{Color Analysis}
-        The 
+        The stakeholders for the Color Analysis functionality of the Aerolyzer library will be Dr. Kim Whitehall and the end users. The main purpose of the Aerolyzer library is to provide an estimation of the likely aerosols in an image and the analysis of the image's color is the method by which this is accomplished.
 \section{Selected Design Viewpoints}
 	\subsection{Image Data Preprocessing}
       \subsubsection{Design Elements}
@@ -181,7 +182,7 @@
 				Containing over 2,500 algorithms, OpenCV can analyze images and videos, recognize faces, identify objects, perform visual transformations, and more.
 				One can use image transformations to normalize image data such that a classifier can more easily distinguish what is in a given image. \cite{svm}
 
-				Logan Wingard wrote the function is_landscape to identify the largest changes in color across the rows of an image.
+				Logan Wingard wrote the function is\_landscape to identify the largest changes in color across the rows of an image.
 				Ongoing work on the project can be viewed in the Aerolyzer library’s open-source Github.
 
           \paragraph{Design Relationships}
@@ -261,6 +262,7 @@
 		This shows what aerosol is most likely to have caused the colors in the image.
       \subsubsection{Design rationale}
 		The rayleigh scattering effect is the most direct relation between the size of particles and their effect on light.
+		At this time the sample of pixels is 1000 pixels large because the wavelength conversion and aerosol comparison takes 4/1000 seconds per pixel.
       \subsubsection{Design languages}
 		This portion of the library makes calls to the OpenCV library and the remainder is written in python.
 

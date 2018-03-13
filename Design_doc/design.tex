@@ -117,119 +117,97 @@
 
 \section{Design Description Information Content}
 	\subsection{Introduction}
-    
+		Aerolyzer is a Python library which hosts the functions called by the Aerolyzer\_App framework.
+		These function ultimately provide the user with information about the types of Aerosols that are most likely present in their area based on the colors of the image.
     \subsection{Software Design Description Identification}
     	\subsubsection{Image Data Preprocessing}
-        When a user submits an image to the web framework
+        When a user submits an image to the web framework it's immediately passed to a function called "check\_image".
+		The first portion of check\_image reads the image's metadata to determine whether the image is suitable for aerosol analysis.
         \subsubsection{Horizon Detection Filter}
         The Aerolyzer library hopes to feature a module that infers aerosol size based on the hue distribution in images of the sunrise or sunset. To this end, a filter that intelligently recognizes acceptable images \ref{def:accImg} is necessary to save computation time and guarantee reliable data.
         \subsubsection{Library Structure}
         The Aerolyzer library aims to be accessible to import for scientific research purposes. The structure of this library will determine the ease of access of this library.
+		\subsubsection{Color Analysis}
+        The 
 	\subsection{Identified design stakeholders}
     	\subsubsection{Image Data Preprocessing}
-        
+        The primary stakeholders for the Image Data Preprocessing are the users and the development team.
+		Image Data Preprocessing is meant to save the user's time by telling them that their image won't work for analysis before more time consuming calls are made.
+		The other purpose is to make the image analysis functions more accurate for the user's sake and the development team, since it provides a standardized baseline for the images that are analyzed.
         \subsubsection{Horizon Detection Filter}
         The stakeholders for the Horizon Detection Filter python module include users who will be using the Aerolyzer web service. Users will ideally not have to wait for long periods of time for the server to process weather and air quality analysis. The horizon filter will expedite this process by filtering out bad data.
         \subsubsection{Library Structure}
         The stakeholders for the Aerolyzer library’s structure will be the developers and the Aerolyzer’s primary stakeholder, Dr. Kim Whitehall. The Dr. Whitehall requires the library to be accessible from Python’s package index.
+		\subsubsection{Color Analysis}
+        The 
 \section{Selected Design Viewpoints}
 	\subsection{Image Data Preprocessing}
       \subsubsection{Design Elements}
           \paragraph{Design Attributes}
           Smartphone images all store EXIF data when the image is created. This data varies from device to device as EXIF data isn't entirely standardized, but there are certain tags that the Aerolyzer library will require the image has.
       \subsubsection{Design overlays}
-		There are six major tests in the image pre
+		There are seven major tests in the image preprocessing.
+		Each of these tests uses a different portion of the image's EXIF data.
+		If the image fails any of these test then the image isn't verified.
+		Without getting verified the color analysis functions won't be called on the image.
+		The following are the constraints for each test in order from least time intensive to most time intensive.
+		\begin{enumerate}
+			\item The file type of the image must be .jpg or .png.
+			\item The image must be no larger than 4Mb.
+			\item The image must be in the resolution range 600X600-6000X6000.
+			\item The image must be a mobile image from a supported device.
+			\item The image cannot be edited or filtered in any way.
+			\item Location services must be enabled for the camera.
+			\item The image must be taken during sunrise or sunset.
+		\end{enumerate}
       \subsubsection{Design rationale}
-		
-     
+		Each test is meant to ensure the color analysis, to determine the aerosol content, is accurate.
+		The first test checks the EXIF tag "file type" to ensure that the image can be passed to OpenCV since it's primary image types are jpg and png.
+		The second and third test could potentially be adjusted depending on the processing power of the hosting device, but they check the tags "file size" and "exif exifimagewidth" respectively to put limits on the size of the image which helps standardize the speed of image analysis.
+		The forth test checks that the exif tag "image model" is in the list of acceptable models.
+		The fifth test compares the time the image was originally taken to the last time it was modified, which are stored in the exif tags "exif datetimeoriginal" and "image datetime" respectively.
+		The sixth test checks the exif tags "gps gpslatitude" and "gps gpslongitude" to make sure that the image had location services on and that it was taken in the United States.
+		The seventh test uses the image's location data and time data.
+		A call is made to the WeatherUnderground API using the image's location and original datetime.
+		Then the sunrise and sunset times returned by tWeatherUnderground are compared to the time that the image was taken.
+		If the image wasn't taken within a certain time frame around sunrise and sunset, it's deemed invalid.
       \subsubsection{Design languages}
-		
+		This code is part of the core functionality of the Aerolyzer Lbirary and as such it's written in python.
 	\subsection{Horizon Detection Filter}
       \subsubsection{Design Elements - OpenCV }
       		\paragraph{Design Attributes}
-          		Outlined in the Software Design Document, a horizon detection filter shall be created using OpenCV and other python libraries as required. OpenCV is a BSD-licensed computer-vision library with many relevant sub-modules. Containing over 2,500 algorithms, OpenCV can analyze images and videos, recognize faces, identify objects, perform visual transformations, and more. One can use image transformations to normalize image data such that a classifier can more easily distinguish what is in a given image. \cite{svm}
+          		Outlined in the Software Design Document, a horizon detection filter shall be created using OpenCV and other python libraries as required.
+				OpenCV is a BSD-licensed computer-vision library with many relevant sub-modules.
+				Containing over 2,500 algorithms, OpenCV can analyze images and videos, recognize faces, identify objects, perform visual transformations, and more.
+				One can use image transformations to normalize image data such that a classifier can more easily distinguish what is in a given image. \cite{svm}
 
-				As of December 2017, Kin-Ho Lam has designed and tested two horizon detection classifiers using OpenCV 3.3.0. Ongoing work on the project can be viewed in the Aerolyzer library’s open-source Github. These classifiers are horizon detection by straight line and horizon detection by color threshold.
+				Logan Wingard wrote the function is_landscape to identify the largest changes in color across the rows of an image.
+				Ongoing work on the project can be viewed in the Aerolyzer library’s open-source Github.
 
           \paragraph{Design Relationships}
 					.\\
 					\includegraphics[width=4.5in,natwidth=1907,natheight=787]{images/Design2.png}
 
           \paragraph{Design Constraints}
-          		Aerolyzer’s unique image criterion necessitates a predictive data model capable of detecting horizons with a minimum of 66\% certainty and identifying aersols with a minimum of 50\% certainty. Efficient and expedient algorithm performance is necessary due to the expected user base who will be waiting for Aerolyzer to service their request. Pending further research, these criterion are achievable through OpenCV though more computer vision libraries or modules may be required.
+          		Aerolyzer’s unique image criterion necessitates a predictive data model capable of detecting horizons with a minimum of 66\% certainty and identifying aerosols with a minimum of 50\% certainty. Efficient and expedient algorithm performance is necessary due to the expected user base who will be waiting for Aerolyzer to service their request.
       
       \subsubsection{Design overlays}
-      		\paragraph{OpenCV Horizon Detection by Straight Line Algorithm}
-      			Horizon detection by straight line seeks to detect the simplest possible acceptable image; a picture of the sunset/sunrise without obstructions. In this case, one can expect the most visible longest and straightest line in an image to be the horizon. With this assumption, the Horizon Detection by Straight Line algorithm shall accept or reject an image through the following procedure:
-      			\begin{enumerate}
-      				\item Upon receiving an image, detect the longest and straightest line.
-      				\item If there is no straight line stretching across the image, reject it.
-      			\end{enumerate}
-      			As a proof of concept, the algorithm is implemented in the following python function. This algorithm draws a straight green line where it believes the horizon is.
-      			\lstinputlisting[language=Python,basicstyle=small]{code/HorizonDetectionbyStraightLine.py}
-     			
-     			Upon being fed an image, the Horizon Detection by Straight Line’s algorithm works as follows:
-				
-
-				\begin{enumerate}
-					\item Perform a gaussian blur on the image
-					\item Convert the image to grayscale
-					\item Perform Canny Edge Detection \cite{svm}
-					\item Perform Hough Line Transformation \cite{svm}
-					\item If there is a straight line, draw a green line spanning across the image. This is the classified horizon.
-					\item Else, if there are no straight lines, then reject the image.
-				\end{enumerate}
-
-
-				This approach works well for some images such as fig X pulled from the Aerolyzer test image album. However, it is clear that this approach does not work for all cases, as seen in fig Y, detecting the horizon by straight line fails in images with a complex foreground that contains many straight lines. A new algorithm is necessary to enhance detection accuracy.
-				\\
-				\includegraphics[width=4.5in,natwidth=640,natheight=427]{images/line1.jpg}
-				\\
- 				\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/line2.jpg}
-
-				\paragraph{OpenCV Horizon Detection by Threshold}
-					Horizon Detection by Threshold is a more versatile method compared to straight line detection because it relies on segmenting color distribution. Detection by Threshold was designed to classify images that contain complex foregrounds by distinguishing what part of the image is the sky. The Threshold algorithm shall accept or reject an image through the following procedure:
-					\begin{enumerate}
-						\item Separate the image by distinct color spaces
-						\item Perform a binary threshold with the minimum color threshold being the color of the sky.
-						\item Calculate the area of the largest continuous contour that is within the sky color threshold.
-						\item Apply a statistical function to ratio the area of sky color over the total area of the image to produce a confidence rating. A high confidence rating shall indicate that the image contains a horizon while a low confidence rating indicates there is no horizon.
-					\end{enumerate}
-
-					As a proof of concept, the algorithm is implemented in the following python function. This algorithm draws a green outline of what it believes to be the sky.
-
-					\lstinputlisting[language=Python]{code/HorizonDetectionbyThreshold.py}
-
-					Upon being fed an image, (this example features Fig. Y) the Horizon Detection by Threshold works as follows:
-					\begin{enumerate}
-						\item Convert image into converted to TCbCr digital color space (not to be confused with YUV colorspace).\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/1.jpg}
-						\item A TCbCr digital color space separates the pictures intensity from its colors, enabling a histogram equalization on the blue channel. After performing this equalization, the red-green-blue channels are merged back together. This enables a separation of the sky and clouds from the foreground.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/2.jpg}
-						\item This separation of sky and foreground becomes clearer after the image is converted back to BGR.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/3.jpg}
-						\item Prepare to segment the sky from the foreground by greyscaling the image and applying a gaussian blur.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/3.jpg}
-						\item Apply a binary threshold; if a pixel value is at least 120, it is assigned grey otherwise it is assigned a black value.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/4.jpg}
-						\item Erode the image to de-noise and improve clarity.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/5.jpg}
-						\item Finish de-noise with a dialite to de-chunk the image.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/6.jpg}
-						\item Draw contours, in this case it visually appears as a white outline around the largest continuous grey section.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/7.jpg}
-						\item If contours can be drawn, then the largest contour is overlaid on the original image. Fig. Y “passes” as acceptable and as see it accurately outlines the visible sky.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/8.jpg}
-						\item If no contours can be drawn, the algorithm fails the image, meaning no sky or horizon can be detected.\\
-							\includegraphics[width=4.5in,natwidth=640,natheight=480]{images/threshold/9.jpg}
-					\end{enumerate}
-					This algorithm struggles to classify low-light images, improvements and fine-tuning are necessary. One can see the threshold algorithm works well for fig. Y.
+		The horizon filter produces an image that is the portion of the original image containing what is most likely to be the horizon.
+		Then using this subimage the filter checks that the change in color intensity, which in this case is a measure of brightness, across the rows of an image is significant enough to be considered a horizon.
+		If an image has objects in the foreground that obscure a horizon, the objects' color will interfere with the overall drop in color intensity and make it more likely that the image will not be considered valid.
+		
+		The process starts by creating a histogram of the color intensities across all of the pixels of the image.
+		By finding the sum of these values across a row of the image, an average value for each color in each row is found.
+		Then looking over every row's average color intensity and comparing it to the last, the largest drop in intensity in the image is found.
+		If the intensity drop isn't large enough the image is considered invalid since there isn't a disguished horizon.
+		If the intensity drop is large enough, the portion of the image around that drop is trimmed and isolated for analysis.
 
       \subsubsection{Design Rationale}
-      	The Aerolyzer Horizon Detection Filter needs to identify acceptable images, namely ones of the sunset or sunrise. Research indicates that specific sunset or sunrise image classification  necessitates a predictive Tensorflow model because creating such an unsupervised classifier in OpenCV is a challenging task. As demonstrated in Fig. Z, this design rationale is accomplished by incorporating a trained Tensorflow model as a secondary step after OpenCV Horizon Detection by Threshold. Tensorflow analysis is a computationally expensive process. An OpenCV classifier to detect the presence of the sky saves computation time by rejecting all images that do not have skies. If no sky is present then it logically follows that there can be no sunrise or sunset in the image.
+		Any image of the horizon will have a distinct drop in brightness where the sky ends and the ground begins.
+		This is especially true when the image is taken during sunset and sunrise which is confirmed by the time and location of the image.
 
       \subsubsection{Design languages}
-      	An element in the greater Aerolizer python library, the horizon detection algorithm shall be written in Python 2.7.12 while importing OpenCV 3.3.0 and Numpy 1.13.3. The Aerolyzer project’s sponsor, Dr. Whitehall, chose Python as the library’s primary language. 
+      	An element in the greater Aerolyzer python library, the horizon detection algorithm shall be written in Python 2.7.12 while importing OpenCV 3.3.0 and Numpy 1.13.3. The Aerolyzer project’s sponsor, Dr. Whitehall, chose Python as the library’s primary language. 
 
 	\subsection{Library Structure}\label{des:LibStructure}
       \subsubsection{Design Elements}
@@ -262,6 +240,29 @@
       		The choice to use python’s package index is to keep the Aerolyzer library open source enabling software developers, data analysts, etc. to access the Aerolyzer library and use its image analyzing software for their own research needs. 
       \subsubsection{Design languages}
       The language used will be python 2.7.12 to write a setup script for when importing Aerolyzer.
+	\subsection{Color Analysis}\label{des:coloranalysis}
+      \subsubsection{Design Elements}
+          \paragraph{Design Attributes}
+            The color analysis of an image is the most time intensive function of the Aerolyzer library.
+          \paragraph{Design Relationships}
+			This functionality of the library requires that both the metadata preprocessing and the horizon filter functions have been passed successfully.
+          \paragraph{Design Constraints}
+			The target accuracy is 50% correct aerosol predictions.
+			This will compare aerosol data from outside sources to the aerosol data produced by the library.
+      \subsubsection{Design overlays}
+		The color analysis of an image happens in three steps.
+		First, 1000 random pixels are selected as a sample from the horizon subimage provided by the horizon filter.
+		Second, Each of these pixels' hue is converted into a wavelength.
+		This wavelength is indicative of the the aerosols in the air that the light is passing through due to the rayleigh scattering effect.
+		The wavelength is found by comparing the hue of the pixel to an image of the visible color spectrum, which has been mapped to a range of wavelengths.\includegraphics[width=2.5in,natwidth=400,natheight=1]{images/Spectrum1pixel.png}
+		Each wavelength is passed to a function that returns a likelihood, a p-score based on a normal distribution over an aerosol's expected size, that an aerosol of a certain type scattered the light captured in that pixel.
+		The scores are then stored in an array for that pixel.
+		Third, the scores for each type of aerosol are summed and sorted from greatest to least.
+		This shows what aerosol is most likely to have caused the colors in the image.
+      \subsubsection{Design rationale}
+		The rayleigh scattering effect is the most direct relation between the size of particles and their effect on light.
+      \subsubsection{Design languages}
+		This portion of the library makes calls to the OpenCV library and the remainder is written in python.
 
 \end{singlespace}
 \end{document}

@@ -198,45 +198,45 @@
 	
 	\section{Retrospective}
 		\begin{tabular}{|l|p{0.3\linewidth}|p{0.3\linewidth}|p{0.3\linewidth}|}\hline \textbf{Week} & \textbf{Positives} & \textbf{Deltas} & \textbf{Actions}\\\hline
-		1 	& 
-			& 
-			&  \\\hline
+		1 	& We had been having lots of internal issues amoung ourselves, though one member was removed, and most if not all internal problems have stopped.
+			& One group member was removed. Our client has also informed us that we are her lowest priority with her new schedule.
+			& These changes have actually motivated me to work extra hard this term. After the member that was removed told me that he couldn't get fired, because if he did, no code would get written, and our client telling us we are the lowest priority, I was really motivated to prove them both wrong. \\\hline
 
-		2 	& 
-			& 
-			&  \\\hline
+		2 	& Daniel wrote a pretty good lon lat conversion function that turns them into a more usable format. 
+			& Kim, our client informed us, possibly due to the chaos happening on our end, that we will no longer have any connection with NASA JPL.
+			& Decisions need to be made on what needs to be stored on the database and what we could store elsewhere. \\\hline
 
-		3 	& 
-			& 
-			&  \\\hline
+		3 	& The image classifications (image_restriction_functions) have almost been completed.
+			& The last two image restriction functions left to write are is_sky and is_landscape, which I decided to combine into one function.
+			& Not known at the time of week 3, but a neural network will need to be implemented to accurately classify images. \\\hline
 
-		4 	& 
-			& 
-			&  \\\hline
+		4 	& I developed a classification algorithm. Unfortunately, it is only 50% accurate, so one could just guess and be just about as accurate. At least a solid horizon detection algorithm has been written.
+			& Classification accuracy needs to be imporved at least \%16.
+			& Again, to do this, unknown at the time, a neural network must be implemented. \\\hline
 
-		5 	& 
-			&
-			&  \\\hline
+		5 	& After struggling with a messy git log, I was able to rebase the log a bit, and linted my code to make it more readable.
+			& Color analysis needs to get started soon. Still need to reach that \%66 goal for classifying images.
+			& I need to reach \%66 before I can get to color data extraction to help with color analysis. \\\hline
 
-		6 	& 
-			&
-			&  \\\hline
+		6 	& Wrote a shallow neural network, though have only tested it with dummy information to see if it works.
+			& Need to get it working with the histogram data in order to compare it to my own algorithm that still only has about \%55 accuracy.
+			& I need to convert the histogram data into weights (between 0 and 1) in order to use them in the neural net, and then need to train it. \\\hline
 
-		7 	& 
-			& 
-			&  \\\hline
+		7 	& Implemented my neural network with histogram data and it succesfully classifies immages \%68 of the time.
+			& I need to format the code and clean it so that it will pass the pull request. Then I may need to increase accuracy.
+			& I must clean code (remove print statements and unneeded comments) then create a pull request to get the code with the rest of the library. \\\hline
 
-		8 	& 
-			&
-			&  \\\hline
+		8 	& Linted and formatted my code and succesfully added it to our Aerolyzer library.
+			& Kim advised me to skip trying to increase accuracy on the classification as it reaches the \%66 goal and to move on to color extraction.
+			& The code I have already singles out the haze layer, so I can edit that a bit to also extract color data. \\\hline
 
-		9 	&
-			&
-			&  \\\hline
+		9 	& Succesfully implemented a color extraction function that gets 1000 points from the haze layer and sends that to Daniel's color analysis function to be analyzed.
+			& Have to get everything ready for Beta demonstration.
+			& I need to modify our library so that our test script will run everything with the resulting data. Basically just connect all of our code. \\\hline
 
-		10 	&
-			&
-			&  \\\hline
+		10 	& I made the Beta demonstration.
+			& Start bug checking and the progress report. Need to also create a pull request to add the last bit of code functionality into the library.
+			& I'm going to need to test the entire library with lots of both valid and invalid images. \\\hline
 		\end{tabular}\\
 
 

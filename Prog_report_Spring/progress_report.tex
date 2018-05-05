@@ -95,14 +95,18 @@
 		\subsection{Logan Wingard}
 			We have completed the entire Aerolyzer library and a more recent version has been uploaded to Pypi. 
 			The app now calls the updated functions instead of not doing anything once the image is uploaded.
-			The image restriction functions have been thouroughly tested for bugs and we are confident that these functions are working well enough for demonstrations.
+			The image restriction functions have been thoroughly tested for bugs and we are confident that these functions are working well enough for demonstrations.
 
 			The poster went smoothly, and should be ready for pickup by now.
 			We are pretty confident that our poster will make a great impression on the visitors of the expo and represent what Aerolyzer is about nicely.
 			Here is the image that we used on our poster that will represent what our project does.\\
 			\includegraphics[height=4cm,natwidth=1098,natheight=432]{images/posterimg.png}
 		\subsection{Daniel Ross}
-			
+			The project is almost entirely complete.
+			This term I've been reviewing the tests that I wrote for the functions and also encapsulating each set of functions into their own class.
+			This means the functions I've written are now called from instances of their respective classes, like Location.get_coord() or Wavelength.readHazeLayer().
+			We've also written a new function, aerolyzeImage(), which effectively calls all of the image analysis functions on a single image.
+			This function was important to make the library perform it's purpose.
 			
 			
 	\section{What's left to accomplish}
@@ -115,7 +119,10 @@
 			Lastly, we must present at expo.
 			This is pretty intimidating, as there will be people of all levels of knowledge and possibly some employers looking for employees, though with some preparation, we will make a great face for Aerolyzer.
 		\subsection{Daniel Ross}
-			
+			Since we've completed the library that produces data on what aerosols are present in an image, the remainder of what we're working on is technically stretch goals.
+			The goal that'd improve the project the most for the purpose of showing it at expo is a visual representation of the aerosol data.
+			In the first term I looked into potential visualization tools, but these were chosen from the expectation that we'd be able to integrate our library fully into the web application.
+			If we can't successfully add our update library to the web app it would still be preferable to have an alternative method of displaying the aerosol analysis results.
 
 
 	\section{Problems}
@@ -126,9 +133,15 @@
 			We were eventually able to reconnect with Kim and get the project back on track so it is no longer an issue.
 			There was an issue that our functions would call data from a config file that hadn't been made on the users computers, so my solution to this was to scrap the config files completely and instead make them variables in the classes.
 			With this solution, we do not have to go through the hassle of making a function that writes the config file, though the drawback is our users will not be able to configure the image restriction criteria without digging into the code.
-			The code is open source, so anyone who so chooses to alter the criteria is able to, though for less tech savvy users, it couold be intimidating. 
+			The code is open source, so anyone who so chooses to alter the criteria is able to, though for less tech savvy users, it could be intimidating. 
 		\subsection{Daniel Ross}
-			
+			Since the beginning of spring term development has been smooth for the most part with one major issue.
+			When the Aerolyzer library was updated and pushed to pypy, there was an issue with the library's configuration files.
+			Logan and I approached the issue with two different methods.
+			I utilized the pyaml library to create a python object that contains all of the information in the configuration file.
+			Only two classes need these configuration files, so in those class initializations I added a check for the configuration file's existence.
+			If the configuration file doesn't exist a copy of the file is written using the information in the python object.
+			This method of creating the configuration file makes sure that the user's installation of Aerolyzer will have the option to change the configuration.
 			
 	\section{Interesting Code}
 		The following is an excerpt from the horizon detection function.
@@ -185,14 +198,15 @@ if largest[0] >= 11:
 			This eliminates the need for config files entirely.
 			\begin{lstlisting}
 def __init__(self):
- self.types = [".png",".jpg",".jpeg",".JPG"]
- self.devices = ["iPhone 5","iPhone 5s","iPhone 6","iPhone 6s","DROIDX","SM-G730V","iPhone SE","SM-G920V"]
- self.maxSize = 4000000
- self.imgWidthMin = 100
- self.imgLengthMin = 100
- self.imgWidthMax = 6000
- self.imgLengthMax = 6000
- #self.criteria = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
+  self.types = [".png",".jpg",".jpeg",".JPG"]
+  self.devices = ["iPhone 5","iPhone 5s","iPhone 6","iPhone 6s","DROIDX","SM-G730V","iPhone SE","SM-G920V"]
+  self.maxSize = 4000000
+  self.imgWidthMin = 100
+  self.imgLengthMin = 100
+  self.imgWidthMax = 6000
+  self.imgLengthMax = 6000
+  #self.criteria = self._import_yaml(os.getcwd() + 
+  "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
 			\end{lstlisting}
 
 			The following is the sun\_position function
@@ -216,6 +230,39 @@ def sun_position(exifdict):
 		return 0
 	else:
 		return 0
+			\end{lstlisting}
+			This isn't a particulary long code sample, but it shows an example one of the changes I've made this term and the final function for the library aerolyzeImage().
+	\begin{lstlisting}
+class AeroData(object):
+	def __init__(self):
+		pass
+
+	def aerolyzeImage(self, pathname):
+		imager = retrieve_image_data.RtrvData(pathname)
+		return self.readHazeLayer(imager.get_hsv(pathname))
+	\end{lstlisting}
+			The change to classes means that all the functions had to be updated to call from their own instance or instances of other classes as demonstrated here in readHazeLayer. It utilizes self and creates wave as an instance of the Wavelength class.
+			\begin{lstlisting}
+def readHazeLayer(self, pixArray):
+	numtypes = 12
+	cumulative = []
+	wave = wavelength.Wavelength()
+	for i in pixArray:
+			cumulative.append(self.analyzeWavelength(wave.get_wavelength(i,1)))
+	aerosolSum = reduce((lambda x, y: [(x[0][0],x[0][1] + y[0][1], x[0][2]),
+	(x[1][0],x[1][1] + y[1][1], x[1][2]),
+	(x[2][0],x[2][1] + y[2][1], x[2][2]),
+	(x[3][0],x[3][1] + y[3][1], x[3][2]),
+	(x[4][0],x[4][1] + y[4][1], x[4][2]),
+	(x[5][0],x[5][1] + y[5][1], x[5][2]),
+	(x[6][0],x[6][1] + y[6][1], x[6][2]),
+	(x[7][0],x[7][1] + y[7][1], x[7][2]),
+	(x[8][0],x[8][1] + y[8][1], x[8][2]),
+	(x[9][0],x[9][1] + y[9][1], x[9][2]),
+	(x[10][0],x[10][1] + y[10][1], x[10][2]),
+	(x[11][0],x[11][1] + y[11][1], x[11][2])]), cumulative)
+	aerosolSum = sorted(aerosolSum, key=lambda aerosol: aerosol[1], reverse = True)
+	return aerosolSum
 			\end{lstlisting}
 \end{singlespace}
 \clearpage

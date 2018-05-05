@@ -93,7 +93,14 @@
 	\section{Current State}
 		
 		\subsection{Logan Wingard}
-			
+			We have completed the entire Aerolyzer library and a more recent version has been uploaded to Pypi. 
+			The app now calls the updated functions instead of not doing anything once the image is uploaded.
+			The image restriction functions have been thouroughly tested for bugs and we are confident that these functions are working well enough for demonstrations.
+
+			The poster went smoothly, and should be ready for pickup by now.
+			We are pretty confident that our poster will make a great impression on the visitors of the expo and represent what Aerolyzer is about nicely.
+			Here is the image that we used on our poster that will represent what our project does.
+			\includegraphics[height=4cm,natwidth=1098,natheight=432]{images/posterimg.png}
 		\subsection{Daniel Ross}
 			
 			
@@ -101,7 +108,12 @@
 	\section{What's left to accomplish}
 		
 		\subsection{Logan Wingard}
-			
+			The most recent version is not yet uploaded to Pypi, so that must be done before expo so that we can demo using the app and not running it from command line.
+			There is quite a bit more implementation testing that we need to get done before expo as well.
+			We need many valid images that meet all the requirements for demonstrations, and they not only need to be tested against our functions, but also through the app.
+			We will soon need to submit all of our code that we have written over the course of the entire year, so we need to go through and write clear comments about what every line does to make it easier to grade/read.
+			Lastly, we must present at expo.
+			This is pretty intimidating, as there will be people of all levels of knowledge and possibly some employers looking for employees, though with some preparation, we will make a great face for Aerolyzer.
 		\subsection{Daniel Ross}
 			
 
@@ -109,7 +121,12 @@
 	\section{Problems}
 		
 		\subsection{Logan Wingard}
-			
+			With such strict criteria of the image restriction functions, it is very difficult to find images that meet all of these criteria.
+			There was also a large period of time when we were unable to contact out client Kim for a medical reason at the time unknown to us.
+			We were eventually able to reconnect with Kim and get the project back on track so it is no longer an issue.
+			There was an issue that our functions would call data from a config file that hadn't been made on the users computers, so my solution to this was to scrap the config files completely and instead make them variables in the classes.
+			With this solution, we do not have to go through the hassle of making a function that writes the config file, though the drawback is our users will not be able to configure the image restriction criteria without digging into the code.
+			The code is open source, so anyone who so chooses to alter the criteria is able to, though for less tech savvy users, it couold be intimidating. 
 		\subsection{Daniel Ross}
 			
 			
@@ -162,6 +179,22 @@ if largest[0] >= 11:
 			Here are the results of this function:\\
 			\includegraphics[height=4cm,natwidth=640,natheight=426]{images/horizon_uncropped.jpg}\\
 			\includegraphics[height=4cm,natwidth=1281,natheight=537]{images/horizon_cropped.png}\\
+			
+			This code is my fix to the issue dealing with config files. 
+			Instead of checking lists or values inside the list criteria, it checks vor values in types, devices, etc.
+			This eliminates the need for config files entirely.
+			\begin{lstlisting}
+def __init__(self):
+	self.types = [".png",".jpg",".jpeg",".JPG"]
+	self.devices = ["iPhone 5","iPhone 5s","iPhone 6","iPhone 6s","DROIDX","SM-G730V","iPhone SE","SM-G920V"]
+	self.maxSize = 4000000
+	self.imgWidthMin = 100
+	self.imgLengthMin = 100
+	self.imgWidthMax = 6000
+	self.imgLengthMax = 6000
+	#self.criteria = self._import_yaml(os.getcwd() + "/../../Aerolyzer/aerolyzer/config/image_restriction_conf.yaml")
+			\end{lstlisting}
+
 			The following is the sun\_position function
 			\begin{lstlisting}
 def sun_position(exifdict):

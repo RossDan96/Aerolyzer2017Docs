@@ -143,6 +143,10 @@
 			If the configuration file doesn't exist a copy of the file is written using the information in the python object.
 			This method of creating the configuration file makes sure that the user's installation of Aerolyzer will have the option to change the configuration.
 			
+			The one issue that has stuck with the library is the speed at which it can analyze an image.
+			We discussed this with our TA on a couple of occasions and it seems that the fact that the library is written in python means that it might not be feasible to improve the speed.
+			It's mostly that python doesn't support true parallelism so I couldn't split the analysis of thousands of pixels among different threads.
+			
 	\section{Interesting Code}
 		The following is an excerpt from the horizon detection function.
 		It has since been updated with slightly different numbers in order to increase accuracy, but this is what is currently pushed to out master Aerolyzer github.

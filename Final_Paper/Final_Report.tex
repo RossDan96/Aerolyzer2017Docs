@@ -92,6 +92,28 @@
 		
 	\section{Requirements Document}
 		\includepdf[pages=-]{pdfs/require.pdf}
+		The requirements for the project changed during winter term to better reflect what the client wanted and what the team would be capable of.
+		The key difference is that the project focuses solely on the development of the Aerolyzer Python library rather than the creation of the library and the integration into the web application.
+		Classifying the photo was simplyfied to be based solely on the horizon and the colors in the Haze Layer.
+		Calling the Weather API was used to determine the time of Sunrise and Sunset in the test image.
+		The Web Application interface was removed from the project.
+		The Web application portion of ZIP Code Submission was removed, but the library instead uses an image's location data to determine ZIP code.
+		Displaying the data on the Web Application was removed and a python graphing script was used to display the results of Aerosol analysis instead.
+		
+		
+		In addition to these shifts away from the Web Application, our client expected the extraction and usage of image EXIF data be more extentensive than previously stated.
+		Now handling the image EXIF data was expected to determine whether an image was taken during sunrise or sunset, rather than having an image classifier determine this.
+		
+		
+		The reason behind many of these changes was the client's desire's being better accommodated and the loss of a team member making the integration of the library into a fully functioning application less feasible given time contraints.
+		\begin{landscape}
+			\subsection{Final Development Schedule}
+			\begin{figure}[h]
+				\includegraphics[width=9.5in]{gantt.png}
+				\caption{Final Gantt Chart Schedule}
+				\label{fig:Final Schedule}
+			\end{figure}
+		\end{landscape}
 	\section{Design Document}
 		The design document had been updated in Winter term as there were many design choices that we found to be impractical such as storing all the data to the database. 
 		However, the most recent design doc that got signed is included below with more realistic design choices for horizon detection, color analysis and library structure.

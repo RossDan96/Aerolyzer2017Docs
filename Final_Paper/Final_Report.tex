@@ -99,25 +99,129 @@
 	\section{Blog Posts}
 		\subsection{Daniel Ross}
 			\begin{longtable}{|l|p{0.3\linewidth}|p{0.3\linewidth}|p{0.3\linewidth}|}\hline \textbf{Week} & \textbf{Fall} & \textbf{Winter} & \textbf{Spring}\\\hline
-			1 & - & - & -
+			1 
+			& I read the descriptions of all the projects.
+			After reviewing them I decided on my top 5 potential projects.
+			Only a couple of the possible projects actually scared me with their potential difficulty, but I selected one of those projects anyway.
+			& Our client, Kim Whitehall, expressed that she was concerned with the direction that our team was going with the project.
+			We had thought that we were on the right track, but this was discouraging.
+			I was unhappy with how the meeting went and it felt like this was going to be an insurmountable problem.
+			I planned on having our team rethink the entire approach to handling horizon detection, because machine learning seemed to be a time consuming rabbit hole without sufficient payoff.
+			& We met with Kim and discussed that we need to add the code that we've completed on the virtual machines needs to be added to the github repository.
+			I cleaned up my git commits and made my Wavelength functions into a pull request to add to the repo.
+			I already have some code done for aerosol analysis, so I opened an issue for that specifically as Kim requested.
+			I'm going to be going over my code to make sure it's ready to add to the main repository.
 			\\\hline
-			2 & - & - & -
+			2 
+			&I was assigned to the Aerolyzer project and met with my team before reaching out to our client.
+			On Friday, our team met with our client, Dr. Whitehall, on a WebEx video conference.
+			I need to research the pre-existing content in the project and gather an understanding of what our team will be adding.
+			I'm researching the science behind aerosols in addition to reading the resources provided to us by Dr.Whitehall
+			&The team met with the course professors to ask for advice on what the best course of action would be.
+			Their advice helped convince me that changing the group's focus would be sufficient to succeed.
+			Logan asked if I would meet with ombuds and him to discuss some issues with Kin-Ho.
+			I attended that meeting hoping to come out feeling better about the team, but listening to Logan's concern made my opinion of how things were going seem more valid.
+			Logan set up a meeting with Kevin and Kirsten regarding the group issues.
+			& I went back to the Aerolyzer Design Doc and updated the color analysis section to match what we had for our Beta demo.
+			I finished up a draft of the Aerosol analysis for the Beta demo.
 			\\\hline
-			3 & - & - & -
+			3 
+			&I started work on the problem statment, which is helping me gather my thoughts on the project.
+			I also realized that if we're going to use location a good categorization would be ZIP code. Converting latitude and longitude into ZIP codes should be simple to implement.
+			We've got to isolate what the end goal for our team is going to be.
+			The last portion of the problem statement will have to be close to what Dr.Whitehall will expect from us.
+			&Kin-Ho was removed from our group.
+			I was extremely apprehensive at first since I didn't want to ruin his capstone or cripple our own development.
+			It's hard working with new people and taking on strangers as clients, but this was more stressful than simply working on coding a project.
+			By the end of the week I had a sense of relief that I knew I wouldn't have had if I wanted him in the group.
+			I think these group issues have delayed the development a little bit.
+			I'll fix and finish the location functions.
+			&I spoke to Billy Buffum about his project at Ninkasi Brewing.
+			His team's data management for the brewery's data seems interesting.
+			I was busy this week with getting used to the Parallel Programming class without Professor Bailey, and I didn't spend as much time debugging the inputs on my aerolyzer functions as I would've liked.
 			\\\hline
-			4 & - & - & -
+			4 
+			&Dr.Whitehall approved of the content of our problem statement rough draft.
+			Our problem statement rough draft had multiple issues and when turning in the final draft we were unsure as to whether we needed hand written signatures or just email validation.
+			We're going to edit the first draft of the problem statement. In the future when a team member has questions I'll encourage them to ask a professor or TA if I don't have a solution.
+			&I finished location.py.
+			The functions can now pinpoint where a picture was taken down to the apartment.
+			The Sun\_position function now returns whether an image was taken during sunrise, sunset, day, or night.
+			The time ranges for sunrise and sunset may need to be adjusted.
+			I need to figure out the simplest way to convert from a pixel to a wavelength.
+			I plan on asking Kim in our next meeting for advice on these two issues.
+			& Billy Buffum and I conducted our interviews for the Wired review articles and his project seems really useful for Ninkasi.
+			For the Wired article I recreated the website's CSS and HTML formatting in my own review of the Ninkasi data management project.
+			I restructured the functions in the aerolyzer library so that the main aerosol analysis is a class that can be called in the web framework and the other functions are just called by that class or the Image Restriction class.
+			I installed PyLint on my virtual machine and figured out how to use it on specific files with the aerolyzer lint configuration.
+			Kim asked me to lint the Wavelength Function commits made in the pull requests.
 			\\\hline
-			5 & - & - & -
+			5 
+			& Our team got around to experimenting on the Virtual Machine and testing OpenCv.
+			Working on the requirements document has been tricky because my team is having difficulties with distinguishing design elements from requirements.
+			Going forward in our requirements document we're going to remind ourselves that this paper is meant to describe the 'what' of our project. 
+			&I've developed a first draft of wavelength.py which will convert from pixels to wavelengths.
+			Kim wasn't available during our appointed schedule, but we still updated her via email.
+			I'm not sure why but wavelength.py is varying wildly in accuracy.
+			Ask TA for potential advice on improving accuracy.
+			&I finished linting most of my code in time for our scheduled weekly meeting with Kim, but she didn't show up.
+			Logan emailed her asking about her absence and hopefully we'll be able to get into contact with her soon.
+			I'm feeling good about everything that's done on my virtual machine, but without Kim being available to review the code that gets added to the repo I'm a little concerned with what will be properly uploaded by the time Expo comes around.
 			\\\hline
-			6 & - & - & -
+			6 
+			&I started looking into how Google Tensorflow works. It may be a valid option for our horizon classifier.
+			Tensorflow would be used as a supervised classifier which would require a large amount of pictures approved by our team. 
+			I've started reading the Instagram API to see if there is an effective method for accessing images of the horizon in bulk.
+			& During our meeting with Kim, I cleared up the time ranges for sunrise and sunset in sun\_position.
+			Our TA, Daniel, told me that the accuracy of my method used in wavelength.py is dependent on the accuracy of OpenCV and the reference image.
+			He also said that I should think of an alternative method if this one doesn't work.
+			I'm going to try fixing this wavelength method, but if it's unsuccessful I'm going to scrap it and restart wavelength.py.
+			& Logan and I finished up the midterm progress report and presentation.
+			It feels like we haven't added much this term, but instead we've just ensured what we had works better together.
+			We spoke with Kim again and my pull request for the Wavelength Functions was added to the repository at last.
+			Now I can lint the Aerosol analysis class pull request and we'll be expo ready.
 			\\\hline
-			7 & - & - & -
+			7 
+			&I chose Development Environment, visuals for displaying our results, and database system as my research topics for my tech review.
+			I've learned a bit about Docker conceptually, but still don't fully grasp how it's implemented
+			I plan on downloading and experimenting with Docker to see if it will be a valuable tool for our team.
+			& During our meeting with Kim, she pointed out that the image I was using for my comparison array had values that compensated for what human eyes can see. The next day I found a program, Spectra, which converts from wavelength to RGB that also puts out a visible light spectrum. After replacing the reference image with the new image of the visible light spectrum the wavelength output was accurate.
+			Now that I have the accurate wavelengths I need to figure out the best method to use them.
+			I'm going to research the Rayleigh Scattering effect and the Mie Scattering effect.
+			& Logan came to me a few days before expo and pointed out a few bugs concerning the scope of some function calls within the library.
+			After we sorted those out we wrote a small script using the PyPlot library to show the aerosol analysis results in a bar graph.
+			Using the small script to show the results of the library, we had a great expo.
+			I felt well prepared for all of the questions we got at expo and despite my fears everything went well.
 			\\\hline
-			8 & - & - & -
+			8 
+			&Kin-ho found an implementation of Tensorflow that was in a Docker container, so I set up a Docker for us and got some practice assembling containers.
+			At the end of the peer review I was aware that I had to replace my Development environment research with something else.
+			I researched Web Frameworks, I chose this as a topic so that I'd better understand the work the previous Aerolyzer team accomplished.
+			& There wasn't much progress this week as I'm struggling to find a way to connect the Rayleigh scattering effect to the size of aerosols.
+			I plan on looking for some simple relationship to express the Rayleigh Scattering effect. It may just end up being a placeholder for a different relationship.
+			&We had our last meeting with our client, Kim, and we got to tell her about expo.
+			She asked about the script we wrote for the expo demonstration and we sent her a copy of it.
+			Now that the bulk of the project is over I'm thinking about the Final Presentation and what we're going to record for it.
 			\\\hline
-			9 & - & - & -
+			9 
+			&When our team met with our TA and discussed our Requirements document, he pointed out some elements in the requirements document that would be better suited for the Design Document.
+			Dr.Whitehall expressed frustration with the fact that she wasn’t fully in the loop on our test code not being on the github repo.
+			Improve our team’s communication channels with Kim.  I plan on rereading the framework that the previous team left us to see if we’ll need to make any additions.
+			&I found a chart of aerosol sizes that shows the range of sizes that the aerosols cover. Using these sizes I can create a target for the wavelength that's captured from the images.
+			The process of converting from a pixel to a set of scores for the possible aerosols is too slow. I ran it on a test set of pixels and the average speed was about 0.004 seconds.
+			Ask our TA and Kim for advice on speeding up the function.
+			& Logan prepared a script for the Final Presentation and I reserved a room at the library so that we could record.
+			I recorded a second part specifically about how the aerosol analysis works in the final project and then I edited the video.
 			\\\hline
-			10 & - & - & -
+			10 
+			&On Tuesday we called Kim and we talked over the expectation for github and further development for Aerolyzer. I feel like we’ve cleared everything thing up for now, but I’m going to have to remember to keep up with the open source development. 
+			Our team spent hours trying to get the LaTex document formatting to work properly when we compile it.
+			I plan on reading the long LaTex guide and seeing if there are any packages that could help us understand any errors we make. Ideally I will find a LaTex IDE that doesn't conflict with the LaTex resources on the OSU servers.
+			&Logan's haze layer function is successfully producing samples that are then passed into my aerosol function. We trimmed the sample size to 1000 pixels so the process wouldn't take to long.
+			Our TA told me that since our library is written in Python, we may have to live with the fact that the aerosol function is slow. He said to look for the point in the process that is the slowest and try to improve that, but since Python doesn't do multi-threading it may be difficult to speed up.
+			I'll look for a way to optimize the function.
+			&I was very busy working on final assignments for other courses, but I was relieved to see how much Logan had prepared for the final paper.
+			Now all that I have to do is help where I can and try to finish this course strong.
 			\\\hline
 			
 			\end{longtable}
@@ -217,7 +321,30 @@ Lastly we will need to fill out peer reviews and sign off the code to our client
 
 
 	\section{Conclusion}
-		todo \cite{neural}
+		\subsection{Daniel Ross}
+
+			Over the year I became a competent python programmmer.
+			In addition to this I learned how to properly use public APIs and I relearned how to use git as version control.
+			Unexpectedly I was also reaccquainted with optical physics and statistics.
+
+			The expo and all of the preparation leading up to it reaffirmed how important interpersonal skills are in any field.
+			I may only be working on a computer most days in my career, but that doesn't mean I shouldn't know how to carry a professional conversation.
+
+			Having a well developed plan is very useful, but that doesn't mean that sticking to that plan is always correct.
+			When our client said that things we're moving away from what she wanted, we had to adjust our plan and quickly move forward.
+
+
+			Delegating certain tasks to certain team members is sometimes difficult when you don't know the exact difficultly of a task before it's underway, but the benefit of having the project split up into managable pieces outweighs that initial risk.
+			Keeping up with version control is very nice for referencing purposes and makes the process of figuring out what's been complete easy.
+			That said sometimes the overhead of version control can get in the way of progressing a project if the team isn't on top of it at all stages.
+
+			Working in a team has been difficult for me in the past.
+			While I can say it's still not easy, I have learned about the importance of clear communication.
+			Taking a team member's input seriously is important, but I learned that if there's something you disagree with or don't understand you need to make it heard by the rest of the team.
+
+			During the first term our team had trouble taking the client's input to heart and there was a lot of development time spent on an aspect of the project that ended up being one small part of the project as a whole.
+			Personally my largest mistake during capstone was going along with this design idea rather than looking into other options that more closely matched what our client was asking for.
+		\subsection{Logan Wingard}\cite{neural}
 	\section{Appendix}
 		todo
 \end{singlespace}

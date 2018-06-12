@@ -294,7 +294,17 @@ Lastly we will need to fill out peer reviews and sign off the code to our client
 	\section{Poster}
 		\includepdf[pages=-]{pdfs/poster.pdf}
 	\section{Project Documentations}
-		todo
+		Documentation on the code can be found on the Aerolyzer Github.
+		To preserve the format of the issues and Pull requests, follow the links below to view them as intended.
+		\url{https://github.com/Aerolyzer/Aerolyzer/issues}
+		\url{https://github.com/Aerolyzer/Aerolyzer/pulls?q=is%3Apr+is%3Aclosed}
+		
+		Aerolyzer is completely open source, meaning users are able to install the python package directly from Pypi.
+		After installing Aerolyzer using pip install aerolyzer, and ensuring you have all of the requirements that should automatically install when installing aerolyzer, you now have access to the Aerolyzer library.
+		The three classes that are included in this library are imgRestFuncs, RtrvData, and AeroData.
+		
+		With these objects created, you are able to classify images using imgRestFuncs, retrieve the image's data using RtrvData, or detect aerosols using AeroData.
+		There will be a script included in the code submission named expo\_demo that will make a use of these classes.
 	\section{Recommended Resources for Learning More}
 		Aerolyzer is completely open source and is even on the Python Package Index (pypi).
 		To learn more about how Aerolyzer works, all the code and documentation is on the Aerolyzer github.
@@ -344,9 +354,61 @@ Lastly we will need to fill out peer reviews and sign off the code to our client
 
 			During the first term our team had trouble taking the client's input to heart and there was a lot of development time spent on an aspect of the project that ended up being one small part of the project as a whole.
 			Personally my largest mistake during capstone was going along with this design idea rather than looking into other options that more closely matched what our client was asking for.
-		\subsection{Logan Wingard}\cite{neural}
+		\subsection{Logan Wingard}
+			Coming into this project, I was very unexperienced when it came to git and maintaining a consistent version control.
+			Now that we are finished, I can safely say my skills maintaining version control have increased greatly.
+			I now feel as though I would be able to work on large projects in the future without having to hassle with git.
+			
+			Though python was one of my strongest languages coming in, it is by far my strongest language now.
+			Through extensive practice using python classes, and using an array of python libraries, I am now able to do things with python I neve imagined.
+			
+			I won't lie, a lot of things went wrong in this project. 
+			Most of these issues were due to poor communication.
+			I have learned that things going wrong is not abnormal when it comes to projects, and after seeing the outcome of a project that went this poorly, I am excited to say I am prepared for the worst.
+			
+			Lastly, it was nice to get some information from a field other than computer science.
+			I learned a lot about aerosols\cite{allen_2015} and their affects on the colors of the sky, as well on the affect on humans.
 	\section{Appendix}
-		todo
+		Here is a script that should help testing the library.
+		You may notice a path \/images\/test2.jpg.
+		You would need to replace that with your image's location.
+		It also requires the import of a package called plotly.
+		\begin{lstlisting}
+import os
+import aerosol
+from image_restriction_main import check_image
+import sys
+import plotly
+import plotly.graph_objs as go
+from image_restriction_functions import imgRestFuncs as Fxn
+from retrieve_image_data import RtrvData as Data
+
+if(check_image("./images/test2.jpg")):
+	aero = aerosol.AeroData("./images/test2.jpg")
+	x = []
+	y = []
+	colorIN = []
+	results = aero.aerolyzeImage()
+	for a,b,c in results:
+		x.append(a)
+		y.append(b)
+	for TFval in results:
+		if (TFval[2] == True):
+			colorIN.append('rgba(215,63,9,1)')
+		else:
+			colorIN.append('rgba(0,0,0,1)')
+
+
+	data = [go.Bar(
+		x = x,
+		y = y,
+		marker=dict(color=colorIN)
+	)]
+
+	plotly.offline.plot(data, filename = "aeresults.html")
+
+		\end{lstlisting}
+		This script will also open up an html bar graph showing the results.
 \end{singlespace}
 \clearpage
 \bibliographystyle{IEEEtran}
